@@ -1,0 +1,295 @@
+/* Buttons */
+.win95-btn, .win-btn {
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    padding: 6px 16px;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: all 0.1s ease;
+}
+
+.win95-btn:hover, .win-btn:hover {
+    background: #d0d0d0;
+}
+
+.win95-btn:active, .win-btn:active {
+    border: 2px inset #c0c0c0;
+}
+
+.win95-btn:disabled {
+    background: #c0c0c0;
+    color: #808080;
+    cursor: not-allowed;
+}
+
+/* Forms */
+.contact-form {
+    background: #f0f0f0;
+    border: 2px inset #c0c0c0;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 4px;
+    border: 1px inset #c0c0c0;
+    font-family: inherit;
+    font-size: 11px;
+    background: white;
+}
+
+.form-textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    background: #ffffcc;
+}
+
+.form-input.error, .form-textarea.error {
+    border-color: #ff0000;
+    background: #ffe0e0;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 10px;
+    margin-top: 2px;
+    display: block;
+}
+
+/* Skill Bars */
+.skill-bar {
+    background: #808080;
+    height: 14px;
+    border: 1px inset #c0c0c0;
+    margin: 4px 0 8px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(to right, #0000ff, #000080);
+    transition: width 1s ease-in-out;
+    position: relative;
+}
+
+.skill-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+/* Project Cards */
+.project-card {
+    background: #f0f0f0;
+    border: 2px inset #c0c0c0;
+    padding: 12px;
+    margin: 10px 0;
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    background: #f5f5f5;
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.project-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000080;
+    margin-bottom: 5px;
+}
+
+.project-tech {
+    background: #e0e0e0;
+    border: 1px solid #808080;
+    padding: 2px 6px;
+    font-size: 10px;
+    display: inline-block;
+    margin: 2px 2px 0 0;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.social-link {
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: black;
+    font-size: 11px;
+    transition: all 0.1s ease;
+}
+
+.social-link:hover {
+    background: #d0d0d0;
+    text-decoration: none;
+}
+
+.social-link:active {
+    border: 2px inset #c0c0c0;
+}
+
+/* Loading Indicator */
+.loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #c0c0c0;
+    border-top: 2px solid #000080;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+/* Startup Screen */
+.startup-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.startup-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.startup-text {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Win95 Alert Window */
+.win95-window {
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 320px;
+    background: #c0c0c0;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #808080;
+    z-index: 9999;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    padding: 0;
+}
+
+.win95-titlebar {
+    background: linear-gradient(to bottom, #000080 80%, #000060 100%);
+    color: #fff;
+    padding: 3px 8px 3px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    height: 26px;
+    letter-spacing: 1px;
+}
+
+.win95-titlebar-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.win95-title {
+    font-size: 15px;
+}
+
+.win95-close {
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+    box-shadow: 1px 1px #808080;
+}
+
+.win95-content {
+    display: flex;
+    align-items: center;
+    padding: 18px 16px 10px 16px;
+    font-size: 15px;
+    color: #000;
+    background: #fff;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+}
+
+.win95-msg-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 14px;
+}
+
+.win95-actions {
+    text-align: right;
+    padding: 0 16px 12px 16px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+}
+
+@media (max-width: 768px) {
+    .desktop-icon {
+        width: 60px;
+        height: 75px;
+    }
+    
+    .icon-image {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .icon-text {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,114 @@
+/* Desktop Icons */
+.desktop-icon {
+    position: absolute;
+    width: 80px;
+    height: 90px;
+    text-align: center;
+    color: white;
+    user-select: none;
+    padding: 5px;
+    border-radius: 2px;
+    transition: background-color 0.2s ease, border 0.2s ease;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.desktop-icon:hover {
+    background-color: rgba(0, 0, 139, 0.3);
+    border: 1px dotted white;
+    transform: scale(1.02);
+}
+
+.desktop-icon.selected {
+    background-color: rgba(0, 0, 139, 0.5);
+    border: 1px dotted white;
+}
+
+.desktop-icon.dragging {
+    opacity: 0.8;
+    z-index: 9998;
+    cursor: move !important;
+}
+
+/* Initial positions for desktop icons */
+.desktop-icon[data-window="about"] { top: 20px; left: 20px; }
+.desktop-icon[data-window="skills"] { top: 140px; left: 20px; }
+.desktop-icon[data-window="projects"] { top: 260px; left: 20px; }
+.desktop-icon[data-window="experience"] { top: 380px; left: 20px; }
+.desktop-icon[data-window="contact"] { top: 20px; left: 120px; }
+.desktop-icon[data-window="minesweeper"] { top: 140px; left: 120px; }
+
+.icon-image {
+    display: block;
+    margin: 0 auto 5px auto;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    pointer-events: none;
+    transition: transform 0.1s ease;
+}
+
+.desktop-icon[data-window="skills"] .icon-image,
+.desktop-icon[data-window="experience"] .icon-image,
+.desktop-icon[data-window="contact"] .icon-image,
+.desktop-icon[data-window="minesweeper"] .icon-image {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 5px auto;
+    background-position: center;
+}
+
+.folder-icon {
+    background-image: url('https://webstockreview.net/images/windows-95-icons-png-17.png');
+}
+
+.file-icon {
+    background-image: url('https://64.media.tumblr.com/0a8c1050bcb86fb9080622b1b6e47a05/404a45651ed80451-54/s540x810/d83a7a23ae7019b498ca4a01cf1c21870ee21ca0.png');
+}
+
+.computer-icon {
+    background-image: url('https://64.media.tumblr.com/f9ecf5d3e20ff2f506a18b509b7aac98/c10feffc14f6f2ad-2f/s540x810/359a5a17d6eaa4143d49af51c940f0ac8314cbf2.png');
+}
+
+.game-icon {
+    background-image: url('https://64.media.tumblr.com/4334e5fa1f94e46d6446a12ca280cacf/9f9972b109090c71-f7/s540x810/55bd7fde6c0223fbdacd0ee0277a13cb6ede088c.png');
+}
+
+.icon-text {
+    font-size: 11px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    word-wrap: break-word;
+    pointer-events: none;
+}
+
+/* Context Menu */
+.context-menu {
+    position: absolute;
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    min-width: 120px;
+    z-index: 9999;
+    display: none;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.context-menu-item {
+    padding: 4px 16px 4px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    align-items: center;
+}
+
+.context-menu-item:hover {
+    background: #0000ff;
+    color: white;
+}
+
+.context-menu-item:last-child {
+    border-bottom: none;
+}

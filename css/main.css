@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=MS+Sans+Serif:wght@400;700&display=swap');
+
+/* Reset and Base Styles */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html {
+    /* Prevent font size adjustments on mobile */
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    background: linear-gradient(45deg, #008080 25%, transparent 25%),
+               linear-gradient(-45deg, #008080 25%, transparent 25%),
+               linear-gradient(45deg, transparent 75%, #008080 75%),
+               linear-gradient(-45deg, transparent 75%, #008080 75%),
+               url('https://preview.redd.it/3048e9wdnnv21.png?auto=webp&s=b3bd19b66790edf1b87a08442e62c5e3430a1ec9');
+    background-size: 2px 2px, 2px 2px, 2px 2px, 2px 2px, cover;
+    background-position: 0 0, 0 1px, 1px -1px, -1px 0px, center center;
+    background-repeat: repeat, repeat, repeat, repeat, no-repeat;
+    background-color: #008080;
+    overflow: hidden;
+    /* Prevent pull-to-refresh on mobile */
+    overscroll-behavior-y: contain;
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Desktop */
+.desktop {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    cursor: url('https://www.cursor.cc/cursor3d/172800.png'), auto;
+    /* Touch action for better mobile performance */
+    touch-action: pan-y;
+}
+
+/* Typography */
+h1 { 
+    font-size: 16px; 
+    margin-bottom: 15px; 
+    color: #000080; 
+    border-bottom: 1px solid #c0c0c0;
+    padding-bottom: 5px;
+}
+
+h2 { 
+    font-size: 14px; 
+    margin: 15px 0 8px; 
+    color: #000080; 
+}
+
+p { 
+    margin-bottom: 10px; 
+    text-align: justify;
+}
+
+ul { 
+    margin-left: 20px; 
+    margin-bottom: 10px; 
+}
+
+li {
+    margin-bottom: 3px;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

@@ -1,0 +1,188 @@
+// Main initialization and startup
+(function() {
+    'use strict';
+
+    // Global variables
+    window.zIndex = 1000;
+
+    // Initialize on page load
+    window.addEventListener('load', function() {
+        setTimeout(startupSequence, 500);
+        updateTime();
+        setInterval(updateTime, 1000);
+    });
+
+    // Startup sequence
+    function startupSequence() {
+        const startupText = document.getElementById('startupText');
+        const startupScreen = document.getElementById('startupScreen');
+        const desktop = document.getElementById('desktop');
+        const startupSound = document.getElementById('startupSound');
+        
+        // Play startup sound
+        if (startupSound) {
+            startupSound.play().catch(e => console.log('Audio play failed:', e));
+        }
+        
+        const messages = [
+            'Initializing...',
+            'Loading system files...',
+            'Configuring hardware...',
+            'Starting Windows...'
+        ];
+        
+        let messageIndex = 0;
+        const interval = setInterval(() => {
+            if (messageIndex < messages.length) {
+                startupText.textContent = messages[messageIndex];
+                messageIndex++;
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    startupScreen.style.display = 'none';
+                    desktop.style.display = 'block';
+                    animateSkillBars();
+                    
+                    // Show welcome window with cat
+                    const welcomeWindow = document.getElementById('welcome-window');
+                    if (welcomeWindow) {
+                        welcomeWindow.style.display = 'block';
+                    }
+                }, 1000);
+            }
+        }, 800);
+    }
+
+    // Animate skill bars
+    function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-fill');
+        skillBars.forEach(bar => {
+            const width = bar.getAttribute('data-width') || bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 100);
+        });
+    }
+    window.animateSkillBars = animateSkillBars;
+
+    // Update time display
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = hours % 12 || 12;
+        const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const timeDisplay = document.getElementById('timeDisplay');
+        if (timeDisplay) {
+            timeDisplay.textContent = displayHours + ':' + displayMinutes + ' ' + ampm;
+        }
+    }
+
+    // Start button functionality
+    const startButton = document.querySelector('.start-button');
+    const startMenu = document.getElementById('startMenu');
+    
+    if (startButton && startMenu) {
+        startButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isVisible = startMenu.classList.contains('show');
+            startMenu.classList.toggle('show');
+            startButton.classList.toggle('pressed');
+            
+            if (!isVisible) {
+                document.addEventListener('click', closeStartMenu);
+            } else {
+                document.removeEventListener('click', closeStartMenu);
+            }
+        });
+    }
+
+    function closeStartMenu() {
+        if (startMenu) {
+            startMenu.classList.remove('show');
+        }
+        if (startButton) {
+            startButton.classList.remove('pressed');
+        }
+        document.removeEventListener('click', closeStartMenu);
+    }
+
+    // Welcome window Enter button
+    const enterBtn = document.getElementById('enter-btn');
+    if (enterBtn) {
+        enterBtn.addEventListener('click', function() {
+            const welcomeWindow = document.getElementById('welcome-window');
+            if (welcomeWindow) {
+                welcomeWindow.style.display = 'none';
+            }
+            // Start the tour if available
+            if (typeof startTour === 'function') {
+                setTimeout(startTour, 500);
+            }
+        });
+    }
+
+    // Alert dialog functions
+    window.showAlert = function(message) {
+        const alertDialog = document.getElementById('alertDialog');
+        const alertMessage = document.getElementById('alertMessage');
+        if (alertDialog && alertMessage) {
+            alertMessage.textContent = message || 'This feature is not implemented in this demo.';
+            alertDialog.style.display = 'block';
+        }
+    };
+
+    window.closeAlert = function() {
+        const alertDialog = document.getElementById('alertDialog');
+        if (alertDialog) {
+            alertDialog.style.display = 'none';
+        }
+    };
+
+    // Contact form submission with FormSpree
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    showAlert('Thank you for your message! I will get back to you soon.');
+                    contactForm.reset();
+                } else {
+                    const data = await response.json();
+                    if (data.errors) {
+                        showAlert('Oops! There was a problem submitting your form: ' + data.errors.map(error => error.message).join(', '));
+                    } else {
+                        showAlert('Oops! There was a problem submitting your form.');
+                    }
+                }
+            } catch (error) {
+                showAlert('Oops! There was a problem submitting your form. Please try again later.');
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
+        });
+    }
+
+})();

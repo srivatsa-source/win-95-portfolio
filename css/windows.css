@@ -1,0 +1,195 @@
+/* Window Styles */
+.window {
+    position: absolute;
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    min-width: 400px;
+    min-height: 300px;
+    display: none;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+    resize: both;
+    overflow: hidden;
+}
+
+.window.active {
+    display: block;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.window.inactive .title-bar {
+    background: linear-gradient(to right, #808080, #606060);
+}
+
+.window.maximized {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 40px) !important;
+    transform: none !important;
+}
+
+.title-bar {
+    height: 20px;
+    background: linear-gradient(to right, #0000ff, #000080);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: move;
+    user-select: none;
+}
+
+.window-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 2px;
+}
+
+.window-button {
+    width: 16px;
+    height: 14px;
+    background: #c0c0c0;
+    border: 1px outset #c0c0c0;
+    font-size: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+}
+
+.window-button:hover {
+    background: #d0d0d0;
+}
+
+.window-button:active {
+    border: 1px inset #c0c0c0;
+}
+
+.window-content {
+    padding: 10px;
+    height: calc(100% - 20px);
+    overflow-y: auto;
+    font-size: 11px;
+    line-height: 1.4;
+    background: white;
+}
+
+/* Resize handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+}
+
+.resize-handle.se {
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M16 0v16H0L16 0z" fill="%23c0c0c0"/><path d="M16 0L0 16h4L16 4V0z" fill="%23808080"/></svg>');
+}
+
+.resize-handle.s {
+    bottom: 0;
+    left: 0;
+    right: 16px;
+    height: 4px;
+    cursor: s-resize;
+}
+
+.resize-handle.e {
+    top: 0;
+    bottom: 16px;
+    right: 0;
+    width: 4px;
+    cursor: e-resize;
+}
+
+/* Status bar */
+.status-bar {
+    height: 18px;
+    background: #c0c0c0;
+    border-top: 1px solid #808080;
+    padding: 2px 8px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Welcome Window */
+#welcome-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    background: #c0c0c0;
+    border: 3px outset #dfdfdf;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    min-width: 500px;
+}
+
+#welcome-window .titlebar {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 3px 5px;
+    font-weight: bold;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+
+#welcome-window .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: #c0c0c0;
+}
+
+#welcome-window .welcome-text {
+    text-align: center;
+}
+
+#welcome-window .welcome-text h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000080;
+}
+
+#welcome-window .welcome-text p {
+    font-size: 12px;
+    color: #000;
+}
+
+#welcome-window .footer {
+    padding: 10px;
+    text-align: center;
+    border-top: 2px groove #dfdfdf;
+}
+
+.cat-mascot {
+    width: 256px;
+    height: 256px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .window {
+        min-width: 280px;
+        min-height: 200px;
+    }
+}

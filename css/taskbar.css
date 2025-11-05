@@ -1,0 +1,261 @@
+/* Taskbar */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 40px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
+/* Start Button */
+.start-button {
+    height: 32px;
+    padding: 0 20px;
+    background: linear-gradient(to bottom, #c0c0c0 0%, #808080 100%);
+    border: 2px outset #c0c0c0;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    transition: all 0.1s ease;
+    margin-left: 8px;
+}
+
+.start-button:hover {
+    background: linear-gradient(to bottom, #d0d0d0 0%, #909090 100%);
+}
+
+.start-button:active {
+    border: 2px inset #c0c0c0;
+}
+
+.start-button.pressed {
+    border: 2px inset #c0c0c0;
+    background: linear-gradient(to bottom, #808080 0%, #c0c0c0 100%);
+}
+
+.start-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url('https://retroarch.com/images/Win_logo_1992.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Start Menu */
+.start-menu {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 200px;
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    display: none;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    z-index: 2001;
+}
+
+.start-menu.show {
+    display: block;
+    animation: slideUp 0.2s ease-out;
+}
+
+.start-menu-header {
+    background: linear-gradient(to right, #0000ff, #000080);
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.start-menu-item {
+    padding: 8px 30px 8px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.1s ease;
+}
+
+.start-menu-item:hover {
+    background: #0000ff;
+    color: white;
+}
+
+.start-menu-item:last-child {
+    border-bottom: none;
+}
+
+/* Submenu */
+.has-submenu { 
+    position: relative; 
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 180px;
+    background: #c0c0c0;
+    border: 2px outset #c0c0c0;
+    display: none;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    z-index: 3000;
+}
+
+.has-submenu:hover > .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 6px 10px;
+    font-size: 11px;
+    border-bottom: 1px solid #808080;
+    cursor: pointer;
+}
+
+.submenu-item:hover { 
+    background:#0000ff; 
+    color:#fff; 
+}
+
+/* Time Display */
+.time-display {
+    margin-left: auto;
+    padding: 6px 12px;
+    border: 1px inset #c0c0c0;
+    font-size: 11px;
+    background: #c0c0c0;
+}
+
+/* Visitor Counter */
+.visitor-counter {
+    position: fixed;
+    bottom: 45px;
+    right: 10px;
+    background: #c0c0c0;
+    border: 2px outset #dfdfdf;
+    padding: 5px 10px;
+    font-size: 10px;
+    z-index: 2001;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.visitor-counter .counter-display {
+    background: #000;
+    color: #0f0;
+    padding: 2px 8px;
+    font-family: 'Courier New', monospace;
+    border: 1px inset #808080;
+    letter-spacing: 2px;
+}
+
+/* Guestbook Icon */
+.guestbook-icon {
+    position: fixed;
+    bottom: 45px;
+    right: 160px;
+    background: #c0c0c0;
+    border: 2px outset #dfdfdf;
+    padding: 5px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    z-index: 2001;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.guestbook-icon:hover {
+    background: #d0d0d0;
+}
+
+.guestbook-icon:active {
+    border: 2px inset #dfdfdf;
+}
+
+/* Taskbar App Buttons */
+#taskbarApps {
+    display: flex;
+    gap: 6px;
+    margin-left: 8px;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#taskbarApps::-webkit-scrollbar {
+    height: 4px;
+}
+
+#taskbarApps::-webkit-scrollbar-thumb {
+    background: #808080;
+}
+
+#taskbarApps .win95-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    margin-right: 4px;
+    min-width: 100px;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 28px;
+    font-size: 11px;
+}
+
+#taskbarApps .win95-btn.active {
+    border: 2px inset #c0c0c0;
+    background: #808080;
+}
+
+#taskbarApps .win95-btn::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    flex-shrink: 0;
+}
+
+/* Window-specific icons in taskbar */
+#taskbarApps .win95-btn[id*="about"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect fill="%23ffff00" width="16" height="16"/><rect fill="%23000" x="4" y="2" width="8" height="2"/><rect fill="%23000" x="4" y="12" width="8" height="2"/></svg>');
+}
+
+#taskbarApps .win95-btn[id*="skills"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect fill="%23000080" width="16" height="16"/><rect fill="%23fff" x="4" y="4" width="8" height="2"/><rect fill="%23fff" x="4" y="10" width="8" height="2"/></svg>');
+}
+
+#taskbarApps .win95-btn[id*="projects"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect fill="%23ffff00" width="16" height="12"/><rect fill="%23808000" y="12" width="16" height="4"/></svg>');
+}
+
+#taskbarApps .win95-btn[id*="experience"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect fill="%23fff" width="16" height="16"/><rect fill="%23000" x="2" y="2" width="12" height="12"/><rect fill="%23fff" x="4" y="4" width="8" height="8"/></svg>');
+}
+
+#taskbarApps .win95-btn[id*="contact"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect fill="%23fff" width="16" height="12"/><path fill="%23000" d="M0,0 L8,8 L16,0 L16,12 L0,12 Z"/></svg>');
+}
+
+#taskbarApps .win95-btn[id*="minesweeper"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle fill="%23000" cx="8" cy="8" r="6"/><circle fill="%23fff" cx="6" cy="6" r="2"/></svg>');
+}

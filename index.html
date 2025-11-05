@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Windows 95</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/desktop.css">
+    <link rel="stylesheet" href="css/windows.css">
+    <link rel="stylesheet" href="css/taskbar.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/minesweeper.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css" />
+</head>
+<body>
+    <!-- Welcome Window with Cat Mascot -->
+    <div id="welcome-window" style="display: none;">
+        <div class="titlebar">Welcome</div>
+        <div class="content">
+            <img id="cat-left" class="cat-mascot" src="cat-smile.png" alt="Pixel cat smiling" />
+            <div class="welcome-text">
+                <h1>Welcome to Srivatsa's Portfolio</h1>
+                <p>I'm your pixel guide — click Enter to begin the tour!</p>
+            </div>
+        </div>
+        <div class="footer">
+            <button id="enter-btn" class="win-btn">Enter Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window">
+        <div class="chat-titlebar">
+            <span class="title-text">Chat with Ora</span>
+            <div class="chat-controls">
+                <button class="chat-btn" id="chat-fullscreen" title="Fullscreen">⛶</button>
+                <button class="chat-btn" id="chat-close">✕</button>
+            </div>
+        </div>
+        <div class="chat-content" id="chat-messages">
+            <div class="chat-intro">
+                <img id="chat-cat-avatar" src="cat-smile.png" alt="Ora the cat">
+                <div class="chat-intro-text">
+                    <p><strong>Hey there! I'm Ora</strong>, Srivatsa's assistant cat.</p>
+                    <p>Want to know about him?</p>
+                    <div class="chat-buttons">
+                        <button class="chat-option-btn" data-query="who">Who is Srivatsa?</button>
+                        <button class="chat-option-btn" data-query="skills">What are his skills?</button>
+                        <button class="chat-option-btn" data-query="projects">Show me his projects</button>
+                        <button class="chat-option-btn" data-query="fun">Something fun he's made</button>
+                    </div>
+                </div>
+            </div>
+            <div class="typing-indicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Ask me anything...">
+            <button class="chat-send-btn" id="chat-send">Send</button>
+        </div>
+    </div>
+
+    <!-- Visitor Counter -->
+    <div class="visitor-counter">
+        <span>Visitors:</span>
+        <span class="counter-display" id="visitor-count">000000</span>
+    </div>
+
+    <!-- Guestbook Button -->
+    <div class="guestbook-icon" id="guestbook-btn">Guestbook</div>
+
+    <!-- Guestbook Window -->
+    <div id="guestbook-window">
+        <div class="chat-titlebar guestbook-titlebar">
+            <span class="title-text">Guestbook - Sign & Read</span>
+            <div class="chat-controls">
+                <button class="chat-btn" id="guestbook-close">✕</button>
+            </div>
+        </div>
+        <div class="guestbook-content" id="guestbook-entries">
+            <!-- Entries will be added here -->
+        </div>
+        <div class="guestbook-form">
+            <input type="text" id="guestbook-name" placeholder="Your name..." maxlength="50">
+            <textarea id="guestbook-message" placeholder="Leave a message about this website..." maxlength="200"></textarea>
+            <button class="win95-btn" id="guestbook-submit">Sign Guestbook</button>
+        </div>
+    </div>
+
+    <!-- Startup Screen -->
+    <div id="startupScreen" class="startup-screen">
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f5ad18b7-74e3-42a4-a6c3-ed075ba5d058/deoasnf-bf2bc45e-d7b2-4636-a2a5-a78cde7cb4cc.png/v1/fill/w_1192,h_670,q_70,strp/windows_95_boot_screen___16_9_widescreen_by_malekmasoud_deoasnf-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvZjVhZDE4YjctNzRlMy00MmE0LWE2YzMtZWQwNzViYTVkMDU4XC9kZW9hc25mLWJmMmJjNDVlLWQ3YjItNDYzNi1hMmE1LWE3OGNkZTdjYjRjYy5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.QajwmfbkgCtNgILSChd8rAfQjgLsr60wRTHnpE1eo0s" 
+             alt="Windows 95 Startup" class="startup-logo">
+        <div class="startup-text" id="startupText"></div>
+        <audio id="startupSound" preload="auto">
+            <source src="https://archive.org/download/Windows95StartupSound/Windows%2095%20Startup%20Sound.wav" type="audio/wav">
+            <source src="https://archive.org/download/Windows95StartupSound/Windows%2095%20Startup%20Sound.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="desktop" id="desktop" style="display:none;">
+        <!-- Desktop Icons -->
+        <div class="desktop-icon" data-window="about">
+            <div class="icon-image folder-icon"></div>
+            <div class="icon-text">About Me</div>
+        </div>
+        <div class="desktop-icon" data-window="skills">
+            <div class="icon-image computer-icon"></div>
+            <div class="icon-text">Skills</div>
+        </div>
+        <div class="desktop-icon" data-window="projects">
+            <div class="icon-image folder-icon"></div>
+            <div class="icon-text">Projects</div>
+        </div>
+        <div class="desktop-icon" data-window="experience">
+            <div class="icon-image file-icon"></div>
+            <div class="icon-text">Experience</div>
+        </div>
+        <div class="desktop-icon" data-window="contact">
+            <div class="icon-image file-icon"></div>
+            <div class="icon-text">Contact</div>
+        </div>
+        <div class="desktop-icon" data-window="minesweeper">
+            <div class="icon-image game-icon"></div>
+            <div class="icon-text">Minesweeper</div>
+        </div>
+
+        <!-- Desktop Context Menu -->
+        <div class="context-menu" id="contextMenu">
+            <div class="context-menu-item" onclick="showAlert('Refresh')">Refresh</div>
+            <div class="context-menu-item" onclick="showAlert('New Folder')">New Folder</div>
+            <div class="context-menu-item" onclick="showAlert('Properties')">Properties</div>
+            <div class="context-menu-item" onclick="arrangeIcons()">Arrange Icons</div>
+        </div>
+
+        <!-- About Me Window -->
+        <div class="window" id="about" style="top: 50px; left: 150px; width: 500px; height: 400px;">
+            <div class="title-bar">
+                <span>About Me - Personal Information</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('about')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('about')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('about')">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1>Welcome to My Portfolio!</h1>
+                <p>Hello! I'm a passionate developer who loves creating digital experiences. This retro portfolio is a tribute to the golden age of computing while showcasing modern skills and creativity.</p>
+                
+                <h2>About Me</h2>
+                <p>I'm a creative professional with a passion for technology, design, and problem-solving. I enjoy working on projects that challenge me to learn new things and push the boundaries of what's possible in web development and design.</p>
+                
+                <h2>What I Love</h2>
+                <ul>
+                    <li>Web Development & Modern Frameworks</li>
+                    <li>Retro Computing & Gaming Culture</li>
+                    <li>Open Source Projects & Community</li>
+                    <li>UI/UX Design & User Experience</li>
+                    <li>Creative Coding & Interactive Media</li>
+                    <li>Mobile-First Design Principles</li>
+                </ul>
+                
+                <p>Feel free to explore the other folders on my desktop to learn more about my skills, projects, and professional experience. Don't forget to try the Minesweeper game for some nostalgic fun!</p>
+            </div>
+            <div class="status-bar">Ready</div>
+            <div class="resize-handle se"></div>
+            <div class="resize-handle s"></div>
+            <div class="resize-handle e"></div>
+        </div>
+
+        <!-- Skills Window -->
+        <div class="window" id="skills" style="top: 80px; left: 200px; width: 450px; height: 550px;">
+            <div class="title-bar">
+                <span>Skills - Technical Abilities</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('skills')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('skills')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('skills')">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1>Technical Skills & Expertise</h1>
+                
+                <h2>Frontend Technologies</h2>
+                <p>JavaScript <div class="skill-bar"><div class="skill-fill" data-width="90%" style="width: 90%"></div></div></p>
+                <p>HTML/CSS <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div></p>
+                <p>React.js <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div></p>
+                <p>TypeScript <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div></p>
+                
+                <h2>Backend & Database</h2>
+                <p>Python <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div></p>
+                <p>Node.js <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div></p>
+                <p>MongoDB <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div></p>
+                
+                <h2>Tools & Platforms</h2>
+                <ul>
+                    <li>Git & GitHub Version Control</li>
+                    <li>npm & Package Management</li>
+                    <li>Responsive Web Design</li>
+                    <li>Database Design & Management</li>
+                    <li>RESTful API Development</li>
+                    <li>Cloud Platforms (AWS, Netlify)</li>
+                    <li>CI/CD Deployment Pipelines</li>
+                </ul>
+                
+                <h2>Design & Creative Tools</h2>
+                <ul>
+                    <li>Adobe Creative Suite (Photoshop, Illustrator)</li>
+                    <li>Figma & Design Systems</li>
+                    <li>Wireframing & Prototyping</li>
+                    <li>User Experience Research</li>
+                    <li>Graphic Design Principles</li>
+                </ul>
+            </div>
+            <div class="status-bar">Skill level: Intermediate to Advanced</div>
+            <div class="resize-handle se"></div>
+            <div class="resize-handle s"></div>
+            <div class="resize-handle e"></div>
+        </div>
+
+        <!-- Projects Window -->
+        <div class="window" id="projects" style="top: 60px; left: 300px; width: 550px; height: 500px;">
+            <div class="title-bar">
+                <span>Projects - My Work Portfolio</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('projects')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('projects')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('projects')">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1>Featured Projects & Work</h1>
+                
+                <div class="project-card">
+                    <div class="project-title">Windows 95 Retro Portfolio</div>
+                    <p>A fully interactive Windows 95-inspired portfolio website with authentic UI elements, drag-and-drop functionality, and working applications including Minesweeper. Features pixel-perfect recreation of classic Windows aesthetics.</p>
+                    <div>
+                        <span class="project-tech">HTML5</span>
+                        <span class="project-tech">CSS3</span>
+                        <span class="project-tech">Vanilla JS</span>
+                        <span class="project-tech">Responsive Design</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Mental Health Chatbot & Gamified Analysis</div>
+                    <p>An AI-powered mental health support system with gamification elements to encourage user engagement. Features mood tracking, personalized recommendations, and progress visualization through interactive charts.</p>
+                    <div>
+                        <span class="project-tech">React</span>
+                        <span class="project-tech">Node.js</span>
+                        <span class="project-tech">AI/ML</span>
+                        <span class="project-tech">Chart.js</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Hackademia - Interactive Hackathon Website</div>
+                    <p>A dynamic promotional website for a hackathon event featuring interactive elements, registration systems, and engaging animations. Built to attract and inform potential participants with modern web technologies.</p>
+                    <div>
+                        <span class="project-tech">HTML5</span>
+                        <span class="project-tech">CSS3</span>
+                        <span class="project-tech">JavaScript</span>
+                        <span class="project-tech">Canvas API</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Developer Productivity Tools</div>
+                    <p>Custom utilities and tools designed to improve developer workflow and productivity. Includes code generators, automation scripts, and open-source contributions to the developer community.</p>
+                    <div>
+                        <span class="project-tech">Python</span>
+                        <span class="project-tech">JavaScript</span>
+                        <span class="project-tech">CLI Tools</span>
+                        <span class="project-tech">Open Source</span>
+                    </div>
+                </div>
+                
+                <p><strong>Want to see more?</strong> Visit my GitHub profile to explore additional projects, contributions, and ongoing work!</p>
+            </div>
+            <div class="status-bar">4 projects shown | View more on GitHub</div>
+            <div class="resize-handle se"></div>
+            <div class="resize-handle s"></div>
+            <div class="resize-handle e"></div>
+        </div>
+
+        <!-- Experience Window -->
+        <div class="window" id="experience" style="top: 100px; left: 250px; width: 500px; height: 450px;">
+            <div class="title-bar">
+                <span>Experience - Professional Background</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('experience')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('experience')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('experience')">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1>Professional Experience & Education</h1>
+                
+                <h2>Graphic Designer Intern</h2>
+                <p><strong>Cook N Klean</strong> | August 2024 - October 2024</p>
+                <ul>
+                    <li>Created compelling visual designs for marketing materials and brand assets</li>
+                    <li>Developed social media graphics and digital marketing content</li>
+                    <li>Collaborated with cross-functional teams to maintain brand consistency</li>
+                    <li>Implemented efficient design workflows and standards</li>
+                    <li>Contributed to increasing brand engagement through visual storytelling</li>
+                </ul>
+                
+                <h2>Education</h2>
+                <p><strong>Bachelor's in Computer Applications (BCA)</strong><br>
+                The National College, Jayanagar | 2023 - 2026</p>
+                <p>Focused on software development, web technologies, and computer science fundamentals. Active in coding competitions and tech community events.</p>
+                
+                <h2>Certifications & Learning</h2>
+                <ul>
+                    <li><strong>Front End Developer Certification</strong> - Great Learning</li>
+                    <li><strong>Google AI Essentials</strong> - Google Career Certificates</li>
+                    <li><strong>Introduction to Graphic Design</strong> - Design Fundamentals</li>
+                    <li><strong>Responsive Web Design</strong> - freeCodeCamp</li>
+                </ul>
+                
+                <h2>Current Focus</h2>
+                <p>Currently expanding my skills in modern web frameworks, cloud technologies, and exploring opportunities in full-stack development. Passionate about creating user-centered digital experiences that make a positive impact.</p>
+            </div>
+            <div class="status-bar">Experience Level: Junior Developer</div>
+            <div class="resize-handle se"></div>
+            <div class="resize-handle s"></div>
+            <div class="resize-handle e"></div>
+        </div>
+
+        <!-- Contact Window -->
+        <div class="window" id="contact" style="top: 120px; left: 350px; width: 450px; height: 550px;">
+            <div class="title-bar">
+                <span>Contact - Get In Touch</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('contact')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('contact')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('contact')">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <h1>Let's Connect!</h1>
+                <p>I'm always interested in new opportunities, collaborations, and conversations about technology and design.</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" class="social-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/srivatsa-s-1765782a2/" target="_blank" class="social-link">LinkedIn</a>
+                    <a href="mailto:srivatsa1312@gmail.com" class="social-link">Email</a>
+                    <a href="#" class="social-link" onclick="showAlert('Portfolio')">Website</a>
+                </div>
+                
+                <h2>Send a Message</h2>
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/mpwyoeya" method="POST">
+                    <div class="form-group">
+                        <label for="contactName">Name</label>
+                        <input type="text" id="contactName" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="win95-btn">Send Message</button>
+                    <button type="reset" class="win95-btn">Clear</button>
+                </form>
+            </div>
+            <div class="status-bar">Ready to connect</div>
+            <div class="resize-handle se"></div>
+            <div class="resize-handle s"></div>
+            <div class="resize-handle e"></div>
+        </div>
+
+        <!-- Minesweeper Window -->
+        <div class="window" id="minesweeper" style="top: 70px; left: 400px; width: 380px; height: 500px;">
+            <div class="title-bar">
+                <span>Minesweeper - Classic Game</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('minesweeper')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('minesweeper')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('minesweeper')">×</div>
+                </div>
+            </div>
+            <div class="window-content" style="display: flex; flex-direction: column; align-items: center;">
+                <h1>Minesweeper</h1>
+                <p style="text-align: center;">Classic Windows game! Left-click to reveal, right-click to flag.</p>
+                
+                <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+                    <span class="mine-counter" id="mineCounter">010</span>
+                    <button class="win95-btn" onclick="resetGame()">New Game</button>
+                    <span style="font-size: 10px;">Time: <span id="gameTime">000</span></span>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <label for="msLevel" style="font-size: 11px;">Level:</label>
+                    <select id="msLevel" class="win95-btn" style="font-size: 11px; padding: 2px;">
+                        <option value="easy">Easy (9×9, 10 mines)</option>
+                        <option value="medium">Medium (16×16, 40 mines)</option>
+                        <option value="hard">Hard (16×30, 99 mines)</option>
+                    </select>
+                </div>
+                
+                <div class="minesweeper-grid" id="mineGrid"></div>
+            </div>
+            <div class="status-bar" id="msStatus">Mines: 10 | Size: 9×9</div>
+            <div class="resize-handle se"></div>
+        </div>
+
+        <!-- Taskbar -->
+        <div class="taskbar">
+            <div class="start-button">
+                <div class="start-icon"></div>
+                <span>Start</span>
+            </div>
+            <div class="start-menu" id="startMenu">
+                <div class="start-menu-header">Windows 95</div>
+                <div class="start-menu-item has-submenu">
+                    Programs
+                    <div class="submenu">
+                        <div class="submenu-item has-submenu">Accessories
+                            <div class="submenu">
+                                <div class="submenu-item">StartUp</div>
+                                <div class="submenu-item">Microsoft Exchange</div>
+                                <div class="submenu-item">MS-DOS Prompt</div>
+                                <div class="submenu-item">The Microsoft Network</div>
+                                <div class="submenu-item">Windows Explorer</div>
+                                <div class="submenu-item has-submenu">Multimedia
+                                    <div class="submenu">
+                                        <div class="submenu-item">Media Player</div>
+                                        <div class="submenu-item">Sound Recorder</div>
+                                        <div class="submenu-item">Volume Control</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submenu-item">Documents</div>
+                        <div class="submenu-item">Settings</div>
+                    </div>
+                </div>
+                <div class="start-menu-item" onclick="showAlert('Documents')">Documents</div>
+                <div class="start-menu-item" onclick="showAlert('Settings')">Settings</div>
+                <div class="start-menu-item" onclick="showAlert('Find')">Find</div>
+                <div class="start-menu-item" onclick="showAlert('Help')">Help</div>
+                <div class="start-menu-item" onclick="showAlert('Run')">Run...</div>
+                <div class="start-menu-item" onclick="showAlert('Shutdown')">Shut Down...</div>
+            </div>
+            <div id="taskbarApps" style="display:flex;gap:6px;margin-left:8px;"></div>
+            <div class="time-display" id="timeDisplay">12:00 PM</div>
+        </div>
+    </div>
+
+    <!-- Windows 95 Alert Dialog -->
+    <div id="alertDialog" class="win95-window" style="display: none;">
+        <div class="win95-titlebar">
+            <span class="win95-title">Windows 95</span>
+            <div class="win95-titlebar-buttons">
+                <button class="win95-close" onclick="closeAlert()">×</button>
+            </div>
+        </div>
+        <div class="win95-content">
+            <img src="https://win98icons.alexmeub.com/icons/png/information-0.png" alt="Info" class="win95-msg-icon">
+            <div id="alertMessage">This feature is not implemented in this demo.</div>
+        </div>
+        <div class="win95-actions">
+            <button class="win95-btn" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/windows.js"></script>
+    <script src="js/desktop.js"></script>
+    <script src="js/tour.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/guestbook.js"></script>
+    <script src="js/minesweeper.js"></script>
+</body>
+</html>

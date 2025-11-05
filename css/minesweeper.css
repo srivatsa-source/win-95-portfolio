@@ -1,0 +1,137 @@
+/* Minesweeper Game Styles - Windows 95 Authentic */
+
+/* Game Header with counters and smiley */
+.minesweeper-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* LED-style digital counter displays */
+.mine-counter,
+#gameTime {
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    background: #000000;
+    color: #ff0000;
+    padding: 4px 8px;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    letter-spacing: 2px;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Smiley face reset button */
+.smiley-button {
+    width: 40px;
+    height: 40px;
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    cursor: pointer;
+    font-size: 24px;
+    text-align: center;
+    line-height: 34px;
+    user-select: none;
+}
+
+.smiley-button:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Minesweeper grid container */
+.minesweeper-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 25px);
+    gap: 0;
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 5px;
+    margin: 10px auto;
+    width: fit-content;
+    justify-self: center;
+}
+
+/* Individual mine cells */
+.mine-cell {
+    width: 25px;
+    height: 25px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 21px;
+    cursor: pointer;
+    user-select: none;
+    font-family: Arial, sans-serif;
+}
+
+.mine-cell:hover:not(.revealed) {
+    filter: brightness(1.05);
+}
+
+.mine-cell:active:not(.revealed) {
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Revealed cell (flat, inset look) */
+.mine-cell.revealed {
+    border: 1px solid #808080;
+    border-color: #808080;
+    background: #c0c0c0;
+    cursor: default;
+}
+
+/* Number colors - authentic Windows 95 Minesweeper colors */
+.mine-cell.revealed[data-adjacent="1"] {
+    color: #0000ff; /* Blue */
+}
+
+.mine-cell.revealed[data-adjacent="2"] {
+    color: #008000; /* Green */
+}
+
+.mine-cell.revealed[data-adjacent="3"] {
+    color: #ff0000; /* Red */
+}
+
+.mine-cell.revealed[data-adjacent="4"] {
+    color: #000080; /* Dark Blue */
+}
+
+.mine-cell.revealed[data-adjacent="5"] {
+    color: #800000; /* Maroon */
+}
+
+.mine-cell.revealed[data-adjacent="6"] {
+    color: #008080; /* Teal */
+}
+
+.mine-cell.revealed[data-adjacent="7"] {
+    color: #000000; /* Black */
+}
+
+.mine-cell.revealed[data-adjacent="8"] {
+    color: #808080; /* Gray */
+}
+
+/* Mine cell (red background when revealed) */
+.mine-cell.mine {
+    background: #ff0000;
+    border: 1px solid #808080;
+}
+
+/* Flagged cell (shows flag) */
+.mine-cell.flagged {
+    background: #c0c0c0;
+}
