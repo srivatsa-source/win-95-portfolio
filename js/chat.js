@@ -60,12 +60,16 @@
     // Handle option buttons
     optionButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const query = btn.dataset.query;
             const questionText = btn.textContent.trim();
-            addUserMessage(questionText);
-            setTimeout(() => respondToQuery(query), 800);
+            chatInput.value = questionText;
+            sendMessage();
         });
     });
+
+    // API Configuration - Update this URL when deploying backend
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api/chat'
+        : 'https://your-backend-url.com/api/chat'; // Replace with your deployed backend URL
 
     // Send message
     chatSend.addEventListener('click', sendMessage);
@@ -73,36 +77,41 @@
         if (e.key === 'Enter') sendMessage();
     });
 
-    function sendMessage() {
+    async function sendMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
 
         addUserMessage(message);
         chatInput.value = '';
+        showTyping();
 
-        // Simple keyword matching
-        setTimeout(() => {
-            const lowerMsg = message.toLowerCase();
-            if (lowerMsg.includes('hello') || lowerMsg.includes('hi ') || lowerMsg.includes('hey') || lowerMsg === 'hi') {
-                respondToQuery('hello');
-            } else if (lowerMsg.includes('your name') || lowerMsg.includes('who are you') || (lowerMsg.includes('what') && lowerMsg.includes('name'))) {
-                respondToQuery('name');
-            } else if (lowerMsg.includes('what are you') || lowerMsg.includes('what r u')) {
-                respondToQuery('whatareyou');
-            } else if (lowerMsg.includes('thank') || lowerMsg.includes('thanks') || lowerMsg.includes('thx')) {
-                respondToQuery('thanks');
-            } else if (lowerMsg.includes('who') || lowerMsg.includes('about') || lowerMsg.includes('srivatsa')) {
-                respondToQuery('who');
-            } else if (lowerMsg.includes('skill') || lowerMsg.includes('tech') || lowerMsg.includes('know')) {
-                respondToQuery('skills');
-            } else if (lowerMsg.includes('project') || lowerMsg.includes('work') || lowerMsg.includes('built')) {
-                respondToQuery('projects');
-            } else if (lowerMsg.includes('fun') || lowerMsg.includes('game') || lowerMsg.includes('cool')) {
-                respondToQuery('fun');
-            } else {
-                respondToQuery('default');
+        try {
+            // Call OpenAI API via backend
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
             }
-        }, 800);
+
+            const data = await response.json();
+            
+            // Display Ora's response
+            addCatMessage(data.reply);
+
+        } catch (error) {
+            console.error('Chat error:', error);
+            
+            // Fallback to local knowledge base if API fails
+            hideTyping();
+            const fallbackMsg = "Meow! I'm having trouble connecting to my brain right now. Let me try to help with what I know locally... Try asking about Srivatsa's skills, projects, or who he is!";
+            addCatMessage(fallbackMsg, 'cat-normal.png');
+        }
     }
 
     function addUserMessage(text) {
@@ -110,25 +119,23 @@
         msgDiv.className = 'chat-message user';
         msgDiv.innerHTML = `
             <div class="chat-bubble">
-                ${text}
+                ${escapeHtml(text)}
                 <div class="chat-timestamp">${getTime()}</div>
             </div>
         `;
         chatMessages.insertBefore(msgDiv, typingIndicator);
         scrollToBottom();
-        showTyping();
     }
 
-    function respondToQuery(query) {
-        const response = knowledge[query] || knowledge.default;
-        chatCatAvatar.src = response.avatar;
+    function addCatMessage(text, avatar = 'cat-smile.png') {
+        chatCatAvatar.src = avatar;
         
         const msgDiv = document.createElement('div');
         msgDiv.className = 'chat-message cat';
         msgDiv.innerHTML = `
-            <img src="${response.avatar}" alt="Ora" class="chat-avatar">
+            <img src="${avatar}" alt="Ora" class="chat-avatar">
             <div class="chat-bubble">
-                ${response.text}
+                ${escapeHtml(text)}
                 <div class="chat-timestamp">${getTime()}</div>
             </div>
         `;
@@ -136,6 +143,12 @@
         hideTyping();
         chatMessages.insertBefore(msgDiv, typingIndicator);
         scrollToBottom();
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML.replace(/\n/g, '<br>');
     }
 
     function showTyping() {

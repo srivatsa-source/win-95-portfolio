@@ -1,32 +1,70 @@
-# Windows 95 Portfolio - File Structure
+# Windows 95 Portfolio - Retro Portfolio with AI Chatbot
 
-This project has been refactored from a single HTML file into a modular, maintainable structure.
+A nostalgic Windows 95-themed portfolio website featuring an OpenAI GPT-powered chatbot named Ora the cat! Fully responsive and mobile-optimized.
+
+## ✨ Features
+
+- 🎨 Authentic Windows 95 UI (taskbar, windows, icons)
+- 🐱 **AI-Powered Chatbot** - Ora the cat uses OpenAI GPT for intelligent conversations
+- 📱 Fully responsive and mobile-optimized
+- 🎮 Playable Minesweeper game
+- 📝 Interactive guestbook
+- 🎯 Guided tour with Driver.js
+- 💼 Portfolio sections (About, Skills, Projects, Experience, Contact)
+- 🎨 Pixel-art cat mascot
+
+## 🤖 Chatbot Integration
+
+This portfolio features **Ora**, an AI-powered chatbot assistant powered by OpenAI GPT!
+
+### Quick Start
+
+1. **Set up the backend:**
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   # Add your OpenAI API key to .env
+   npm start
+   ```
+
+2. **Open the portfolio** and start chatting with Ora!
+
+📖 **Full guide:** See [CHATBOT_INTEGRATION_GUIDE.md](CHATBOT_INTEGRATION_GUIDE.md)
 
 ## 📁 Project Structure
 
 ```
 win 95 portfolio/
-├── index.html              # Main HTML file
-├── enh.html               # Original single-file version (backup)
+├── index.html                      # Main HTML file
+├── backend/                        # OpenAI chatbot backend
+│   ├── server.js                   # Express server
+│   ├── package.json                # Dependencies
+│   ├── .env.example                # Environment template
+│   └── README.md                   # Backend documentation
 ├── css/
-│   ├── main.css           # Base styles, reset, typography
-│   ├── desktop.css        # Desktop icons, context menu
-│   ├── windows.css        # Window components, dialogs
-│   ├── taskbar.css        # Taskbar, start menu, counters
-│   ├── chat.css           # Chatbot, guestbook, tour cat
-│   ├── components.css     # Reusable components (buttons, forms)
-│   └── minesweeper.css    # Minesweeper game styles
+│   ├── main.css                    # Base styles, reset, typography
+│   ├── desktop.css                 # Desktop icons, context menu
+│   ├── windows.css                 # Window components, dialogs
+│   ├── taskbar.css                 # Taskbar, start menu, counters
+│   ├── chat.css                    # Chatbot, guestbook, tour cat
+│   ├── components.css              # Reusable components (buttons, forms)
+│   ├── minesweeper.css             # Minesweeper game styles
+│   └── responsive.css              # Mobile optimization
 ├── js/
-│   ├── windows.js         # Window management, drag/resize
-│   ├── desktop.js         # Desktop icons, context menu
-│   ├── tour.js            # Driver.js tour guide integration
-│   ├── chat.js            # Chatbot functionality
-│   ├── guestbook.js       # Guestbook system
-│   ├── minesweeper.js     # Minesweeper game logic
-│   └── main.js            # Startup, initialization
-├── cat-smile.png          # Cat mascot (smiling)
-├── cat-normal.png         # Cat mascot (normal)
-└── cat-pointing.png       # Cat mascot (pointing)
+│   ├── windows.js                  # Window management, drag/resize
+│   ├── desktop.js                  # Desktop icons, context menu
+│   ├── tour.js                     # Driver.js tour guide integration
+│   ├── chat.js                     # Chatbot with OpenAI integration
+│   ├── guestbook.js                # Guestbook system
+│   ├── minesweeper.js              # Minesweeper game logic
+│   └── main.js                     # Startup, initialization
+├── cat-smile.png                   # Cat mascot (smiling)
+├── cat-normal.png                  # Cat mascot (normal)
+├── cat-pointing.png                # Cat mascot (pointing)
+├── CHATBOT_INTEGRATION_GUIDE.md    # Complete chatbot setup guide
+├── MOBILE_OPTIMIZATION.md          # Mobile features documentation
+└── README.md                       # This file
 ```
 
 ## 🎨 CSS Files
