@@ -2,15 +2,90 @@
 (function() {
     'use strict';
 
-    // Visitor counter
-    function updateVisitorCount() {
-        let count = localStorage.getItem('visitorCount');
-        if (!count) {
-            count = 0;
+    // Supabase Configuration
+    const SUPABASE_URL = 'https://lwkmulqplffbiwbwggji.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3a211bHFwbGZmYml3YndnZ2ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjQyNTYsImV4cCI6MjA3ODQ0MDI1Nn0.EBwgzNQJ5jTb0-KDfqSH4Huao0hwmsrMbtClEKhP3BU';
+
+    // Simple Supabase client (no library needed!)
+    const supabase = {
+        async query(sql, params = []) {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${sql}`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(params)
+            });
+            return await response.json();
+        },
+        async from(table) {
+            return {
+                select: async (columns = '*') => {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${columns}`, {
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    return await response.json();
+                },
+                insert: async (data) => {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    return response.ok;
+                },
+                update: async (data) => {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.1`, {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    return response.ok;
+                }
+            };
         }
-        count = parseInt(count) + 1;
-        localStorage.setItem('visitorCount', count);
-        document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+    };
+
+    // Visitor counter with Supabase
+    async function updateVisitorCount() {
+        try {
+            // Get current count from Supabase
+            const stats = await supabase.from('visitor_count').select('count');
+            let count = stats && stats[0] ? stats[0].count : 0;
+            
+            // Increment
+            count++;
+            
+            // Update in Supabase
+            await supabase.from('visitor_count').update({ 
+                count: count,
+                last_updated: new Date().toISOString()
+            });
+            
+            // Display
+            document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+        } catch (error) {
+            console.error('Visitor count error:', error);
+            // Fallback to localStorage
+            let count = localStorage.getItem('visitorCount') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('visitorCount', count);
+            document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+        }
     }
 
     // Guestbook functionality
@@ -34,28 +109,62 @@
         return filtered;
     }
 
-    function loadGuestbook() {
-        const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
-        guestbookEntries.innerHTML = '';
-        
-        if (entries.length === 0) {
-            guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign!</div>';
-            return;
-        }
+    async function loadGuestbook() {
+        try {
+            // Load from Supabase
+            const entries = await supabase.from('guestbook').select('*');
+            guestbookEntries.innerHTML = '';
+            
+            if (!entries || entries.length === 0) {
+                guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign!</div>';
+                return;
+            }
 
-        entries.reverse().forEach(entry => {
-            const entryDiv = document.createElement('div');
-            entryDiv.className = 'guestbook-entry';
-            entryDiv.innerHTML = `
-                <div style="font-weight: bold; margin-bottom: 4px;">${entry.name}</div>
-                <div style="margin-bottom: 4px;">${entry.message}</div>
-                <div style="font-size: 11px; color: #808080;">${entry.timestamp}</div>
-            `;
-            guestbookEntries.appendChild(entryDiv);
-        });
+            // Sort by newest first
+            entries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            entries.forEach(entry => {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'guestbook-entry';
+                const date = new Date(entry.created_at).toLocaleDateString();
+                entryDiv.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 4px;">${escapeHtml(entry.name)}</div>
+                    <div style="margin-bottom: 4px;">${escapeHtml(entry.message)}</div>
+                    <div style="font-size: 11px; color: #808080;">${date}</div>
+                `;
+                guestbookEntries.appendChild(entryDiv);
+            });
+        } catch (error) {
+            console.error('Load guestbook error:', error);
+            // Fallback to localStorage
+            const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
+            guestbookEntries.innerHTML = '';
+            
+            if (entries.length === 0) {
+                guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign!</div>';
+                return;
+            }
+
+            entries.reverse().forEach(entry => {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'guestbook-entry';
+                entryDiv.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 4px;">${escapeHtml(entry.name)}</div>
+                    <div style="margin-bottom: 4px;">${escapeHtml(entry.message)}</div>
+                    <div style="font-size: 11px; color: #808080;">${entry.date}</div>
+                `;
+                guestbookEntries.appendChild(entryDiv);
+            });
+        }
     }
 
-    function addGuestbookEntry() {
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    async function addGuestbookEntry() {
         const name = guestbookName.value.trim();
         const message = guestbookMessage.value.trim();
 
@@ -67,25 +176,40 @@
         const filteredName = filterBadWords(name);
         const filteredMessage = filterBadWords(message);
 
-        const entry = {
-            name: filteredName,
-            message: filteredMessage,
-            timestamp: new Date().toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            })
-        };
+        try {
+            // Save to Supabase
+            await supabase.from('guestbook').insert([{
+                name: filteredName,
+                message: filteredMessage,
+                created_at: new Date().toISOString()
+            }]);
 
-        const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
-        entries.push(entry);
-        localStorage.setItem('guestbookEntries', JSON.stringify(entries));
+            guestbookName.value = '';
+            guestbookMessage.value = '';
+            await loadGuestbook();
+        } catch (error) {
+            console.error('Add guestbook entry error:', error);
+            // Fallback to localStorage
+            const entry = {
+                name: filteredName,
+                message: filteredMessage,
+                date: new Date().toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            };
 
-        guestbookName.value = '';
-        guestbookMessage.value = '';
-        loadGuestbook();
+            const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
+            entries.push(entry);
+            localStorage.setItem('guestbookEntries', JSON.stringify(entries));
+
+            guestbookName.value = '';
+            guestbookMessage.value = '';
+            loadGuestbook();
+        }
     }
 
     guestbookIcon.addEventListener('click', () => {
