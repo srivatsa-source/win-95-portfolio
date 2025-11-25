@@ -18,7 +18,7 @@
             </div>
             <div class="win95-dialog-content">
                 <div class="win95-dialog-icon ${icon}"></div>
-                <div class="win95-dialog-message">${message}</div>
+                <div class="win95-dialog-message"></div>
             </div>
             <div class="win95-dialog-buttons">
                 <button class="win95-btn" onclick="this.closest('.win95-dialog').remove()">OK</button>
@@ -26,6 +26,10 @@
         `;
 
         document.body.appendChild(alertDiv);
+        
+        // Set message as HTML after appending to DOM
+        const messageDiv = alertDiv.querySelector('.win95-dialog-message');
+        messageDiv.innerHTML = message;
 
         // Center the dialog
         setTimeout(() => {
@@ -56,7 +60,7 @@
             </div>
             <div class="win95-dialog-content">
                 <div class="win95-dialog-icon question"></div>
-                <div class="win95-dialog-message">${message}</div>
+                <div class="win95-dialog-message"></div>
             </div>
             <div class="win95-dialog-buttons">
                 <button class="win95-btn" id="confirm-yes">Yes</button>
@@ -65,6 +69,10 @@
         `;
 
         document.body.appendChild(confirmDiv);
+        
+        // Set message as HTML after appending to DOM
+        const messageDiv = confirmDiv.querySelector('.win95-dialog-message');
+        messageDiv.innerHTML = message;
 
         // Center the dialog
         setTimeout(() => {
