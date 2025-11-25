@@ -109,9 +109,60 @@
             
             // Fallback to local knowledge base if API fails
             hideTyping();
-            const fallbackMsg = "Meow! I'm having trouble connecting to my brain right now. Let me try to help with what I know locally... Try asking about Srivatsa's skills, projects, or who he is!";
-            addCatMessage(fallbackMsg, 'cat-normal.png');
+            const fallbackResponse = getLocalResponse(message);
+            addCatMessage(fallbackResponse.text, fallbackResponse.avatar);
         }
+    }
+
+    // Local knowledge base fallback
+    function getLocalResponse(message) {
+        const msg = message.toLowerCase();
+        
+        // Check for greetings
+        if (msg.match(/\b(hi|hello|hey|greetings|yo)\b/)) {
+            return knowledge.hello;
+        }
+        
+        // Check for name questions
+        if (msg.match(/\b(name|who are you|what are you)\b/)) {
+            return knowledge.name;
+        }
+        
+        // Check for "what are you"
+        if (msg.match(/\b(what.*you|about.*you)\b/)) {
+            return knowledge.whatareyou;
+        }
+        
+        // Check for thanks
+        if (msg.match(/\b(thanks|thank you|thx|appreciate)\b/)) {
+            return knowledge.thanks;
+        }
+        
+        // Check for who is Srivatsa
+        if (msg.match(/\b(who|srivatsa|about.*srivatsa|tell.*about)\b/)) {
+            return knowledge.who;
+        }
+        
+        // Check for skills
+        if (msg.match(/\b(skill|technology|tech|stack|programming|languages|tools)\b/)) {
+            return knowledge.skills;
+        }
+        
+        // Check for projects
+        if (msg.match(/\b(project|work|portfolio|built|created|made)\b/)) {
+            return knowledge.projects;
+        }
+        
+        // Check for fun/games
+        if (msg.match(/\b(fun|game|cool|awesome|minesweeper|retro)\b/)) {
+            return knowledge.fun;
+        }
+        
+        // Default response with offline notice
+        return {
+            text: "Meow! I'm currently offline (can't reach my AI brain 🧠). But I can still help with basic questions! Try asking:\n\n• Who is Srivatsa?\n• What are his skills?\n• What projects has he built?\n• Show me something fun!\n\nOr explore the desktop windows for more details! 🖱️",
+            avatar: 'cat-normal.png'
+        };
     }
 
     function addUserMessage(text) {

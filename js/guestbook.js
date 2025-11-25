@@ -136,25 +136,7 @@
             });
         } catch (error) {
             console.error('Load guestbook error:', error);
-            // Fallback to localStorage
-            const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
-            guestbookEntries.innerHTML = '';
-            
-            if (entries.length === 0) {
-                guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign!</div>';
-                return;
-            }
-
-            entries.reverse().forEach(entry => {
-                const entryDiv = document.createElement('div');
-                entryDiv.className = 'guestbook-entry';
-                entryDiv.innerHTML = `
-                    <div style="font-weight: bold; margin-bottom: 4px;">${escapeHtml(entry.name)}</div>
-                    <div style="margin-bottom: 4px;">${escapeHtml(entry.message)}</div>
-                    <div style="font-size: 11px; color: #808080;">${entry.date}</div>
-                `;
-                guestbookEntries.appendChild(entryDiv);
-            });
+            guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #ff0000;">⚠️ Could not connect to guestbook database. Please try again later.</div>';
         }
     }
 
@@ -178,37 +160,21 @@
 
         try {
             // Save to Supabase
-            await supabase.from('guestbook').insert([{
+            const result = await supabase.from('guestbook').insert([{
                 name: filteredName,
                 message: filteredMessage,
                 created_at: new Date().toISOString()
             }]);
 
-            guestbookName.value = '';
-            guestbookMessage.value = '';
-            await loadGuestbook();
+            if (result) {
+                guestbookName.value = '';
+                guestbookMessage.value = '';
+                alert('✅ Thank you for signing the guestbook!');
+                await loadGuestbook();
+            }
         } catch (error) {
             console.error('Add guestbook entry error:', error);
-            // Fallback to localStorage
-            const entry = {
-                name: filteredName,
-                message: filteredMessage,
-                date: new Date().toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })
-            };
-
-            const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
-            entries.push(entry);
-            localStorage.setItem('guestbookEntries', JSON.stringify(entries));
-
-            guestbookName.value = '';
-            guestbookMessage.value = '';
-            loadGuestbook();
+            alert('❌ Could not save your entry. Please check your connection and try again.');
         }
     }
 
