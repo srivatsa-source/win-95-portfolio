@@ -26,22 +26,22 @@
                 
                 // Show a Windows 95 style dialog for submenu items
                 const messages = {
-                    'StartUp': 'Programs that run automatically when Windows starts.',
-                    'Microsoft Exchange': 'Email and messaging center. This is a demo portfolio!',
-                    'MS-DOS Prompt': 'Access to MS-DOS command line. Try the "Run" option instead!',
-                    'The Microsoft Network': 'Connect to MSN online services.',
-                    'Windows Explorer': 'Browse files and folders on your computer.',
-                    'Media Player': 'Play audio and video files.',
-                    'Sound Recorder': 'Record and play audio.',
-                    'Volume Control': 'Adjust audio volume levels.',
-                    'Documents': 'Recent documents and files.',
-                    'Settings': 'System and application settings.'
+                    'StartUp': '<strong>StartUp Programs</strong><br><br>Programs that run automatically when Windows starts.<br><br>This is a themed portfolio - explore the desktop icons to see real projects and skills!',
+                    'Microsoft Exchange': '<strong>Microsoft Exchange</strong><br><br>Email and messaging center.<br><br>Want to get in touch? Check out the <strong>Contact</strong> window on the desktop!',
+                    'MS-DOS Prompt': '<strong>MS-DOS Prompt</strong><br><br>Access to MS-DOS command line.<br><br>Try the <strong>Run</strong> option from the Start menu instead!',
+                    'The Microsoft Network': '<strong>The Microsoft Network</strong><br><br>Connect to MSN online services.<br><br>Explore the portfolio windows on the desktop for more information!',
+                    'Windows Explorer': '<strong>Windows Explorer</strong><br><br>Browse files and folders.<br><br>Double-click the desktop icons to explore projects, skills, and experience!',
+                    'Media Player': '<strong>Media Player</strong><br><br>Play audio and video files.<br><br>This is part of the Windows 95 theme - check out the real projects on the desktop!',
+                    'Sound Recorder': '<strong>Sound Recorder</strong><br><br>Record and play audio.<br><br>Explore the portfolio windows to learn more about Srivatsa\'s work!',
+                    'Volume Control': '<strong>Volume Control</strong><br><br>Adjust audio volume levels.<br><br>Try the <strong>Minesweeper</strong> game or chat with Ora the cat!',
+                    'Documents': '<strong>Recent Documents</strong><br><br>Recent documents and files.<br><br>View the <strong>Projects</strong> window to see completed work!',
+                    'Settings': '<strong>System Settings</strong><br><br>System and application settings.<br><br>Use the main Start menu options to explore the portfolio!'
                 };
                 
                 if (messages[itemName]) {
-                    showAlert(`<strong>${itemName}</strong><br><br>${messages[itemName]}`, 'Windows 95', 'info');
+                    showAlert(messages[itemName], 'Windows 95', 'info');
                 } else {
-                    showAlert(`This feature is part of the Windows 95 theme demo.<br><br>Explore the portfolio windows on the desktop to learn more about Srivatsa!`, itemName, 'info');
+                    showAlert('<strong>Windows 95 Portfolio</strong><br><br>This is a retro-themed portfolio experience.<br><br>Explore the desktop icons to learn more about Srivatsa\'s skills, projects, and experience!', itemName, 'info');
                 }
             });
         });

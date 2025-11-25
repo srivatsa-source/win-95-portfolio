@@ -191,11 +191,60 @@
         left: 0 !important;
         top: 0 !important;
         transform: none !important;
+        border-radius: 0;
     }
 
     #chatbot-window.fullscreen {
         width: 100% !important;
         height: calc(100vh - 50px) !important;
+    }
+    
+    #chatbot-window.active {
+        display: flex !important;
+    }
+    
+    .chat-titlebar {
+        height: 36px;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+    
+    .chat-controls {
+        gap: 8px;
+    }
+    
+    .chat-btn {
+        width: 28px;
+        height: 24px;
+        font-size: 14px;
+        min-width: 28px;
+    }
+    
+    .chat-content {
+        padding: 10px;
+    }
+    
+    .chat-intro {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    #chat-cat-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .chat-option-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+        min-height: 44px;
+        width: 100%;
+    }
+    
+    .chat-input-area {
+        padding: 10px;
+        gap: 8px;
     }
 
     .chat-messages {
@@ -222,20 +271,55 @@
         left: 0 !important;
         top: 0 !important;
         transform: none !important;
+        border-radius: 0;
+    }
+    
+    .guestbook-titlebar {
+        height: 36px;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+    
+    .guestbook-content {
+        padding: 10px;
     }
 
     .guestbook-entries {
         max-height: calc(100vh - 350px) !important;
-    }
-
-    .guestbook-input,
-    .guestbook-textarea {
-        font-size: 14px;
         padding: 10px;
     }
+    
+    .guestbook-entry {
+        padding: 12px;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    
+    .guestbook-form {
+        padding: 15px;
+        gap: 10px;
+    }
 
-    .guestbook-textarea {
-        min-height: 80px;
+    #guestbook-name,
+    #guestbook-message {
+        font-size: 16px !important;
+        padding: 12px;
+        border: 2px inset #808080;
+    }
+    
+    #guestbook-name {
+        min-height: 44px;
+    }
+
+    #guestbook-message {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    #guestbook-submit {
+        min-height: 44px;
+        font-size: 14px;
+        padding: 12px 20px;
     }
 
     /* Minesweeper mobile adjustments */
@@ -396,6 +480,168 @@
     .project-card {
         padding: 15px;
         margin-bottom: 15px;
+    }
+    
+    /* Win95 dialogs - mobile friendly */
+    .win95-dialog {
+        max-width: 90% !important;
+        max-height: 85vh !important;
+        min-width: 280px !important;
+        overflow-y: auto;
+    }
+    
+    .win95-dialog-titlebar {
+        padding: 10px;
+        height: 36px;
+        font-size: 13px;
+        touch-action: none;
+    }
+    
+    .win95-dialog-close {
+        width: 28px;
+        height: 24px;
+        font-size: 16px;
+        min-width: 28px;
+    }
+    
+    .win95-dialog-content {
+        padding: 20px 15px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    
+    .win95-dialog-message {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+    }
+    
+    .win95-dialog-buttons {
+        padding: 15px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .win95-dialog-buttons .win95-btn {
+        min-width: 100px;
+        padding: 10px 20px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+    
+    /* Find dialog mobile */
+    #find-dialog {
+        width: 90% !important;
+        max-width: 400px !important;
+    }
+    
+    #find-input {
+        font-size: 14px !important;
+        padding: 10px !important;
+        min-height: 44px !important;
+    }
+    
+    /* Run dialog mobile */
+    #run-dialog {
+        width: 90% !important;
+        max-width: 400px !important;
+    }
+    
+    #run-input {
+        font-size: 14px !important;
+        padding: 10px !important;
+        min-height: 44px !important;
+    }
+    
+    /* Submenu mobile improvements */
+    .submenu {
+        min-width: 200px;
+        font-size: 13px;
+    }
+    
+    .submenu-item {
+        padding: 12px 10px !important;
+        min-height: 44px;
+        font-size: 13px !important;
+    }
+    
+    .has-submenu::after {
+        font-size: 10px !important;
+    }
+    
+    /* Better scrolling for all containers */
+    .window-content,
+    .chat-messages,
+    .guestbook-entries,
+    .minesweeper-grid,
+    #taskbarApps {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Prevent zoom on input focus on iOS */
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+    
+    /* Startup screen mobile */
+    .startup-screen {
+        font-size: 14px !important;
+    }
+    
+    .startup-screen h1 {
+        font-size: 18px !important;
+        margin-bottom: 15px;
+    }
+    
+    /* Driver.js tour mobile */
+    .driver-popover {
+        max-width: 90% !important;
+        font-size: 13px !important;
+    }
+    
+    .driver-popover-title {
+        font-size: 15px !important;
+        padding: 12px !important;
+    }
+    
+    .driver-popover-description {
+        font-size: 13px !important;
+        padding: 12px !important;
+        line-height: 1.6 !important;
+    }
+    
+    .driver-popover-footer {
+        padding: 10px !important;
+    }
+    
+    .driver-popover-footer button {
+        padding: 10px 16px !important;
+        font-size: 13px !important;
+        min-height: 40px !important;
+        min-width: 80px !important;
+    }
+    
+    /* Fix double-tap zoom on buttons */
+    button, .win95-btn, .start-button, .window-button {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Improve tap targets */
+    a, button, input, select, textarea, .desktop-icon {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .desktop-icon {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
     }
 
     .project-card h3 {
