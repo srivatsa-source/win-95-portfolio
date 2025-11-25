@@ -186,13 +186,32 @@
                     popover: {
                         title: 'Chat with Me!',
                         description: 'That\'s the tour! If you want to know more about Srivatsa, just click on me (the cat in the middle) anytime. I\'m Ora, your helpful guide! Let me show you...',
-                        side: 'top',
+                        side: 'bottom',
                         align: 'center'
                     },
                     onHighlightStarted: () => {
                         tourGuideCat.style.display = 'none';
                     },
                     onHighlighted: () => {
+                        // Position popover near the floating cat
+                        setTimeout(() => {
+                            const popover = document.querySelector('.driver-popover');
+                            const floatingCatElement = document.getElementById('floating-cat-element');
+                            if (popover && floatingCatElement) {
+                                const catRect = floatingCatElement.getBoundingClientRect();
+                                const popoverHeight = popover.offsetHeight;
+                                const popoverWidth = popover.offsetWidth;
+                                
+                                // Position below the cat, centered
+                                const left = catRect.left + (catRect.width / 2) - (popoverWidth / 2);
+                                const top = catRect.bottom + 20; // 20px below the cat
+                                
+                                popover.style.position = 'fixed';
+                                popover.style.left = left + 'px';
+                                popover.style.top = top + 'px';
+                            }
+                        }, 100);
+                        
                         setTimeout(() => {
                             const chatWindow = document.getElementById('chatbot-window');
                             if (chatWindow) {
