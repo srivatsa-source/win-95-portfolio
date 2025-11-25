@@ -111,9 +111,19 @@
 
     async function loadGuestbook() {
         try {
+            console.log('Loading guestbook from Supabase...');
+            console.log('Supabase URL:', SUPABASE_URL);
+            
             // Load from Supabase
             const entries = await supabase.from('guestbook').select('*');
+            console.log('Guestbook entries:', entries);
+            
             guestbookEntries.innerHTML = '';
+            
+            // Check if response has error
+            if (entries && entries.error) {
+                throw new Error(`Supabase error: ${entries.error.message}`);
+            }
             
             if (!entries || entries.length === 0) {
                 guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign!</div>';
@@ -136,7 +146,8 @@
             });
         } catch (error) {
             console.error('Load guestbook error:', error);
-            guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #ff0000;">⚠️ Could not connect to guestbook database. Please try again later.</div>';
+            console.error('Error details:', error.message, error.stack);
+            guestbookEntries.innerHTML = `<div style="padding: 10px; text-align: center; color: #ff0000;">⚠️ Could not connect to guestbook database.<br><small>${error.message}</small></div>`;
         }
     }
 
@@ -159,6 +170,9 @@
         const filteredMessage = filterBadWords(message);
 
         try {
+            console.log('Saving to Supabase...');
+            console.log('Data:', { name: filteredName, message: filteredMessage });
+            
             // Save to Supabase
             const result = await supabase.from('guestbook').insert([{
                 name: filteredName,
@@ -166,15 +180,20 @@
                 created_at: new Date().toISOString()
             }]);
 
+            console.log('Insert result:', result);
+            
             if (result) {
                 guestbookName.value = '';
                 guestbookMessage.value = '';
                 alert('✅ Thank you for signing the guestbook!');
                 await loadGuestbook();
+            } else {
+                throw new Error('Insert returned falsy value');
             }
         } catch (error) {
             console.error('Add guestbook entry error:', error);
-            alert('❌ Could not save your entry. Please check your connection and try again.');
+            console.error('Error details:', error.message, error.stack);
+            alert(`❌ Could not save your entry: ${error.message}`);
         }
     }
 
