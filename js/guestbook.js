@@ -226,7 +226,7 @@
         const message = guestbookMessage.value.trim();
 
         if (!name || !message) {
-            alert('Please fill in both name and message!');
+            showAlert('Please fill in both name and message!', 'Guestbook', 'warning');
             return;
         }
         
@@ -234,7 +234,7 @@
         const now = Date.now();
         if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
             const remainingSeconds = Math.ceil((SUBMIT_COOLDOWN - (now - lastSubmitTime)) / 1000);
-            alert(`⏱️ Please wait ${remainingSeconds} seconds before submitting again.`);
+            showAlert(`Please wait ${remainingSeconds} seconds before submitting again.`, 'Rate Limit', 'warning');
             return;
         }
         
@@ -245,7 +245,7 @@
         // Validate inputs
         const validation = validateInput(sanitizedName, sanitizedMessage);
         if (!validation.valid) {
-            alert(`❌ ${validation.error}`);
+            showAlert(validation.error, 'Invalid Input', 'error');
             return;
         }
 
@@ -271,12 +271,12 @@
             
             guestbookName.value = '';
             guestbookMessage.value = '';
-            alert('✅ Thank you for signing the guestbook!');
+            showAlert('Thank you for signing the guestbook!', 'Success', 'success');
             await loadGuestbook();
         } catch (error) {
             console.error('Add guestbook entry error:', error);
             console.error('Error details:', error.message, error.stack);
-            alert(`❌ Could not save your entry: ${error.message}`);
+            showAlert(`Could not save your entry: ${error.message}`, 'Error', 'error');
         }
     }
 

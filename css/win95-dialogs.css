@@ -1,0 +1,110 @@
+/* Windows 95-style dialog boxes */
+.win95-dialog {
+    position: fixed;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    min-width: 300px;
+    max-width: 500px;
+    z-index: 10000;
+    font-family: 'MS Sans Serif', sans-serif;
+}
+
+.win95-dialog-titlebar {
+    background: linear-gradient(to right, #000080, #1084d0);
+    color: white;
+    padding: 3px 4px;
+    font-weight: bold;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+}
+
+.win95-dialog-close {
+    width: 16px;
+    height: 14px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #ffffff #000000 #000000 #ffffff;
+    font-size: 10px;
+    line-height: 12px;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'MS Sans Serif', sans-serif;
+}
+
+.win95-dialog-close:active {
+    border-color: #000000 #ffffff #ffffff #000000;
+}
+
+.win95-dialog-content {
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.win95-dialog-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.win95-dialog-icon.info {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23000080"/><text x="16" y="24" font-size="20" font-weight="bold" fill="white" text-anchor="middle">i</text></svg>');
+}
+
+.win95-dialog-icon.success {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23008000"/><path d="M9 16l5 5 9-10" stroke="white" stroke-width="3" fill="none"/></svg>');
+}
+
+.win95-dialog-icon.error {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23ff0000"/><text x="16" y="24" font-size="20" font-weight="bold" fill="white" text-anchor="middle">✕</text></svg>');
+}
+
+.win95-dialog-icon.warning {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 2 L30 28 L2 28 Z" fill="%23ffff00" stroke="%23000" stroke-width="1"/><text x="16" y="24" font-size="18" font-weight="bold" fill="black" text-anchor="middle">!</text></svg>');
+}
+
+.win95-dialog-icon.question {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23000080"/><text x="16" y="24" font-size="18" font-weight="bold" fill="white" text-anchor="middle">?</text></svg>');
+}
+
+.win95-dialog-message {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.win95-dialog-buttons {
+    padding: 10px 20px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.win95-btn {
+    min-width: 75px;
+    padding: 4px 12px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #000000 #000000 #ffffff;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'MS Sans Serif', sans-serif;
+}
+
+.win95-btn:active {
+    border-color: #000000 #ffffff #ffffff #000000;
+}
+
+.win95-btn:focus {
+    outline: 1px dotted #000;
+    outline-offset: -4px;
+}

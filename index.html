@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/minesweeper.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/win95-dialogs.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css" />
 </head>
 <body>
@@ -448,12 +449,12 @@
                         <div class="submenu-item">Settings</div>
                     </div>
                 </div>
-                <div class="start-menu-item" onclick="showAlert('Documents')">Documents</div>
-                <div class="start-menu-item" onclick="showAlert('Settings')">Settings</div>
-                <div class="start-menu-item" onclick="showAlert('Find')">Find</div>
-                <div class="start-menu-item" onclick="showAlert('Help')">Help</div>
-                <div class="start-menu-item" onclick="showAlert('Run')">Run...</div>
-                <div class="start-menu-item" onclick="showAlert('Shutdown')">Shut Down...</div>
+                <div class="start-menu-item" onclick="openDocuments()">Documents</div>
+                <div class="start-menu-item" onclick="openSettings()">Settings</div>
+                <div class="start-menu-item" onclick="openFind()">Find</div>
+                <div class="start-menu-item" onclick="openHelp()">Help</div>
+                <div class="start-menu-item" onclick="openRun()">Run...</div>
+                <div class="start-menu-item" onclick="shutDown()">Shut Down...</div>
             </div>
             <div id="taskbarApps" style="display:flex;gap:6px;margin-left:8px;"></div>
             <div class="time-display" id="timeDisplay">12:00 PM</div>
@@ -479,6 +480,8 @@
 
     <!-- JavaScript Files -->
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+    <script src="js/win95-dialogs.js"></script>
+    <script src="js/start-menu.js"></script>
     <script src="js/main.js"></script>
     <script src="js/windows.js"></script>
     <script src="js/desktop.js"></script>
