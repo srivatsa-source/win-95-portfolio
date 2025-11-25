@@ -2,9 +2,57 @@
 (function() {
     'use strict';
 
+    // Helper function to properly close the Start Menu
+    function closeStartMenu() {
+        const startMenu = document.getElementById('startMenu');
+        const startButton = document.querySelector('.start-button');
+        if (startMenu) {
+            startMenu.classList.remove('show');
+        }
+        if (startButton) {
+            startButton.classList.remove('pressed');
+        }
+    }
+
+    // Initialize submenu item handlers for authentic Windows 95 behavior
+    function initializeSubmenuItems() {
+        // Add click handlers to submenu items that don't have submenus
+        const submenuItems = document.querySelectorAll('.submenu-item:not(.has-submenu)');
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const itemName = this.textContent.trim();
+                closeStartMenu();
+                
+                // Show a Windows 95 style dialog for submenu items
+                const messages = {
+                    'StartUp': 'Programs that run automatically when Windows starts.',
+                    'Microsoft Exchange': 'Email and messaging center. This is a demo portfolio!',
+                    'MS-DOS Prompt': 'Access to MS-DOS command line. Try the "Run" option instead!',
+                    'The Microsoft Network': 'Connect to MSN online services.',
+                    'Windows Explorer': 'Browse files and folders on your computer.',
+                    'Media Player': 'Play audio and video files.',
+                    'Sound Recorder': 'Record and play audio.',
+                    'Volume Control': 'Adjust audio volume levels.',
+                    'Documents': 'Recent documents and files.',
+                    'Settings': 'System and application settings.'
+                };
+                
+                if (messages[itemName]) {
+                    showAlert(`<strong>${itemName}</strong><br><br>${messages[itemName]}`, 'Windows 95', 'info');
+                } else {
+                    showAlert(`This feature is part of the Windows 95 theme demo.<br><br>Explore the portfolio windows on the desktop to learn more about Srivatsa!`, itemName, 'info');
+                }
+            });
+        });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', initializeSubmenuItems);
+
     // Documents - Show recent files and project links
     window.openDocuments = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         showAlert(`<strong>Recent Documents:</strong><br><br>
             • Portfolio README.md<br>
             • Project Descriptions<br>
@@ -16,7 +64,7 @@
 
     // Settings - Display system information
     window.openSettings = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         showAlert(`<strong>System Settings</strong><br><br>
             <strong>Display:</strong> Windows 95 Theme<br>
             <strong>Screen Resolution:</strong> ${window.screen.width} × ${window.screen.height}<br>
@@ -29,7 +77,7 @@
 
     // Find - Search functionality
     window.openFind = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         
         const existing = document.getElementById('find-dialog');
         if (existing) existing.remove();
@@ -111,7 +159,7 @@
 
     // Help - Portfolio guide
     window.openHelp = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         showAlert(`<strong>Portfolio Help & Tips</strong><br><br>
             🖱️ <strong>Navigation:</strong><br>
             • Double-click desktop icons to open windows<br>
@@ -135,7 +183,7 @@
 
     // Run - Execute commands
     window.openRun = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         
         const existing = document.getElementById('run-dialog');
         if (existing) existing.remove();
@@ -211,7 +259,7 @@
 
     // Shutdown - Show shutdown dialog
     window.shutDown = function() {
-        document.getElementById('startMenu').style.display = 'none';
+        closeStartMenu();
         
         showConfirm(
             `<strong>Shut Down Windows</strong><br><br>

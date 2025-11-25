@@ -212,9 +212,8 @@
                                 left = Math.max(10, Math.min(left, viewportWidth - popoverWidth - 10));
                                 top = Math.max(10, Math.min(top, viewportHeight - popoverHeight - 10));
                                 
-                                popover.style.position = 'fixed';
-                                popover.style.left = left + 'px';
-                                popover.style.top = top + 'px';
+                                // Force positioning with !important by setting style attribute directly
+                                popover.style.cssText = `position: fixed !important; left: ${left}px !important; top: ${top}px !important; transform: none !important;`;
                             }
                         }, 100);
                         

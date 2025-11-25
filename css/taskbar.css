@@ -102,11 +102,22 @@
 /* Submenu */
 .has-submenu { 
     position: relative; 
+    padding-right: 25px !important; /* Make room for arrow */
+}
+
+.has-submenu::after {
+    content: '►';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    pointer-events: none;
 }
 
 .submenu {
     position: absolute;
-    top: 0;
+    top: -2px; /* Align with parent item */
     left: 100%;
     min-width: 180px;
     background: #c0c0c0;
@@ -114,22 +125,49 @@
     display: none;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
     z-index: 3000;
+    margin-left: -2px; /* Overlap border slightly for authentic look */
 }
 
 .has-submenu:hover > .submenu {
     display: block;
+    animation: submenuFade 0.15s ease-out;
+}
+
+@keyframes submenuFade {
+    from {
+        opacity: 0;
+        transform: translateX(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .submenu-item {
-    padding: 6px 10px;
+    padding: 6px 25px 6px 10px;
     font-size: 11px;
     border-bottom: 1px solid #808080;
     cursor: pointer;
+    position: relative;
+}
+
+.submenu-item:last-child {
+    border-bottom: none;
 }
 
 .submenu-item:hover { 
-    background:#0000ff; 
-    color:#fff; 
+    background: #0000ff; 
+    color: #fff; 
+}
+
+.submenu-item.has-submenu::after {
+    content: '►';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
 }
 
 /* Time Display */
