@@ -186,14 +186,14 @@
                     popover: {
                         title: 'Chat with Me!',
                         description: 'That\'s the tour! If you want to know more about Srivatsa, just click on me (the cat in the middle) anytime. I\'m Ora, your helpful guide! Let me show you...',
-                        side: 'bottom',
+                        side: 'top',
                         align: 'center'
                     },
                     onHighlightStarted: () => {
                         tourGuideCat.style.display = 'none';
                     },
                     onHighlighted: () => {
-                        // Position popover near the floating cat
+                        // Position popover near the floating cat with bounds checking
                         setTimeout(() => {
                             const popover = document.querySelector('.driver-popover');
                             const floatingCatElement = document.getElementById('floating-cat-element');
@@ -201,10 +201,16 @@
                                 const catRect = floatingCatElement.getBoundingClientRect();
                                 const popoverHeight = popover.offsetHeight;
                                 const popoverWidth = popover.offsetWidth;
+                                const viewportWidth = window.innerWidth;
+                                const viewportHeight = window.innerHeight;
                                 
-                                // Position below the cat, centered
-                                const left = catRect.left + (catRect.width / 2) - (popoverWidth / 2);
-                                const top = catRect.bottom + 20; // 20px below the cat
+                                // Calculate centered position
+                                let left = catRect.left + (catRect.width / 2) - (popoverWidth / 2);
+                                let top = catRect.top - popoverHeight - 20; // 20px above the cat
+                                
+                                // Ensure popover stays within viewport bounds
+                                left = Math.max(10, Math.min(left, viewportWidth - popoverWidth - 10));
+                                top = Math.max(10, Math.min(top, viewportHeight - popoverHeight - 10));
                                 
                                 popover.style.position = 'fixed';
                                 popover.style.left = left + 'px';
