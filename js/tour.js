@@ -193,20 +193,25 @@
                         tourGuideCat.style.display = 'none';
                     },
                     onHighlighted: () => {
-                        // Position popover near the floating cat with bounds checking
+                        // Position popover next to the chat window
                         setTimeout(() => {
                             const popover = document.querySelector('.driver-popover');
-                            const floatingCatElement = document.getElementById('floating-cat-element');
-                            if (popover && floatingCatElement) {
-                                const catRect = floatingCatElement.getBoundingClientRect();
+                            const chatWindow = document.getElementById('chatbot-window');
+                            if (popover && chatWindow) {
+                                const chatRect = chatWindow.getBoundingClientRect();
                                 const popoverHeight = popover.offsetHeight;
                                 const popoverWidth = popover.offsetWidth;
                                 const viewportWidth = window.innerWidth;
                                 const viewportHeight = window.innerHeight;
                                 
-                                // Calculate centered position
-                                let left = catRect.left + (catRect.width / 2) - (popoverWidth / 2);
-                                let top = catRect.top - popoverHeight - 20; // 20px above the cat
+                                // Position next to chat window (left side)
+                                let left = chatRect.left - popoverWidth - 20;
+                                let top = chatRect.top;
+                                
+                                // If not enough space on left, show on right
+                                if (left < 10) {
+                                    left = chatRect.right + 20;
+                                }
                                 
                                 // Ensure popover stays within viewport bounds
                                 left = Math.max(10, Math.min(left, viewportWidth - popoverWidth - 10));

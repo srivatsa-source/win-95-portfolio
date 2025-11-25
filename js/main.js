@@ -117,9 +117,11 @@
             if (welcomeWindow) {
                 welcomeWindow.style.display = 'none';
             }
-            // Start the tour if available
-            if (typeof startTour === 'function') {
+            // Start the tour only on first visit
+            const hasSeenTour = localStorage.getItem('portfolioTourSeen');
+            if (!hasSeenTour && typeof startTour === 'function') {
                 setTimeout(startTour, 500);
+                localStorage.setItem('portfolioTourSeen', 'true');
             }
         });
     }
