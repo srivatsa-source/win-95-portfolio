@@ -90,8 +90,8 @@
             <!-- Entries will be added here -->
         </div>
         <div class="guestbook-form">
-            <input type="text" id="guestbook-name" placeholder="Your name..." maxlength="50">
-            <textarea id="guestbook-message" placeholder="Leave a message about this website..." maxlength="200"></textarea>
+            <input type="text" id="guestbook-name" placeholder="Your name..." maxlength="100" pattern="[A-Za-z0-9\s\-_.']{1,100}" autocomplete="off" spellcheck="false">
+            <textarea id="guestbook-message" placeholder="Leave a message about this website..." maxlength="500" autocomplete="off" spellcheck="true"></textarea>
             <button class="win95-btn" id="guestbook-submit">Sign Guestbook</button>
         </div>
     </div>

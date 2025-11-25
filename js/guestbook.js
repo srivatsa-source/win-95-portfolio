@@ -104,6 +104,59 @@
     const guestbookMessage = document.getElementById('guestbook-message');
     const guestbookEntries = document.getElementById('guestbook-entries');
 
+    // Security: Input validation and sanitization
+    function sanitizeInput(text, maxLength = 500) {
+        if (typeof text !== 'string') return '';
+        
+        // Remove null bytes and control characters
+        let sanitized = text.replace(/[\0\x08\x0B\x0C\x0E-\x1F]/g, '');
+        
+        // Limit length
+        sanitized = sanitized.slice(0, maxLength);
+        
+        // Remove potential script tags and SQL injection patterns
+        sanitized = sanitized
+            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+            .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+            .replace(/javascript:/gi, '')
+            .replace(/on\w+\s*=/gi, '')
+            .replace(/(\bDROP\b|\bDELETE\b|\bUPDATE\b|\bINSERT\b|\bCREATE\b|\bALTER\b)\s+(TABLE|DATABASE|SCHEMA)/gi, '');
+        
+        return sanitized.trim();
+    }
+    
+    function validateInput(name, message) {
+        // Validate name
+        if (!name || name.length < 1 || name.length > 100) {
+            return { valid: false, error: 'Name must be between 1 and 100 characters.' };
+        }
+        
+        // Validate message
+        if (!message || message.length < 1 || message.length > 500) {
+            return { valid: false, error: 'Message must be between 1 and 500 characters.' };
+        }
+        
+        // Check for suspicious patterns
+        const suspiciousPatterns = [
+            /<script/i,
+            /javascript:/i,
+            /on\w+=/i,
+            /\bDROP\s+TABLE\b/i,
+            /\bDELETE\s+FROM\b/i,
+            /\bUNION\s+SELECT\b/i,
+            /\bEXEC\b/i,
+            /\bEXECUTE\b/i
+        ];
+        
+        for (let pattern of suspiciousPatterns) {
+            if (pattern.test(name) || pattern.test(message)) {
+                return { valid: false, error: 'Invalid characters detected. Please use only regular text.' };
+            }
+        }
+        
+        return { valid: true };
+    }
+
     // Profanity filter
     const badWords = ['badword1', 'badword2', 'spam', 'test123', 'fuck', 'shit', 'damn', 'bitch', 'ass', 'crap', 'hell', 'piss'];
     
@@ -164,6 +217,10 @@
         return div.innerHTML;
     }
 
+    // Rate limiting - prevent spam submissions
+    let lastSubmitTime = 0;
+    const SUBMIT_COOLDOWN = 30000; // 30 seconds between submissions
+
     async function addGuestbookEntry() {
         const name = guestbookName.value.trim();
         const message = guestbookMessage.value.trim();
@@ -172,15 +229,35 @@
             alert('Please fill in both name and message!');
             return;
         }
+        
+        // Rate limiting check
+        const now = Date.now();
+        if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
+            const remainingSeconds = Math.ceil((SUBMIT_COOLDOWN - (now - lastSubmitTime)) / 1000);
+            alert(`⏱️ Please wait ${remainingSeconds} seconds before submitting again.`);
+            return;
+        }
+        
+        // Sanitize inputs first
+        const sanitizedName = sanitizeInput(name, 100);
+        const sanitizedMessage = sanitizeInput(message, 500);
+        
+        // Validate inputs
+        const validation = validateInput(sanitizedName, sanitizedMessage);
+        if (!validation.valid) {
+            alert(`❌ ${validation.error}`);
+            return;
+        }
 
-        const filteredName = filterBadWords(name);
-        const filteredMessage = filterBadWords(message);
+        // Filter bad words
+        const filteredName = filterBadWords(sanitizedName);
+        const filteredMessage = filterBadWords(sanitizedMessage);
 
         try {
             console.log('Saving to Supabase...');
             console.log('Data:', { name: filteredName, message: filteredMessage });
             
-            // Save to Supabase
+            // Save to Supabase - using parameterized data (safe from SQL injection)
             const result = await supabase.from('guestbook').insert([{
                 name: filteredName,
                 message: filteredMessage,
@@ -188,6 +265,9 @@
             }]);
 
             console.log('Insert result:', result);
+            
+            // Update last submit time on success
+            lastSubmitTime = now;
             
             guestbookName.value = '';
             guestbookMessage.value = '';
