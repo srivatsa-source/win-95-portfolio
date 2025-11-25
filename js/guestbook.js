@@ -8,19 +8,7 @@
 
     // Simple Supabase client (no library needed!)
     const supabase = {
-        async query(sql, params = []) {
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${sql}`, {
-                method: 'POST',
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(params)
-            });
-            return await response.json();
-        },
-        async from(table) {
+        from(table) {
             return {
                 select: async (columns = '*') => {
                     const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${columns}`, {
@@ -29,6 +17,12 @@
                             'Authorization': `Bearer ${SUPABASE_KEY}`
                         }
                     });
+                    
+                    if (!response.ok) {
+                        const error = await response.text();
+                        throw new Error(`Supabase error: ${response.status} - ${error}`);
+                    }
+                    
                     return await response.json();
                 },
                 insert: async (data) => {
@@ -38,11 +32,17 @@
                             'apikey': SUPABASE_KEY,
                             'Authorization': `Bearer ${SUPABASE_KEY}`,
                             'Content-Type': 'application/json',
-                            'Prefer': 'return=minimal'
+                            'Prefer': 'return=representation'
                         },
                         body: JSON.stringify(data)
                     });
-                    return response.ok;
+                    
+                    if (!response.ok) {
+                        const error = await response.text();
+                        throw new Error(`Supabase error: ${response.status} - ${error}`);
+                    }
+                    
+                    return await response.json();
                 },
                 update: async (data) => {
                     const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.1`, {
@@ -50,11 +50,18 @@
                         headers: {
                             'apikey': SUPABASE_KEY,
                             'Authorization': `Bearer ${SUPABASE_KEY}`,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=representation'
                         },
                         body: JSON.stringify(data)
                     });
-                    return response.ok;
+                    
+                    if (!response.ok) {
+                        const error = await response.text();
+                        throw new Error(`Supabase error: ${response.status} - ${error}`);
+                    }
+                    
+                    return await response.json();
                 }
             };
         }
@@ -182,14 +189,10 @@
 
             console.log('Insert result:', result);
             
-            if (result) {
-                guestbookName.value = '';
-                guestbookMessage.value = '';
-                alert('✅ Thank you for signing the guestbook!');
-                await loadGuestbook();
-            } else {
-                throw new Error('Insert returned falsy value');
-            }
+            guestbookName.value = '';
+            guestbookMessage.value = '';
+            alert('✅ Thank you for signing the guestbook!');
+            await loadGuestbook();
         } catch (error) {
             console.error('Add guestbook entry error:', error);
             console.error('Error details:', error.message, error.stack);
