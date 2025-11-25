@@ -157,16 +157,56 @@
         return { valid: true };
     }
 
-    // Profanity filter
-    const badWords = ['badword1', 'badword2', 'spam', 'test123', 'fuck', 'shit', 'damn', 'bitch', 'ass', 'crap', 'hell', 'piss'];
+    // Profanity and inappropriate content filter
+    const badWords = [
+        // Profanity
+        'fuck', 'shit', 'damn', 'bitch', 'ass', 'crap', 'hell', 'piss', 'bastard', 'asshole',
+        'dick', 'cock', 'pussy', 'cunt', 'whore', 'slut', 'fag', 'nigger', 'retard',
+        
+        // Sensual/Sexual content
+        'sex', 'sexy', 'porn', 'xxx', 'nude', 'naked', 'kiss', 'kisses', 'kissing',
+        'boobs', 'tits', 'breast', 'penis', 'vagina', 'orgasm', 'masturbate',
+        'erotic', 'horny', 'lust', 'seduce', 'aroused', 'kinky',
+        
+        // Inappropriate suggestions
+        'date me', 'marry me', 'hot', 'cute af', 'daddy', 'mommy',
+        'onlyfans', 'snapchat me', 'dm me', 'hook up', 'hookup',
+        
+        // Spam indicators
+        'spam', 'test123', 'click here', 'buy now', 'viagra', 'casino',
+        'free money', 'win now', 'subscribe', 'follow me'
+    ];
     
     function filterBadWords(text) {
         let filtered = text;
         badWords.forEach(word => {
-            const regex = new RegExp(word, 'gi');
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
             filtered = filtered.replace(regex, '*'.repeat(word.length));
         });
         return filtered;
+    }
+    
+    // Additional content validation
+    function checkInappropriateContent(text) {
+        const inappropriatePatterns = [
+            /\b(kiss|kisses|kissing)\b/i,
+            /\b(sexy|sex|porn|nude|naked)\b/i,
+            /\b(hot|cute)\s+(af|asf|as\s+f)/i,
+            /\b(date|marry|hook\s*up)\s+(me|with\s+me)\b/i,
+            /\b(dm|message|text)\s+me\b/i,
+            /\b(onlyfans|snapchat|instagram)\b/i,
+            /([0-9]{3}[-.\s]?[0-9]{3}[-.\s]?[0-9]{4})/,  // Phone numbers
+            /[\w\.-]+@[\w\.-]+\.\w+/,  // Email addresses
+            /(https?:\/\/|www\.)/i  // URLs
+        ];
+        
+        for (let pattern of inappropriatePatterns) {
+            if (pattern.test(text)) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     async function loadGuestbook() {
@@ -241,6 +281,12 @@
         // Sanitize inputs first
         const sanitizedName = sanitizeInput(name, 100);
         const sanitizedMessage = sanitizeInput(message, 500);
+        
+        // Check for inappropriate content before validation
+        if (!checkInappropriateContent(sanitizedName) || !checkInappropriateContent(sanitizedMessage)) {
+            showAlert('Your message contains inappropriate content. Please keep the guestbook professional and respectful.', 'Inappropriate Content', 'warning');
+            return;
+        }
         
         // Validate inputs
         const validation = validateInput(sanitizedName, sanitizedMessage);
