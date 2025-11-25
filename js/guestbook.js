@@ -77,11 +77,10 @@
             // Increment
             count++;
             
-            // Update in Supabase
+            // Update in Supabase (only update count, not last_updated)
             await supabase.from('visitor_count').update({ 
-                count: count,
-                last_updated: new Date().toISOString()
-            });
+                count: count
+            }).eq('id', 1);
             
             // Display
             document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
@@ -170,7 +169,7 @@
         
         // Inappropriate suggestions
         'date me', 'marry me', 'hot', 'cute af', 'daddy', 'mommy',
-        'onlyfans', 'snapchat me', 'dm me', 'hook up', 'hookup',
+        'onlyfans', 'snapchat me', 'hook up', 'hookup',
         
         // Spam indicators
         'spam', 'test123', 'click here', 'buy now', 'viagra', 'casino',
