@@ -7,15 +7,25 @@
 
     // Initialize on page load
     window.addEventListener('load', function() {
+        console.log('Page loaded, initializing...');
+        
+        // Ensure startup screen is visible
+        const startupScreen = document.getElementById('startupScreen');
+        const desktop = document.getElementById('desktop');
+        if (startupScreen) startupScreen.style.display = 'flex';
+        if (desktop) desktop.style.display = 'none';
+        
         // Check if mobile and show notice before startup
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
         
         if (isMobile) {
+            console.log('Mobile detected, showing notice');
             const mobileNotice = document.getElementById('mobile-notice');
             if (mobileNotice) {
                 mobileNotice.style.display = 'block';
             }
         } else {
+            console.log('Desktop detected, starting sequence');
             setTimeout(startupSequence, 500);
         }
         
@@ -25,10 +35,16 @@
 
     // Startup sequence
     function startupSequence() {
+        console.log('Starting startup sequence...');
         const startupText = document.getElementById('startupText');
         const startupScreen = document.getElementById('startupScreen');
         const desktop = document.getElementById('desktop');
         const startupSound = document.getElementById('startupSound');
+        
+        if (!startupScreen || !desktop) {
+            console.error('Required elements not found!');
+            return;
+        }
         
         // Play startup sound
         if (startupSound) {
@@ -124,6 +140,7 @@
     const mobileContinueBtn = document.getElementById('mobile-continue-btn');
     if (mobileContinueBtn) {
         mobileContinueBtn.addEventListener('click', function() {
+            console.log('Mobile continue button clicked');
             const mobileNotice = document.getElementById('mobile-notice');
             if (mobileNotice) {
                 mobileNotice.style.display = 'none';
@@ -131,6 +148,7 @@
             // Mark as seen so it doesn't show again
             localStorage.setItem('mobileNoticeSeen', 'true');
             // Start the startup sequence
+            console.log('Starting startup sequence from mobile continue');
             setTimeout(startupSequence, 100);
         });
     }
