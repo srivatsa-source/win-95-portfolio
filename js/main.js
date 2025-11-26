@@ -43,10 +43,20 @@
                     desktop.style.display = 'block';
                     animateSkillBars();
                     
-                    // Show welcome window with cat
-                    const welcomeWindow = document.getElementById('welcome-window');
-                    if (welcomeWindow) {
-                        welcomeWindow.style.display = 'block';
+                    // Detect mobile device
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+                    
+                    // Show mobile notice first if on mobile, otherwise show welcome
+                    if (isMobile && !localStorage.getItem('mobileNoticeSeen')) {
+                        const mobileNotice = document.getElementById('mobile-notice');
+                        if (mobileNotice) {
+                            mobileNotice.style.display = 'block';
+                        }
+                    } else {
+                        const welcomeWindow = document.getElementById('welcome-window');
+                        if (welcomeWindow) {
+                            welcomeWindow.style.display = 'block';
+                        }
                     }
                 }, 1000);
             }
@@ -107,6 +117,24 @@
             startButton.classList.remove('pressed');
         }
         document.removeEventListener('click', closeStartMenu);
+    }
+
+    // Mobile notice Continue button
+    const mobileContinueBtn = document.getElementById('mobile-continue-btn');
+    if (mobileContinueBtn) {
+        mobileContinueBtn.addEventListener('click', function() {
+            const mobileNotice = document.getElementById('mobile-notice');
+            if (mobileNotice) {
+                mobileNotice.style.display = 'none';
+            }
+            // Mark as seen so it doesn't show again
+            localStorage.setItem('mobileNoticeSeen', 'true');
+            // Show welcome window
+            const welcomeWindow = document.getElementById('welcome-window');
+            if (welcomeWindow) {
+                welcomeWindow.style.display = 'block';
+            }
+        });
     }
 
     // Welcome window Enter button

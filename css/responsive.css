@@ -43,8 +43,8 @@
     }
 }
 
-/* Mobile devices (max-width: 768px) */
-@media screen and (max-width: 768px) {
+/* Mobile devices (max-width: 768px) - Portrait only */
+@media screen and (max-width: 768px) and (orientation: portrait) {
     /* Better touch targets */
     body {
         font-size: 14px;
@@ -1014,5 +1014,46 @@ html, body {
     #taskbarApps {
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+    }
+}
+/* Landscape mode on mobile - use desktop-like layout */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    .desktop {
+        display: block;
+        height: calc(100vh - 50px);
+        overflow: auto;
+        padding: 10px;
+    }
+    
+    .desktop-icon {
+        position: absolute !important;
+        width: 75px;
+    }
+    
+    .desktop-icon .icon-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .icon-text {
+        font-size: 10px;
+    }
+    
+    /* Windows behave more like desktop in landscape */
+    .window {
+        width: auto !important;
+        height: auto !important;
+        max-width: 90% !important;
+        max-height: 85vh !important;
+        min-width: 400px !important;
+        min-height: 300px !important;
+    }
+    
+    #chatbot-window,
+    #guestbook-window {
+        width: 500px !important;
+        height: 600px !important;
+        max-width: 90%;
+        max-height: 85vh;
     }
 }

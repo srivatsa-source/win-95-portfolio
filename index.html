@@ -21,6 +21,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css" />
 </head>
 <body>
+    <!-- Mobile Detection Notice -->
+    <div id="mobile-notice" style="display: none;">
+        <div class="titlebar">Mobile Device Detected</div>
+        <div class="content">
+            <img class="cat-mascot" src="cat-smile.png" alt="Pixel cat smiling" />
+            <div class="welcome-text">
+                <h1>Hey there! 📱</h1>
+                <p>I'm Ora, Srivatsa's guide cat!</p>
+                <p style="margin-top: 15px;">For the best Windows 95 experience:</p>
+                <ul style="text-align: left; margin: 10px 0; padding-left: 25px;">
+                    <li>📺 <strong>View on Desktop/Laptop</strong> - Full retro experience!</li>
+                    <li>📱 <strong>Rotate to Landscape</strong> - Better mobile viewing</li>
+                </ul>
+                <p style="font-size: 11px; margin-top: 15px; color: #555;">You can still explore on mobile, but desktop is recommended!</p>
+            </div>
+        </div>
+        <div class="footer">
+            <button id="mobile-continue-btn" class="win-btn">Continue Anyway</button>
+        </div>
+    </div>
+
     <!-- Welcome Window with Cat Mascot -->
     <div id="welcome-window" style="display: none;">
         <div class="titlebar">Welcome</div>
