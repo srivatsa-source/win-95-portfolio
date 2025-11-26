@@ -52,15 +52,16 @@
         overflow-x: hidden;
     }
 
-    /* Desktop icons in a centered grid - all visible without scrolling */
+    /* Desktop icons in a left-aligned grid - all visible without scrolling */
     .desktop {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 85px);
         gap: 10px 15px;
         padding: 10px 15px;
         padding-bottom: 60px;
-        justify-items: center;
+        justify-items: start;
         align-items: start;
+        justify-content: start;
         height: calc(100vh - 50px);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
@@ -722,9 +723,11 @@
 
 /* Small mobile devices (max-width: 480px) */
 @media screen and (max-width: 480px) {
-    /* Desktop icons - keep 3 columns but smaller spacing */
+    /* Desktop icons - keep 3 columns but smaller spacing, left-aligned */
     .desktop {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 75px);
+        justify-items: start;
+        justify-content: start;
         gap: 8px 12px;
         padding: 8px 12px;
         padding-bottom: 55px;
