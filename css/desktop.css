@@ -31,12 +31,12 @@
 }
 
 /* Initial positions for desktop icons */
-.desktop-icon[data-window="about"] { top: 20px; left: 20px; }
-.desktop-icon[data-window="skills"] { top: 140px; left: 20px; }
-.desktop-icon[data-window="projects"] { top: 260px; left: 20px; }
-.desktop-icon[data-window="experience"] { top: 380px; left: 20px; }
-.desktop-icon[data-window="contact"] { top: 20px; left: 120px; }
-.desktop-icon[data-window="minesweeper"] { top: 140px; left: 120px; }
+.desktop-icon[data-window="about"] { top: 10px; left: 10px; }
+.desktop-icon[data-window="skills"] { top: 115px; left: 10px; }
+.desktop-icon[data-window="projects"] { top: 220px; left: 10px; }
+.desktop-icon[data-window="experience"] { top: 325px; left: 10px; }
+.desktop-icon[data-window="contact"] { top: 10px; left: 105px; }
+.desktop-icon[data-window="minesweeper"] { top: 115px; left: 105px; }
 
 .icon-image {
     display: block;
