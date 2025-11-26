@@ -10,7 +10,7 @@
         // Check if mobile and show notice before startup
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
         
-        if (isMobile && !localStorage.getItem('mobileNoticeSeen')) {
+        if (isMobile) {
             const mobileNotice = document.getElementById('mobile-notice');
             if (mobileNotice) {
                 mobileNotice.style.display = 'block';

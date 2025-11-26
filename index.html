@@ -158,6 +158,14 @@
             <div class="icon-image game-icon"></div>
             <div class="icon-text">Minesweeper</div>
         </div>
+        <div class="desktop-icon" data-window="terminal">
+            <div class="icon-image terminal-icon"></div>
+            <div class="icon-text">MS-DOS Prompt</div>
+        </div>
+        <div class="desktop-icon" data-window="eastereggs">
+            <div class="icon-image folder-icon"></div>
+            <div class="icon-text">Easter Eggs</div>
+        </div>
 
         <!-- Desktop Context Menu -->
         <div class="context-menu" id="contextMenu">
@@ -442,6 +450,95 @@
             <div class="resize-handle se"></div>
         </div>
 
+        <!-- Terminal Window -->
+        <div class="window" id="terminal" style="top: 80px; left: 180px; width: 600px; height: 400px;">
+            <div class="title-bar">
+                <span>MS-DOS Prompt</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('terminal')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('terminal')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('terminal')">×</div>
+                </div>
+            </div>
+            <div class="window-content" style="background: #000; color: #c0c0c0; font-family: 'Courier New', monospace; font-size: 14px; padding: 10px; overflow-y: auto;">
+                <div id="terminal-output">
+                    <div>Microsoft(R) Windows 95</div>
+                    <div>(C)Copyright Microsoft Corp 1981-1995.</div>
+                    <div></div>
+                    <div>C:\WINDOWS&gt;</div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span>C:\WINDOWS&gt;</span>
+                    <input type="text" id="terminal-input" style="background: transparent; border: none; color: #c0c0c0; font-family: 'Courier New', monospace; font-size: 14px; outline: none; flex: 1; margin-left: 5px;" autocomplete="off" />
+                </div>
+            </div>
+            <div class="status-bar">MS-DOS Prompt - C:\WINDOWS</div>
+            <div class="resize-handle se"></div>
+        </div>
+
+        <!-- Easter Eggs Window -->
+        <div class="window" id="eastereggs" style="top: 90px; left: 200px; width: 500px; height: 450px;">
+            <div class="title-bar">
+                <span>Easter Eggs - Hidden Features</span>
+                <div class="window-controls">
+                    <div class="window-button" onclick="minimizeWindow('eastereggs')">_</div>
+                    <div class="window-button" onclick="toggleMaximize('eastereggs')">⛶</div>
+                    <div class="window-button" onclick="closeWindow('eastereggs')">×</div>
+                </div>
+            </div>
+            <div class="window-content" style="padding: 20px;">
+                <h2 style="margin-top: 0; border-bottom: 2px solid #000080; padding-bottom: 8px;">🥚 Hidden Features & Easter Eggs</h2>
+                <p style="margin-bottom: 15px; font-size: 12px; color: #555;">Discover the secrets hidden in this Windows 95 portfolio!</p>
+                
+                <div style="background: #fff; border: 2px inset #808080; padding: 15px; max-height: 300px; overflow-y: auto;">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🎮 Minesweeper Game</strong><br>
+                            <span style="font-size: 11px;">Play the classic Windows game with three difficulty levels!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🐱 Ora the AI Cat</strong><br>
+                            <span style="font-size: 11px;">Chat with the AI assistant powered by GPT-4o-mini about Srivatsa's work!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>📖 Guestbook</strong><br>
+                            <span style="font-size: 11px;">Sign the guestbook and leave your mark (with security protection!).</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🖱️ Draggable Windows</strong><br>
+                            <span style="font-size: 11px;">All windows can be dragged and repositioned, just like the real Windows 95!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🎯 Visitor Counter</strong><br>
+                            <span style="font-size: 11px;">Check the bottom-left to see how many people visited this portfolio.</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>💾 MS-DOS Prompt</strong><br>
+                            <span style="font-size: 11px;">Try typing classic DOS commands like 'dir', 'help', 'ver', or 'tree'!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🎨 Authentic Windows 95 Theme</strong><br>
+                            <span style="font-size: 11px;">Every dialog, button, and window follows the classic Windows 95 design!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>📱 Mobile Responsive</strong><br>
+                            <span style="font-size: 11px;">The entire Windows 95 experience works on mobile devices too!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🎵 Startup Sound</strong><br>
+                            <span style="font-size: 11px;">Listen for the authentic Windows 95 startup chime when loading!</span>
+                        </li>
+                        <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
+                            <strong>🔍 Interactive Tour</strong><br>
+                            <span style="font-size: 11px;">First-time visitors get a guided tour of all features!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="status-bar">10 Easter Eggs Found!</div>
+            <div class="resize-handle se"></div>
+        </div>
+
         <!-- Taskbar -->
         <div class="taskbar">
             <div class="start-button">
@@ -513,5 +610,6 @@
     <script src="js/chat.js"></script>
     <script src="js/guestbook.js"></script>
     <script src="js/minesweeper.js"></script>
+    <script src="js/terminal.js"></script>
 </body>
 </html>

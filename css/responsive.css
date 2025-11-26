@@ -55,9 +55,9 @@
     /* Desktop icons in a left-aligned grid - all visible without scrolling */
     .desktop {
         display: grid;
-        grid-template-columns: repeat(3, 85px);
-        gap: 10px 15px;
-        padding: 10px 15px;
+        grid-template-columns: repeat(3, 90px);
+        gap: 20px 20px;
+        padding: 15px 20px;
         padding-bottom: 60px;
         justify-items: start;
         align-items: start;
@@ -68,7 +68,8 @@
     }
 
     .desktop-icon {
-        width: 85px;
+        width: 90px;
+        height: 95px;
         margin: 0;
         cursor: pointer;
         -webkit-user-select: none;
@@ -725,16 +726,17 @@
 @media screen and (max-width: 480px) {
     /* Desktop icons - keep 3 columns but smaller spacing, left-aligned */
     .desktop {
-        grid-template-columns: repeat(3, 75px);
+        grid-template-columns: repeat(3, 80px);
         justify-items: start;
         justify-content: start;
-        gap: 8px 12px;
-        padding: 8px 12px;
+        gap: 15px 15px;
+        padding: 12px 15px;
         padding-bottom: 55px;
     }
 
     .desktop-icon {
-        width: 75px;
+        width: 80px;
+        height: 92px;
     }
 
     .desktop-icon .icon-image {

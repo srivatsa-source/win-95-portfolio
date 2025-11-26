@@ -37,6 +37,8 @@
 .desktop-icon[data-window="experience"] { top: 325px; left: 10px; }
 .desktop-icon[data-window="contact"] { top: 10px; left: 105px; }
 .desktop-icon[data-window="minesweeper"] { top: 115px; left: 105px; }
+.desktop-icon[data-window="terminal"] { top: 220px; left: 105px; }
+.desktop-icon[data-window="eastereggs"] { top: 325px; left: 105px; }
 
 .icon-image {
     display: block;
@@ -75,6 +77,10 @@
 
 .game-icon {
     background-image: url('https://64.media.tumblr.com/4334e5fa1f94e46d6446a12ca280cacf/9f9972b109090c71-f7/s540x810/55bd7fde6c0223fbdacd0ee0277a13cb6ede088c.png');
+}
+
+.terminal-icon {
+    background-image: url('https://win98icons.alexmeub.com/icons/png/ms_dos-0.png');
 }
 
 .icon-text {
