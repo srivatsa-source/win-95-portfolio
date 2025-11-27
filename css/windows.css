@@ -268,6 +268,65 @@
     }
 }
 
+/* Mobile notice - landscape mode optimization */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    #mobile-notice {
+        min-width: 90%;
+        max-width: 95%;
+        width: auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    #mobile-notice .content {
+        padding: 10px 15px;
+        gap: 10px;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    #mobile-notice .cat-mascot {
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+    }
+    
+    #mobile-notice .welcome-text {
+        flex: 1;
+        text-align: left;
+    }
+    
+    #mobile-notice .welcome-text h1 {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    
+    #mobile-notice .welcome-text p {
+        font-size: 10px;
+        margin: 3px 0;
+    }
+    
+    #mobile-notice .welcome-text ul {
+        margin: 5px 0;
+        padding-left: 15px;
+    }
+    
+    #mobile-notice .welcome-text li {
+        font-size: 9px;
+        margin: 2px 0;
+    }
+    
+    #mobile-notice .footer {
+        padding: 8px;
+    }
+    
+    #mobile-continue-btn {
+        padding: 8px 20px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+}
+
 /* Landscape orientation - use desktop layout */
 @media (max-width: 768px) and (orientation: landscape) {
     .desktop {
