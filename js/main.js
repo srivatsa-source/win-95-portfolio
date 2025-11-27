@@ -9,8 +9,11 @@
     window.addEventListener('load', function() {
         console.log('Page loaded, initializing...');
         
-        // Check if mobile and show notice before startup
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        // Enhanced mobile detection - checks user agent OR touch capability OR small screen
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const isSmallScreen = (window.innerWidth <= 768) || (window.innerHeight <= 768);
+        const isMobile = isMobileDevice || (isTouchDevice && isSmallScreen);
         
         if (isMobile) {
             console.log('Mobile detected, showing notice');
