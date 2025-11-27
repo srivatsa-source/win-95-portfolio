@@ -24,11 +24,19 @@
                 const itemName = this.textContent.trim();
                 closeStartMenu();
                 
+                // Special case: MS-DOS Prompt actually opens the terminal
+                if (itemName === 'MS-DOS Prompt') {
+                    const terminal = document.querySelector('[data-window="terminal"]');
+                    if (terminal) {
+                        terminal.dispatchEvent(new Event('dblclick'));
+                    }
+                    return;
+                }
+                
                 // Show a Windows 95 style dialog for submenu items
                 const messages = {
                     'StartUp': '<strong>StartUp Programs</strong><br><br>Programs that run automatically when Windows starts.<br><br>This is a themed portfolio - explore the desktop icons to see real projects and skills!',
                     'Microsoft Exchange': '<strong>Microsoft Exchange</strong><br><br>Email and messaging center.<br><br>Want to get in touch? Check out the <strong>Contact</strong> window on the desktop!',
-                    'MS-DOS Prompt': '<strong>MS-DOS Prompt</strong><br><br>Access to MS-DOS command line.<br><br>Try the <strong>Run</strong> option from the Start menu instead!',
                     'The Microsoft Network': '<strong>The Microsoft Network</strong><br><br>Connect to MSN online services.<br><br>Explore the portfolio windows on the desktop for more information!',
                     'Windows Explorer': '<strong>Windows Explorer</strong><br><br>Browse files and folders.<br><br>Double-click the desktop icons to explore projects, skills, and experience!',
                     'Media Player': '<strong>Media Player</strong><br><br>Play audio and video files.<br><br>This is part of the Windows 95 theme - check out the real projects on the desktop!',
@@ -205,7 +213,7 @@
                     <input type="text" id="run-input" style="flex: 1; padding: 4px; border: 1px inset #808080;" placeholder="Try: about, skills, projects, chat">
                 </div>
                 <div style="font-size: 10px; color: #808080;">
-                    <strong>Commands:</strong> about, skills, projects, experience, contact, chat, minesweeper, guestbook
+                    <strong>Commands:</strong> about, skills, projects, experience, contact, chat, minesweeper, guestbook, terminal, eastereggs
                 </div>
             </div>
             <div class="win95-dialog-buttons">
@@ -247,7 +255,11 @@
             'contact': () => document.querySelector('[data-window="contact"]').dispatchEvent(new Event('dblclick')),
             'chat': () => document.getElementById('chatbot-window').classList.add('active'),
             'minesweeper': () => document.querySelector('[data-window="minesweeper"]').dispatchEvent(new Event('dblclick')),
-            'guestbook': () => document.getElementById('guestbook-window').style.display = 'flex'
+            'guestbook': () => document.getElementById('guestbook-window').style.display = 'flex',
+            'terminal': () => document.querySelector('[data-window="terminal"]').dispatchEvent(new Event('dblclick')),
+            'eastereggs': () => document.querySelector('[data-window="eastereggs"]').dispatchEvent(new Event('dblclick')),
+            'ms-dos': () => document.querySelector('[data-window="terminal"]').dispatchEvent(new Event('dblclick')),
+            'dos': () => document.querySelector('[data-window="terminal"]').dispatchEvent(new Event('dblclick'))
         };
 
         if (commands[command]) {

@@ -9,23 +9,26 @@
     window.addEventListener('load', function() {
         console.log('Page loaded, initializing...');
         
-        // Ensure startup screen is visible
-        const startupScreen = document.getElementById('startupScreen');
-        const desktop = document.getElementById('desktop');
-        if (startupScreen) startupScreen.style.display = 'flex';
-        if (desktop) desktop.style.display = 'none';
-        
         // Check if mobile and show notice before startup
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
         
         if (isMobile) {
             console.log('Mobile detected, showing notice');
+            // Hide startup screen and desktop, show mobile notice
+            const startupScreen = document.getElementById('startupScreen');
+            const desktop = document.getElementById('desktop');
             const mobileNotice = document.getElementById('mobile-notice');
-            if (mobileNotice) {
-                mobileNotice.style.display = 'block';
-            }
+            
+            if (startupScreen) startupScreen.style.display = 'none';
+            if (desktop) desktop.style.display = 'none';
+            if (mobileNotice) mobileNotice.style.display = 'block';
         } else {
             console.log('Desktop detected, starting sequence');
+            // Ensure startup screen is visible and desktop is hidden initially
+            const startupScreen = document.getElementById('startupScreen');
+            const desktop = document.getElementById('desktop');
+            if (startupScreen) startupScreen.style.display = 'flex';
+            if (desktop) desktop.style.display = 'none';
             setTimeout(startupSequence, 500);
         }
         
@@ -142,8 +145,14 @@
         mobileContinueBtn.addEventListener('click', function() {
             console.log('Mobile continue button clicked');
             const mobileNotice = document.getElementById('mobile-notice');
+            const startupScreen = document.getElementById('startupScreen');
+            
             if (mobileNotice) {
                 mobileNotice.style.display = 'none';
+            }
+            // Show startup screen before starting sequence
+            if (startupScreen) {
+                startupScreen.style.display = 'flex';
             }
             // Mark as seen so it doesn't show again
             localStorage.setItem('mobileNoticeSeen', 'true');
