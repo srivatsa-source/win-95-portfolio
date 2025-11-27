@@ -7,45 +7,91 @@
 .calc-display {
     background: #fff;
     border: 2px inset #fff;
-    margin: 10px;
-    padding: 5px;
+    margin: 10px 10px 5px 10px;
+    padding: 0 5px;
     text-align: right;
     font-family: 'Courier New', monospace;
     font-size: 20px;
-    height: 30px;
-    line-height: 30px;
-    margin-bottom: 15px;
+    height: 28px;
+    line-height: 28px;
 }
 
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+.calc-body {
+    display: flex;
+    padding: 5px 10px 10px 10px;
+    gap: 8px;
+}
+
+.calc-memory-col {
+    display: flex;
+    flex-direction: column;
     gap: 5px;
-    padding: 0 10px 10px 10px;
+    width: 35px;
+}
+
+.calc-mem-box {
+    height: 28px;
+    border: 1px inset #fff; /* Thinner inset */
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.calc-main-pad {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.calc-top-row {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+    margin-bottom: 2px;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
 }
 
 .calc-btn {
     width: 100%;
-    height: 35px;
+    height: 28px;
     font-family: 'MS Sans Serif', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
-    color: blue;
     background: #c0c0c0;
-    border: 2px outset #fff;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    box-shadow: 1px 1px 0 #000;
     cursor: pointer;
+    padding: 0;
+    outline: none;
 }
 
 .calc-btn:active {
-    border: 2px inset #fff;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    box-shadow: none;
+    transform: translate(1px, 1px);
 }
 
-.calc-btn.operator {
-    color: red;
-}
-
-.calc-btn.clear {
+.calc-btn.red-text {
     color: #800000;
+}
+
+.calc-btn.blue-text {
+    color: #000080;
 }
 
 /* Paint Styles */
@@ -91,21 +137,33 @@
 .paint-tool {
     width: 24px;
     height: 24px;
-    border: 1px outset #fff;
     background: #c0c0c0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     cursor: pointer;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    box-shadow: 1px 1px 0 #000;
 }
 
 .paint-tool:active {
-    border: 1px inset #fff;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    box-shadow: none;
 }
 
 .paint-tool.active {
-    border: 1px inset #fff;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    box-shadow: none;
     background: #e0e0e0; /* slightly darker to show pressed state */
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+'); /* Dither pattern */
 }

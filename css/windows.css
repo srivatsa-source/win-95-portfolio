@@ -21,12 +21,13 @@
 }
 
 .menu-item {
-    padding: 2px 8px;
-    cursor: pointer;
+    padding: 2px 6px;
+    cursor: default;
     user-select: none;
+    position: relative; /* For absolute positioning of dropdowns */
 }
 
-.menu-item:hover {
+.menu-item:hover, .menu-item.active {
     background: #000080;
     color: white;
 }
@@ -37,13 +38,17 @@
     background: #c0c0c0;
     border: 2px outset #dfdfdf;
     padding: 2px;
-    z-index: 1000;
+    z-index: 2000; /* Higher than window content */
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    min-width: 150px;
 }
 
 .dropdown-item {
-    padding: 5px 20px;
-    cursor: pointer;
+    padding: 3px 20px;
+    cursor: default;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 11px;
+    color: #000;
 }
 
 .dropdown-item:hover {

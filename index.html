@@ -200,44 +200,70 @@
             </div>
         </div>
         <div class="window-menu-bar">
-            <span class="menu-item">Edit</span>
-            <span class="menu-item">View</span>
-            <span class="menu-item">Help</span>
+            <div class="menu-item" data-menu="calc-edit">Edit</div>
+            <div class="menu-item" data-menu="calc-view">View</div>
+            <div class="menu-item" data-menu="calc-help">Help</div>
         </div>
-        <div class="window-content" style="padding: 5px;">
+        
+        <!-- Calculator Menus -->
+        <div id="calc-edit-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="copyCalc()">Copy &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+C</div>
+            <div class="dropdown-item" onclick="pasteCalc()">Paste &nbsp;&nbsp;&nbsp;Ctrl+V</div>
+        </div>
+        <div id="calc-view-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item">Standard</div>
+            <div class="dropdown-item">Scientific</div>
+        </div>
+        <div id="calc-help-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="showAlert('Help Topics')">Help Topics</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="showAlert('About Calculator')">About Calculator</div>
+        </div>
+
+        <div class="window-content" style="padding: 5px; background: #c0c0c0;">
             <div class="calc-display">
-                <span id="calc-display-text">0</span>
+                <span id="calc-display-text">0.</span>
             </div>
-            <div class="calc-buttons">
-                <!-- Row 1 -->
-                <button class="calc-btn clear" data-type="action" data-value="clear">C</button>
-                <button class="calc-btn" data-type="action" data-value="sqrt">sqrt</button>
-                <button class="calc-btn" data-type="action" data-value="percent">%</button>
-                <button class="calc-btn operator" data-type="operator" data-value="/">/</button>
-                
-                <!-- Row 2 -->
-                <button class="calc-btn" data-type="number" data-value="7">7</button>
-                <button class="calc-btn" data-type="number" data-value="8">8</button>
-                <button class="calc-btn" data-type="number" data-value="9">9</button>
-                <button class="calc-btn operator" data-type="operator" data-value="*">*</button>
-                
-                <!-- Row 3 -->
-                <button class="calc-btn" data-type="number" data-value="4">4</button>
-                <button class="calc-btn" data-type="number" data-value="5">5</button>
-                <button class="calc-btn" data-type="number" data-value="6">6</button>
-                <button class="calc-btn operator" data-type="operator" data-value="-">-</button>
-                
-                <!-- Row 4 -->
-                <button class="calc-btn" data-type="number" data-value="1">1</button>
-                <button class="calc-btn" data-type="number" data-value="2">2</button>
-                <button class="calc-btn" data-type="number" data-value="3">3</button>
-                <button class="calc-btn operator" data-type="operator" data-value="+">+</button>
-                
-                <!-- Row 5 -->
-                <button class="calc-btn" data-type="number" data-value="0">0</button>
-                <button class="calc-btn" data-type="number" data-value=".">.</button>
-                <button class="calc-btn" data-type="action" data-value="reciprocal">1/x</button>
-                <button class="calc-btn operator" data-type="action" data-value="equals">=</button>
+            <div class="calc-body">
+                <div class="calc-memory-col">
+                    <div class="calc-mem-box"></div>
+                    <button class="calc-btn red-text" data-type="memory" data-value="MC">MC</button>
+                    <button class="calc-btn red-text" data-type="memory" data-value="MR">MR</button>
+                    <button class="calc-btn red-text" data-type="memory" data-value="MS">MS</button>
+                    <button class="calc-btn red-text" data-type="memory" data-value="M+">M+</button>
+                </div>
+                <div class="calc-main-pad">
+                    <div class="calc-top-row">
+                        <button class="calc-btn red-text" data-type="action" data-value="back">Back</button>
+                        <button class="calc-btn red-text" data-type="action" data-value="ce">CE</button>
+                        <button class="calc-btn red-text" data-type="action" data-value="clear">C</button>
+                    </div>
+                    <div class="calc-grid">
+                        <button class="calc-btn blue-text" data-type="number" data-value="7">7</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="8">8</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="9">9</button>
+                        <button class="calc-btn red-text" data-type="operator" data-value="/">/</button>
+                        <button class="calc-btn blue-text" data-type="action" data-value="sqrt">sqrt</button>
+
+                        <button class="calc-btn blue-text" data-type="number" data-value="4">4</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="5">5</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="6">6</button>
+                        <button class="calc-btn red-text" data-type="operator" data-value="*">*</button>
+                        <button class="calc-btn blue-text" data-type="action" data-value="percent">%</button>
+
+                        <button class="calc-btn blue-text" data-type="number" data-value="1">1</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="2">2</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value="3">3</button>
+                        <button class="calc-btn red-text" data-type="operator" data-value="-">-</button>
+                        <button class="calc-btn blue-text" data-type="action" data-value="reciprocal">1/x</button>
+
+                        <button class="calc-btn blue-text" data-type="number" data-value="0">0</button>
+                        <button class="calc-btn blue-text" data-type="action" data-value="sign">+/-</button>
+                        <button class="calc-btn blue-text" data-type="number" data-value=".">.</button>
+                        <button class="calc-btn red-text" data-type="operator" data-value="+">+</button>
+                        <button class="calc-btn red-text" data-type="action" data-value="equals">=</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -254,13 +280,60 @@
             </div>
         </div>
         <div class="window-menu-bar">
-            <span class="menu-item">File</span>
-            <span class="menu-item">Edit</span>
-            <span class="menu-item">View</span>
-            <span class="menu-item">Image</span>
-            <span class="menu-item">Options</span>
-            <span class="menu-item">Help</span>
+            <div class="menu-item" data-menu="paint-file">File</div>
+            <div class="menu-item" data-menu="paint-edit">Edit</div>
+            <div class="menu-item" data-menu="paint-view">View</div>
+            <div class="menu-item" data-menu="paint-image">Image</div>
+            <div class="menu-item" data-menu="paint-options">Options</div>
+            <div class="menu-item" data-menu="paint-help">Help</div>
         </div>
+
+        <!-- Paint Menus -->
+        <div id="paint-file-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="showAlert('New')">New &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+N</div>
+            <div class="dropdown-item" onclick="showAlert('Open')">Open... &nbsp;Ctrl+O</div>
+            <div class="dropdown-item" onclick="showAlert('Save')">Save &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+S</div>
+            <div class="dropdown-item" onclick="showAlert('Save As')">Save As...</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="closeWindow('paint')">Exit &nbsp;&nbsp;&nbsp;&nbsp;Alt+F4</div>
+        </div>
+        <div id="paint-edit-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="showAlert('Undo')">Undo &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+Z</div>
+            <div class="dropdown-item" onclick="showAlert('Repeat')">Repeat &nbsp;&nbsp;F4</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="showAlert('Cut')">Cut &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+X</div>
+            <div class="dropdown-item" onclick="showAlert('Copy')">Copy &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+C</div>
+            <div class="dropdown-item" onclick="showAlert('Paste')">Paste &nbsp;&nbsp;&nbsp;Ctrl+V</div>
+            <div class="dropdown-item" onclick="showAlert('Clear Selection')">Clear Selection &nbsp;Del</div>
+            <div class="dropdown-item" onclick="showAlert('Select All')">Select All &nbsp;Ctrl+L</div>
+        </div>
+        <div id="paint-view-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item">Tool Box &nbsp;&nbsp;Ctrl+T</div>
+            <div class="dropdown-item">Color Box &nbsp;Ctrl+A</div>
+            <div class="dropdown-item">Status Bar</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">Zoom</div>
+            <div class="dropdown-item">View Bitmap &nbsp;Ctrl+F</div>
+        </div>
+        <div id="paint-image-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="showAlert('Flip/Rotate')">Flip/Rotate... &nbsp;Ctrl+R</div>
+            <div class="dropdown-item" onclick="showAlert('Stretch/Skew')">Stretch/Skew... &nbsp;Ctrl+W</div>
+            <div class="dropdown-item" onclick="showAlert('Invert Colors')">Invert Colors &nbsp;Ctrl+I</div>
+            <div class="dropdown-item" onclick="showAlert('Attributes')">Attributes... &nbsp;Ctrl+E</div>
+            <div class="dropdown-item" onclick="showAlert('Clear Image')">Clear Image &nbsp;Ctrl+Shift+N</div>
+        </div>
+        <div id="paint-options-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item">Edit Colors...</div>
+            <div class="dropdown-item">Get Colors...</div>
+            <div class="dropdown-item">Save Colors...</div>
+            <div class="dropdown-item">Draw Opaque</div>
+        </div>
+        <div id="paint-help-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" onclick="showAlert('Help Topics')">Help Topics</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="showAlert('About Paint')">About Paint</div>
+        </div>
+
         <div class="window-content paint-body">
             <div class="paint-main-area">
                 <div class="paint-toolbar">
@@ -828,5 +901,6 @@
     <script src="js/paint.js"></script>
     <script src="js/mycomputer.js"></script>
     <script src="js/terminal.js"></script>
+    <script src="js/menus.js"></script>
 </body>
 </html>
