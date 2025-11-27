@@ -46,21 +46,44 @@
     width: 600px;
     height: 450px;
     background: #c0c0c0;
-    display: flex;
     flex-direction: column;
 }
 
-.paint-toolbar {
+#paint.active {
     display: flex;
-    padding: 5px;
-    border-bottom: 1px solid #808080;
-    gap: 5px;
+}
+
+.paint-body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px);
+    padding: 2px;
+}
+
+.paint-main-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.paint-toolbar {
+    width: 52px;
     background: #c0c0c0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+    gap: 2px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    margin-right: 2px;
 }
 
 .paint-tool {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     border: 1px outset #fff;
     background: #c0c0c0;
     display: flex;
@@ -76,12 +99,14 @@
 }
 
 .paint-colors {
+    height: 32px;
     display: flex;
     flex-wrap: wrap;
-    width: 150px;
+    padding: 4px;
+    margin-top: 2px;
+    border-top: 1px solid #808080;
+    background: #c0c0c0;
     gap: 2px;
-    padding: 5px;
-    border-left: 1px solid #808080;
 }
 
 .color-box {
@@ -104,6 +129,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px inset #fff;
 }
 
 #paintCanvas {
