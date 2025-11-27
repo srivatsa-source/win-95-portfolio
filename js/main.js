@@ -236,4 +236,9 @@
         });
     }
 
+    // Load Notepad script dynamically
+    const notepadScript = document.createElement('script');
+    notepadScript.src = 'js/notepad.js';
+    document.body.appendChild(notepadScript);
+
 })();

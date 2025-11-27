@@ -1,3 +1,63 @@
+/* Notepad specific styles */
+.notepad-icon {
+    background-image: url('https://win98icons.alexmeub.com/icons/png/notepad-0.png');
+    background-size: cover;
+}
+
+.notepad-icon-small {
+    width: 16px;
+    height: 16px;
+    background-image: url('https://win98icons.alexmeub.com/icons/png/notepad-0.png');
+    background-size: cover;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.window-menu-bar {
+    display: flex;
+    background: #c0c0c0;
+    padding: 2px 5px;
+    border-bottom: 1px solid #808080;
+}
+
+.menu-item {
+    padding: 2px 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.menu-item:hover {
+    background: #000080;
+    color: white;
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+    position: absolute;
+    background: #c0c0c0;
+    border: 2px outset #dfdfdf;
+    padding: 2px;
+    z-index: 1000;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.dropdown-item {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: #000080;
+    color: white;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #808080;
+    border-bottom: 1px solid #fff;
+    margin: 3px 0;
+}
+
 /* Window Styles */
 .window {
     position: absolute;

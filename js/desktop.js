@@ -39,7 +39,8 @@
             // Touch tap to open on mobile (simpler than double-tap)
             let touchTimer = null;
             icon.addEventListener('touchend', function(e) {
-                if (window.innerWidth <= 768) {
+                // Allow touch open on devices up to 1024px (covers landscape mobile/tablets)
+                if (window.innerWidth <= 1024) {
                     e.preventDefault();
                     const windowId = this.dataset.window;
                     if (typeof openWindow === 'function') {
@@ -62,7 +63,7 @@
             // Mouse down - start drag (desktop only)
             icon.addEventListener('mousedown', function(e) {
                 if (e.button !== 0) return;
-                if (window.innerWidth <= 768) return; // Disable dragging on mobile
+                if (window.innerWidth <= 1024) return; // Disable dragging on mobile/tablet
                 
                 isDragging = true;
                 currentDragIcon = this;

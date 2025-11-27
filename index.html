@@ -132,6 +132,36 @@
         </audio>
     </div>
 
+    <!-- Notepad Window -->
+    <div class="window" id="notepad" style="top: 60px; left: 200px; width: 400px; height: 300px; display: none;">
+        <div class="title-bar">
+            <div class="title-bar-icon notepad-icon-small"></div>
+            <span>Untitled - Notepad</span>
+            <div class="window-controls">
+                <div class="window-button" onclick="minimizeWindow('notepad')">_</div>
+                <div class="window-button" onclick="toggleMaximize('notepad')">⛶</div>
+                <div class="window-button" onclick="closeWindow('notepad')">×</div>
+            </div>
+        </div>
+        <div class="window-menu-bar">
+            <span class="menu-item" id="notepad-file">File</span>
+            <span class="menu-item" id="notepad-edit">Edit</span>
+            <span class="menu-item" id="notepad-search">Search</span>
+            <span class="menu-item" id="notepad-help">Help</span>
+        </div>
+        <div class="window-content" style="padding: 0; overflow: hidden; display: flex; flex-direction: column; height: calc(100% - 50px);">
+            <textarea id="notepad-textarea" style="flex: 1; width: 100%; border: none; resize: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 14px; outline: none; box-sizing: border-box;"></textarea>
+        </div>
+        <!-- Simple Dropdown Menus (Hidden by default, toggled via JS if we wanted full complexity, but for now just visual or simple alerts) -->
+        <div id="notepad-file-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" id="notepad-new">New</div>
+            <div class="dropdown-item" id="notepad-open">Open...</div>
+            <div class="dropdown-item" id="notepad-save">Save</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" onclick="closeWindow('notepad')">Exit</div>
+        </div>
+    </div>
+
     <div class="desktop" id="desktop" style="display:none;">
         <!-- Desktop Icons -->
         <div class="desktop-icon" data-window="about">
@@ -165,6 +195,10 @@
         <div class="desktop-icon" data-window="eastereggs">
             <div class="icon-image folder-icon"></div>
             <div class="icon-text">Easter Eggs</div>
+        </div>
+        <div class="desktop-icon" data-window="notepad">
+            <div class="icon-image notepad-icon"></div>
+            <div class="icon-text">Notepad</div>
         </div>
 
         <!-- Desktop Context Menu -->
