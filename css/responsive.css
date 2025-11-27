@@ -1094,7 +1094,7 @@ html, body {
 }
 
 /* Fix for Mobile Landscape Mode - Overrides previous rules */
-@media screen and (max-width: 900px) and (orientation: landscape) {
+@media screen and (max-width: 1024px) and (orientation: landscape) {
     .desktop {
         display: grid !important;
         grid-template-columns: repeat(auto-fill, 90px) !important;
