@@ -36,6 +36,17 @@
         if (windowId === 'minesweeper' && typeof initializeMinesweeper === 'function') {
             initializeMinesweeper();
         }
+
+        // Special handling for new apps
+        if (windowId === 'calculator' && typeof window.initCalculator === 'function') {
+            window.initCalculator();
+        }
+        if (windowId === 'paint' && typeof window.initPaint === 'function') {
+            window.initPaint();
+        }
+        if (windowId === 'notepad' && typeof window.initNotepad === 'function') {
+            window.initNotepad();
+        }
     };
 
     // Close window

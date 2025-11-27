@@ -3,7 +3,7 @@
     'use strict';
 
     // Initialize Notepad functionality
-    function initNotepad() {
+    window.initNotepad = function() {
         const notepadTextarea = document.getElementById('notepad-textarea');
         if (!notepadTextarea) return;
 
@@ -20,7 +20,7 @@
 
         // Menu actions
         setupMenuActions();
-    }
+    };
 
     function setupMenuActions() {
         // New
@@ -51,30 +51,8 @@
         });
     }
 
-    // Initialize when window opens
-    // We need to observe when the notepad window is added to DOM or becomes visible
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.target.id === 'notepad' && mutation.target.style.display !== 'none') {
-                initNotepad();
-            }
-        });
-    });
-
-    const notepadWindow = document.getElementById('notepad');
-    if (notepadWindow) {
-        observer.observe(notepadWindow, { attributes: true, attributeFilter: ['style'] });
-        // Also init if already open
-        if (notepadWindow.style.display !== 'none') {
-            initNotepad();
-        }
-    } else {
-        // Wait for DOM content loaded if script runs before HTML
-        document.addEventListener('DOMContentLoaded', () => {
-            const win = document.getElementById('notepad');
-            if (win) {
-                observer.observe(win, { attributes: true, attributeFilter: ['style'] });
-            }
-        });
+    // Initialize if window is already present
+    if (document.getElementById('notepad')) {
+        window.initNotepad();
     }
 })();
