@@ -182,15 +182,8 @@
         });
     }
 
-    // Alert dialog functions
-    window.showAlert = function(message) {
-        const alertDialog = document.getElementById('alertDialog');
-        const alertMessage = document.getElementById('alertMessage');
-        if (alertDialog && alertMessage) {
-            alertMessage.textContent = message || 'This feature is not implemented in this demo.';
-            alertDialog.style.display = 'block';
-        }
-    };
+    // Alert dialog functions - Removed to allow win95-dialogs.js to handle this
+    // window.showAlert is now handled by win95-dialogs.js which supports HTML content
 
     window.closeAlert = function() {
         const alertDialog = document.getElementById('alertDialog');

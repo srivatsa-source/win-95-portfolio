@@ -1092,3 +1092,61 @@ html, body {
         max-height: 85vh;
     }
 }
+
+/* Fix for Mobile Landscape Mode - Overrides previous rules */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    .desktop {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, 90px) !important;
+        grid-auto-rows: 100px !important;
+        gap: 10px !important;
+        padding: 10px !important;
+        justify-content: start !important;
+        align-content: start !important;
+        height: calc(100vh - 50px) !important;
+        overflow-y: auto !important;
+    }
+
+    .desktop-icon {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 90px !important;
+        height: 95px !important;
+        margin: 0 !important;
+    }
+
+    .desktop-icon .icon-image {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .icon-text {
+        font-size: 11px !important;
+    }
+
+    /* Fix window sizing in landscape */
+    .window {
+        width: 85vw !important;
+        height: 80vh !important;
+        max-width: 600px !important;
+        max-height: 90vh !important;
+        min-width: auto !important;
+        min-height: auto !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .window-content {
+        max-height: calc(80vh - 40px) !important;
+    }
+    
+    /* Ensure specific windows fit */
+    #chatbot-window,
+    #guestbook-window {
+        width: 85vw !important;
+        height: 80vh !important;
+    }
+}
+
