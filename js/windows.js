@@ -5,6 +5,11 @@
     let windowDraggedElement = null;
     let windowDragOffset = { x: 0, y: 0 };
     let instanceCounter = 0;
+    
+    // Initialize global zIndex if not exists
+    if (typeof window.zIndex === 'undefined') {
+        window.zIndex = 100;
+    }
 
     // Open window
     window.openWindow = function(windowId) {
