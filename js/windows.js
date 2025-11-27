@@ -47,6 +47,9 @@
         if (windowId === 'notepad' && typeof window.initNotepad === 'function') {
             window.initNotepad();
         }
+        if (windowId === 'mycomputer' && typeof window.initMyComputer === 'function') {
+            window.initMyComputer();
+        }
     };
 
     // Close window
