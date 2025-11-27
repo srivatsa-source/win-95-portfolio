@@ -30,15 +30,15 @@
     cursor: move !important;
 }
 
-/* Initial positions for desktop icons */
+/* Initial positions for desktop icons - 2 columns with proper spacing */
 .desktop-icon[data-window="about"] { top: 10px; left: 10px; }
-.desktop-icon[data-window="skills"] { top: 115px; left: 10px; }
-.desktop-icon[data-window="projects"] { top: 220px; left: 10px; }
-.desktop-icon[data-window="experience"] { top: 325px; left: 10px; }
-.desktop-icon[data-window="contact"] { top: 10px; left: 105px; }
-.desktop-icon[data-window="minesweeper"] { top: 115px; left: 105px; }
-.desktop-icon[data-window="terminal"] { top: 220px; left: 105px; }
-.desktop-icon[data-window="eastereggs"] { top: 325px; left: 105px; }
+.desktop-icon[data-window="skills"] { top: 110px; left: 10px; }
+.desktop-icon[data-window="projects"] { top: 210px; left: 10px; }
+.desktop-icon[data-window="experience"] { top: 310px; left: 10px; }
+.desktop-icon[data-window="contact"] { top: 10px; left: 110px; }
+.desktop-icon[data-window="minesweeper"] { top: 110px; left: 110px; }
+.desktop-icon[data-window="terminal"] { top: 210px; left: 110px; }
+.desktop-icon[data-window="eastereggs"] { top: 310px; left: 110px; }
 
 .icon-image {
     display: block;
