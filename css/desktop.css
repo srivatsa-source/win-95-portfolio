@@ -39,13 +39,16 @@
 .desktop-icon[data-window="minesweeper"] { top: 110px; left: 110px; }
 .desktop-icon[data-window="terminal"] { top: 210px; left: 110px; }
 .desktop-icon[data-window="eastereggs"] { top: 310px; left: 110px; }
+.desktop-icon[data-window="notepad"] { top: 10px; left: 210px; }
+.desktop-icon[data-window="calculator"] { top: 110px; left: 210px; }
+.desktop-icon[data-window="paint"] { top: 210px; left: 210px; }
 
 .icon-image {
     display: block;
     margin: 0 auto 5px auto;
-    width: 48px;
-    height: 48px;
-    background-size: contain;
+    width: 48px !important;
+    height: 48px !important;
+    background-size: contain !important;
     background-repeat: no-repeat;
     background-position: center;
     image-rendering: pixelated;
@@ -57,8 +60,8 @@
 .desktop-icon[data-window="experience"] .icon-image,
 .desktop-icon[data-window="contact"] .icon-image,
 .desktop-icon[data-window="minesweeper"] .icon-image {
-    width: 48px;
-    height: 48px;
+    width: 48px !important;
+    height: 48px !important;
     margin: 0 auto 5px auto;
     background-position: center;
 }
@@ -81,6 +84,18 @@
 
 .terminal-icon {
     background-image: url('https://win98icons.alexmeub.com/icons/png/ms_dos-0.png');
+}
+
+.notepad-icon {
+    background-image: url('https://win98icons.alexmeub.com/icons/png/notepad-0.png');
+}
+
+.calc-icon {
+    background-image: url('https://win98icons.alexmeub.com/icons/png/calculator-0.png');
+}
+
+.paint-icon {
+    background-image: url('https://win98icons.alexmeub.com/icons/png/paint-0.png');
 }
 
 .icon-text {

@@ -1,0 +1,113 @@
+/* Calculator Styles */
+#calculator {
+    width: 260px;
+    background: #c0c0c0;
+}
+
+.calc-display {
+    background: #fff;
+    border: 2px inset #fff;
+    margin: 10px;
+    padding: 5px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    padding: 0 10px 10px 10px;
+}
+
+.calc-btn {
+    width: 100%;
+    height: 35px;
+    font-family: 'MS Sans Serif', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: blue;
+}
+
+.calc-btn.operator {
+    color: red;
+}
+
+.calc-btn.clear {
+    color: #800000;
+}
+
+/* Paint Styles */
+#paint {
+    width: 600px;
+    height: 450px;
+    background: #c0c0c0;
+    display: flex;
+    flex-direction: column;
+}
+
+.paint-toolbar {
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid #808080;
+    gap: 5px;
+    background: #c0c0c0;
+}
+
+.paint-tool {
+    width: 25px;
+    height: 25px;
+    border: 1px outset #fff;
+    background: #c0c0c0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.paint-tool.active {
+    border: 1px inset #fff;
+    background: #e0e0e0;
+}
+
+.paint-colors {
+    display: flex;
+    flex-wrap: wrap;
+    width: 150px;
+    gap: 2px;
+    padding: 5px;
+    border-left: 1px solid #808080;
+}
+
+.color-box {
+    width: 15px;
+    height: 15px;
+    border: 1px inset #fff;
+    cursor: pointer;
+}
+
+.color-box.active {
+    border: 1px solid #000;
+    outline: 1px dotted #fff;
+}
+
+.paint-canvas-container {
+    flex: 1;
+    background: #808080;
+    padding: 10px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#paintCanvas {
+    background: #fff;
+    cursor: crosshair;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}

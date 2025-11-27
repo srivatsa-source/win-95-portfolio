@@ -122,10 +122,10 @@ Type 'CONTACT' for ways to reach out`;
         'contact': () => {
             return `CONTACT.TXT - Get in Touch
 ─────────────────────────────────
-📧 Email: [Your email here]
-💼 LinkedIn: [Your LinkedIn]
-🐙 GitHub: srivatsa-source
-🌐 Portfolio: https://win-95-portfolio.vercel.app
+Email: [Your email here]
+LinkedIn: [Your LinkedIn]
+GitHub: srivatsa-source
+Portfolio: https://win-95-portfolio.vercel.app
 
 Feel free to reach out for collaboration!`;
         },

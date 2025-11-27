@@ -1,7 +1,7 @@
 /* Notepad specific styles */
 .notepad-icon {
     background-image: url('https://win98icons.alexmeub.com/icons/png/notepad-0.png');
-    background-size: cover;
+    background-size: contain !important;
 }
 
 .notepad-icon-small {

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/minesweeper.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/win95-dialogs.css">
+    <link rel="stylesheet" href="css/apps.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css" />
 </head>
 <body>
@@ -27,12 +28,12 @@
         <div class="content">
             <img class="cat-mascot" src="cat-smile.png" alt="Pixel cat smiling" />
             <div class="welcome-text">
-                <h1>Hey there! 📱</h1>
+                <h1>Hey there!</h1>
                 <p>I'm Ora, Srivatsa's guide cat!</p>
                 <p style="margin-top: 15px;">For the best Windows 95 experience:</p>
                 <ul style="text-align: left; margin: 10px 0; padding-left: 25px;">
-                    <li>📺 <strong>View on Desktop/Laptop</strong> - Full retro experience!</li>
-                    <li>📱 <strong>Rotate to Landscape</strong> - Better mobile viewing</li>
+                    <li><strong>View on Desktop/Laptop</strong> - Full retro experience!</li>
+                    <li><strong>Rotate to Landscape</strong> - Better mobile viewing</li>
                 </ul>
                 <p style="font-size: 11px; margin-top: 15px; color: #555;">You can still explore on mobile, but desktop is recommended!</p>
             </div>
@@ -62,8 +63,8 @@
         <div class="chat-titlebar">
             <span class="title-text">Chat with Ora</span>
             <div class="chat-controls">
-                <button class="chat-btn" id="chat-fullscreen" title="Fullscreen">⛶</button>
-                <button class="chat-btn" id="chat-close">✕</button>
+                <button class="chat-btn" id="chat-fullscreen" title="Fullscreen">[ ]</button>
+                <button class="chat-btn" id="chat-close">X</button>
             </div>
         </div>
         <div class="chat-content" id="chat-messages">
@@ -162,6 +163,113 @@
         </div>
     </div>
 
+    <!-- Calculator Window -->
+    <div class="window" id="calculator" style="top: 100px; left: 300px; display: none;">
+        <div class="title-bar">
+            <div class="title-bar-icon calc-icon"></div>
+            <span>Calculator</span>
+            <div class="window-controls">
+                <div class="window-button" onclick="minimizeWindow('calculator')">_</div>
+                <div class="window-button" onclick="closeWindow('calculator')">×</div>
+            </div>
+        </div>
+        <div class="window-menu-bar">
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Help</span>
+        </div>
+        <div class="window-content" style="padding: 5px;">
+            <div class="calc-display">
+                <span id="calc-display-text">0</span>
+            </div>
+            <div class="calc-buttons">
+                <!-- Row 1 -->
+                <button class="calc-btn clear" data-type="action" data-value="clear">C</button>
+                <button class="calc-btn" data-type="action" data-value="sqrt">sqrt</button>
+                <button class="calc-btn" data-type="action" data-value="percent">%</button>
+                <button class="calc-btn operator" data-type="operator" data-value="/">/</button>
+                
+                <!-- Row 2 -->
+                <button class="calc-btn" data-type="number" data-value="7">7</button>
+                <button class="calc-btn" data-type="number" data-value="8">8</button>
+                <button class="calc-btn" data-type="number" data-value="9">9</button>
+                <button class="calc-btn operator" data-type="operator" data-value="*">*</button>
+                
+                <!-- Row 3 -->
+                <button class="calc-btn" data-type="number" data-value="4">4</button>
+                <button class="calc-btn" data-type="number" data-value="5">5</button>
+                <button class="calc-btn" data-type="number" data-value="6">6</button>
+                <button class="calc-btn operator" data-type="operator" data-value="-">-</button>
+                
+                <!-- Row 4 -->
+                <button class="calc-btn" data-type="number" data-value="1">1</button>
+                <button class="calc-btn" data-type="number" data-value="2">2</button>
+                <button class="calc-btn" data-type="number" data-value="3">3</button>
+                <button class="calc-btn operator" data-type="operator" data-value="+">+</button>
+                
+                <!-- Row 5 -->
+                <button class="calc-btn" data-type="number" data-value="0">0</button>
+                <button class="calc-btn" data-type="number" data-value=".">.</button>
+                <button class="calc-btn" data-type="action" data-value="reciprocal">1/x</button>
+                <button class="calc-btn operator" data-type="action" data-value="equals">=</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paint Window -->
+    <div class="window" id="paint" style="top: 50px; left: 150px; display: none;">
+        <div class="title-bar">
+            <div class="title-bar-icon paint-icon"></div>
+            <span>untitled - Paint</span>
+            <div class="window-controls">
+                <div class="window-button" onclick="minimizeWindow('paint')">_</div>
+                <div class="window-button" onclick="toggleMaximize('paint')">⛶</div>
+                <div class="window-button" onclick="closeWindow('paint')">×</div>
+            </div>
+        </div>
+        <div class="window-menu-bar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Image</span>
+            <span class="menu-item">Options</span>
+            <span class="menu-item">Help</span>
+        </div>
+        <div class="window-content" style="padding: 0; display: flex; flex-direction: column; height: calc(100% - 50px);">
+            <div class="paint-toolbar">
+                <div class="paint-tool active" data-tool="pencil" title="Pencil">✎</div>
+                <div class="paint-tool" data-tool="brush" title="Brush">🖌</div>
+                <div class="paint-tool" data-tool="eraser" title="Eraser">⌫</div>
+                <div class="paint-tool" data-tool="rect" title="Rectangle">⬜</div>
+                <div class="paint-tool" data-tool="circle" title="Circle">◯</div>
+                <div class="paint-tool" id="paint-clear" title="Clear All">🗑</div>
+            </div>
+            <div style="display: flex; flex: 1; overflow: hidden;">
+                <div class="paint-colors">
+                    <div class="color-box active" style="background: #000000;" data-color="#000000"></div>
+                    <div class="color-box" style="background: #808080;" data-color="#808080"></div>
+                    <div class="color-box" style="background: #800000;" data-color="#800000"></div>
+                    <div class="color-box" style="background: #808000;" data-color="#808000"></div>
+                    <div class="color-box" style="background: #008000;" data-color="#008000"></div>
+                    <div class="color-box" style="background: #008080;" data-color="#008080"></div>
+                    <div class="color-box" style="background: #000080;" data-color="#000080"></div>
+                    <div class="color-box" style="background: #800080;" data-color="#800080"></div>
+                    <div class="color-box" style="background: #ffffff;" data-color="#ffffff"></div>
+                    <div class="color-box" style="background: #c0c0c0;" data-color="#c0c0c0"></div>
+                    <div class="color-box" style="background: #ff0000;" data-color="#ff0000"></div>
+                    <div class="color-box" style="background: #ffff00;" data-color="#ffff00"></div>
+                    <div class="color-box" style="background: #00ff00;" data-color="#00ff00"></div>
+                    <div class="color-box" style="background: #00ffff;" data-color="#00ffff"></div>
+                    <div class="color-box" style="background: #0000ff;" data-color="#0000ff"></div>
+                    <div class="color-box" style="background: #ff00ff;" data-color="#ff00ff"></div>
+                </div>
+                <div class="paint-canvas-container">
+                    <canvas id="paintCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="desktop" id="desktop" style="display:none;">
         <!-- Desktop Icons -->
         <div class="desktop-icon" data-window="about">
@@ -199,6 +307,14 @@
         <div class="desktop-icon" data-window="notepad">
             <div class="icon-image notepad-icon"></div>
             <div class="icon-text">Notepad</div>
+        </div>
+        <div class="desktop-icon" data-window="calculator">
+            <div class="icon-image calc-icon"></div>
+            <div class="icon-text">Calculator</div>
+        </div>
+        <div class="desktop-icon" data-window="paint">
+            <div class="icon-image paint-icon"></div>
+            <div class="icon-text">Paint</div>
         </div>
 
         <!-- Desktop Context Menu -->
@@ -521,49 +637,49 @@
                 </div>
             </div>
             <div class="window-content" style="padding: 20px;">
-                <h2 style="margin-top: 0; border-bottom: 2px solid #000080; padding-bottom: 8px;">🥚 Hidden Features & Easter Eggs</h2>
+                <h2 style="margin-top: 0; border-bottom: 2px solid #000080; padding-bottom: 8px;">Hidden Features & Easter Eggs</h2>
                 <p style="margin-bottom: 15px; font-size: 12px; color: #555;">Discover the secrets hidden in this Windows 95 portfolio!</p>
                 
                 <div style="background: #fff; border: 2px inset #808080; padding: 15px; max-height: 300px; overflow-y: auto;">
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🎮 Minesweeper Game</strong><br>
+                            <strong>Minesweeper Game</strong><br>
                             <span style="font-size: 11px;">Play the classic Windows game with three difficulty levels!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🐱 Ora the AI Cat</strong><br>
+                            <strong>Ora the AI Cat</strong><br>
                             <span style="font-size: 11px;">Chat with the AI assistant powered by GPT-4o-mini about Srivatsa's work!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>📖 Guestbook</strong><br>
+                            <strong>Guestbook</strong><br>
                             <span style="font-size: 11px;">Sign the guestbook and leave your mark (with security protection!).</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🖱️ Draggable Windows</strong><br>
-                            <span style="font-size: 11px;">All windows can be dragged and repositioned, just like the real Windows 95!</span>
+                            <strong>Draggable Windows</strong><br>
+                            <span style="font-size: 11px;">All windows can be dragged and repositioned, just like the real OS!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🎯 Visitor Counter</strong><br>
+                            <strong>Visitor Counter</strong><br>
                             <span style="font-size: 11px;">Check the bottom-left to see how many people visited this portfolio.</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>💾 MS-DOS Prompt</strong><br>
+                            <strong>MS-DOS Prompt</strong><br>
                             <span style="font-size: 11px;">Try typing classic DOS commands like 'dir', 'help', 'ver', or 'tree'!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🎨 Authentic Windows 95 Theme</strong><br>
+                            <strong>Authentic Windows 95 Theme</strong><br>
                             <span style="font-size: 11px;">Every dialog, button, and window follows the classic Windows 95 design!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>📱 Mobile Responsive</strong><br>
+                            <strong>Mobile Responsive</strong><br>
                             <span style="font-size: 11px;">The entire Windows 95 experience works on mobile devices too!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🎵 Startup Sound</strong><br>
+                            <strong>Startup Sound</strong><br>
                             <span style="font-size: 11px;">Listen for the authentic Windows 95 startup chime when loading!</span>
                         </li>
                         <li style="margin-bottom: 12px; padding: 8px; background: #efefef; border: 1px solid #ccc;">
-                            <strong>🔍 Interactive Tour</strong><br>
+                            <strong>Interactive Tour</strong><br>
                             <span style="font-size: 11px;">First-time visitors get a guided tour of all features!</span>
                         </li>
                     </ul>
@@ -586,6 +702,9 @@
                     <div class="submenu">
                         <div class="submenu-item has-submenu">Accessories
                             <div class="submenu">
+                                <div class="submenu-item">Calculator</div>
+                                <div class="submenu-item">Paint</div>
+                                <div class="submenu-item">Notepad</div>
                                 <div class="submenu-item">StartUp</div>
                                 <div class="submenu-item">Microsoft Exchange</div>
                                 <div class="submenu-item">MS-DOS Prompt</div>
@@ -645,5 +764,8 @@
     <script src="js/guestbook.js"></script>
     <script src="js/minesweeper.js"></script>
     <script src="js/terminal.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/paint.js"></script>
+    <script src="js/notepad.js"></script>
 </body>
 </html>

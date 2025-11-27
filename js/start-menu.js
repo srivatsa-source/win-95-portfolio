@@ -27,9 +27,25 @@
                 // Special case: MS-DOS Prompt actually opens the terminal
                 if (itemName === 'MS-DOS Prompt') {
                     const terminal = document.querySelector('[data-window="terminal"]');
-                    if (terminal) {
-                        terminal.dispatchEvent(new Event('dblclick'));
-                    }
+                    if (terminal) terminal.dispatchEvent(new Event('dblclick'));
+                    return;
+                }
+
+                // Special case: Calculator
+                if (itemName === 'Calculator') {
+                    if (window.openWindow) window.openWindow('calculator');
+                    return;
+                }
+
+                // Special case: Paint
+                if (itemName === 'Paint') {
+                    if (window.openWindow) window.openWindow('paint');
+                    return;
+                }
+
+                // Special case: Notepad
+                if (itemName === 'Notepad') {
+                    if (window.openWindow) window.openWindow('notepad');
                     return;
                 }
                 
@@ -154,7 +170,7 @@
         let found = [];
         for (let [key, value] of Object.entries(searchData)) {
             if (key.includes(query) || value.toLowerCase().includes(query)) {
-                found.push(`📁 ${value}`);
+                found.push(`[DIR] ${value}`);
             }
         }
 
@@ -169,20 +185,20 @@
     window.openHelp = function() {
         closeStartMenu();
         showAlert(`<strong>Portfolio Help & Tips</strong><br><br>
-            🖱️ <strong>Navigation:</strong><br>
+            <strong>Navigation:</strong><br>
             • Double-click desktop icons to open windows<br>
             • Click and drag windows to move them<br>
             • Click Start menu for more options<br><br>
             
-            💬 <strong>Chat with Ora:</strong><br>
+            <strong>Chat with Ora:</strong><br>
             • Click the cat to ask questions about Srivatsa<br>
             • Try asking about skills, projects, or experience<br><br>
             
-            📝 <strong>Guestbook:</strong><br>
+            <strong>Guestbook:</strong><br>
             • Leave a message in the guestbook<br>
             • View messages from other visitors<br><br>
             
-            🎮 <strong>Games:</strong><br>
+            <strong>Games:</strong><br>
             • Play Minesweeper for a retro gaming experience!<br><br>
             
             <em>Enjoy exploring the Windows 95 experience!</em>`, 

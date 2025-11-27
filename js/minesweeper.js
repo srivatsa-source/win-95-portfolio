@@ -86,7 +86,7 @@
         
         if (msBoard[idx].flagged) {
             el.classList.add('flagged');
-            el.textContent = '🚩';
+            el.textContent = 'F';
         } else {
             el.classList.remove('flagged');
             el.textContent = '';
@@ -154,7 +154,7 @@
         
         if (msBoard[idx].mine) {
             el.classList.add('mine');
-            el.textContent = '💣';
+            el.textContent = '*';
             endMsGame(false);
             return;
         }
@@ -241,7 +241,7 @@
                     const el = document.querySelector(`.mine-cell[data-index='${i}']`);
                     if (el) {
                         el.classList.add('revealed', 'mine');
-                        el.textContent = '💣';
+                        el.textContent = '*';
                     }
                 }
             });

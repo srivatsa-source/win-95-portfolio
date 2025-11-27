@@ -160,7 +160,7 @@
         
         // Default response with offline notice
         return {
-            text: "Meow! I'm currently offline (can't reach my AI brain 🧠). But I can still help with basic questions! Try asking:\n\n• Who is Srivatsa?\n• What are his skills?\n• What projects has he built?\n• Show me something fun!\n\nOr explore the desktop windows for more details! 🖱️",
+            text: "Meow! I'm currently offline (can't reach my AI brain). But I can still help with basic questions! Try asking:\n\n• Who is Srivatsa?\n• What are his skills?\n• What projects has he built?\n• Show me something fun!\n\nOr explore the desktop windows for more details!",
             avatar: 'cat-normal.png'
         };
     }
@@ -260,9 +260,9 @@
     chatFullscreen.addEventListener('click', () => {
         chatWindow.classList.toggle('fullscreen');
         if (chatWindow.classList.contains('fullscreen')) {
-            chatFullscreen.textContent = '❐';
+            chatFullscreen.textContent = '[_]';
         } else {
-            chatFullscreen.textContent = '⛶';
+            chatFullscreen.textContent = '[ ]';
         }
     });
 
