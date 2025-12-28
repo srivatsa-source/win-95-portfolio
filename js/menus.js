@@ -91,8 +91,4 @@
     // Export for external use if needed
     window.closeAllMenus = closeAllMenus;
 
-    window.showAlert = function(message) {
-        alert(message);
-    };
-
 })();

@@ -18,6 +18,22 @@
         return { rows: 16, cols: 30, mines: 99 };
     }
 
+    // Resize minesweeper window based on grid size
+    function resizeMinesweeperWindow(cols, rows) {
+        const msWindow = document.getElementById('minesweeper');
+        if (!msWindow) return;
+        
+        const cellSize = 25;
+        const padding = 40; // Extra padding for window chrome
+        const headerHeight = 150; // Title bar + controls + status bar
+        
+        const width = Math.max(320, (cols * cellSize) + padding + 20);
+        const height = (rows * cellSize) + headerHeight + padding;
+        
+        msWindow.style.width = width + 'px';
+        msWindow.style.height = height + 'px';
+    }
+
     function initializeMinesweeper() {
         const grid = document.getElementById('mineGrid');
         if (!grid) return;
@@ -26,6 +42,9 @@
         msRows = cfg.rows;
         msCols = cfg.cols;
         msMines = cfg.mines;
+        
+        // Resize window to fit new grid
+        resizeMinesweeperWindow(msCols, msRows);
         
         msBoard = new Array(msRows * msCols).fill(null).map(() => ({
             mine: false,
@@ -276,16 +295,6 @@
         const levelSelect = document.getElementById('msLevel');
         if (levelSelect) {
             levelSelect.addEventListener('change', initializeMinesweeper);
-        }
-
-        // Fullscreen button handler
-        const fullscreenBtn = document.getElementById('msFullscreenBtn');
-        if (fullscreenBtn) {
-            fullscreenBtn.addEventListener('click', () => {
-                if (window.toggleMaximize) {
-                    window.toggleMaximize('minesweeper');
-                }
-            });
         }
 
         // Initialize the game

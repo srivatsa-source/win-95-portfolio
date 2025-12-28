@@ -66,7 +66,7 @@
                 break;
             case 'sqrt':
                 if (parseFloat(currentInput) < 0) {
-                    alert("Invalid input for function");
+                    window.showAlert('Invalid input for function', 'Calculator', 'warning');
                     currentInput = '0';
                 } else {
                     currentInput = Math.sqrt(parseFloat(currentInput)).toString();
@@ -86,7 +86,7 @@
                 break;
             case 'reciprocal': // 1/x
                 if (parseFloat(currentInput) === 0) {
-                    alert("Cannot divide by zero");
+                    window.showAlert('Cannot divide by zero', 'Calculator', 'warning');
                     currentInput = '0';
                 } else {
                     currentInput = (1 / parseFloat(currentInput)).toString();
@@ -147,7 +147,7 @@
                 break;
             case '/':
                 if (current === 0) {
-                    alert("Cannot divide by zero");
+                    window.showAlert('Cannot divide by zero', 'Calculator', 'warning');
                     currentInput = '0';
                     operation = null;
                     shouldResetScreen = true;
@@ -190,7 +190,7 @@
             // Optional: visual feedback
         }).catch(err => {
             console.error('Failed to copy: ', err);
-            alert('Failed to copy to clipboard');
+            window.showAlert('Failed to copy to clipboard', 'Calculator', 'warning');
         });
     };
 
@@ -200,7 +200,7 @@
                 currentInput = parseFloat(text).toString();
                 updateDisplay();
             } else {
-                alert('Clipboard does not contain a valid number');
+                window.showAlert('Clipboard does not contain a valid number', 'Calculator', 'warning');
             }
         }).catch(err => {
             console.error('Failed to read clipboard: ', err);

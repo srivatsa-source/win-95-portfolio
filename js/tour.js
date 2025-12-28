@@ -180,55 +180,6 @@
                         setTimeout(positionCatNearPopover, 250);
                         setTimeout(positionCatNearPopover, 400);
                     }
-                },
-                {
-                    element: '#floating-cat-element',
-                    popover: {
-                        title: 'Chat with Me!',
-                        description: 'That\'s the tour! If you want to know more about Srivatsa, just click on me (the cat in the middle) anytime. I\'m Ora, your helpful guide! Let me show you...',
-                        side: 'top',
-                        align: 'center'
-                    },
-                    onHighlightStarted: () => {
-                        tourGuideCat.style.display = 'none';
-                    },
-                    onHighlighted: () => {
-                        // Position popover next to the chat window
-                        setTimeout(() => {
-                            const popover = document.querySelector('.driver-popover');
-                            const chatWindow = document.getElementById('chatbot-window');
-                            if (popover && chatWindow) {
-                                const chatRect = chatWindow.getBoundingClientRect();
-                                const popoverHeight = popover.offsetHeight;
-                                const popoverWidth = popover.offsetWidth;
-                                const viewportWidth = window.innerWidth;
-                                const viewportHeight = window.innerHeight;
-                                
-                                // Position next to chat window (left side)
-                                let left = chatRect.left - popoverWidth - 20;
-                                let top = chatRect.top;
-                                
-                                // If not enough space on left, show on right
-                                if (left < 10) {
-                                    left = chatRect.right + 20;
-                                }
-                                
-                                // Ensure popover stays within viewport bounds
-                                left = Math.max(10, Math.min(left, viewportWidth - popoverWidth - 10));
-                                top = Math.max(10, Math.min(top, viewportHeight - popoverHeight - 10));
-                                
-                                // Force positioning with !important by setting style attribute directly
-                                popover.style.cssText = `position: fixed !important; left: ${left}px !important; top: ${top}px !important; transform: none !important;`;
-                            }
-                        }, 100);
-                        
-                        setTimeout(() => {
-                            const chatWindow = document.getElementById('chatbot-window');
-                            if (chatWindow) {
-                                chatWindow.classList.add('active');
-                            }
-                        }, 1000);
-                    }
                 }
             ],
             onDestroyed: () => {
@@ -239,11 +190,102 @@
                     floatingCat.style.display = 'block';
                     floatingCat.src = catImages.normal;
                 }
+                
+                // Show the final cat dialog after tour ends
+                showCatFinishDialog();
             }
         });
 
         driverObj.drive();
     };
+    
+    // Show a Windows 95 themed dialog with cat avatar when tour finishes
+    function showCatFinishDialog() {
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;';
+        
+        // Create dialog
+        const dialog = document.createElement('div');
+        dialog.className = 'win95-dialog';
+        dialog.style.cssText = 'position: relative; min-width: 350px; max-width: 400px; background: #c0c0c0; border: 2px outset #fff; box-shadow: 2px 2px 0 #000; font-family: "MS Sans Serif", Tahoma, sans-serif;';
+        
+        // Dialog title bar
+        const titleBar = document.createElement('div');
+        titleBar.style.cssText = 'background: linear-gradient(90deg, #000080, #1084d0); color: white; padding: 3px 5px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; align-items: center;';
+        titleBar.innerHTML = '<span>🐱 Ora Says...</span>';
+        
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '×';
+        closeBtn.style.cssText = 'background: #c0c0c0; border: 2px outset #fff; width: 18px; height: 18px; font-size: 12px; line-height: 1; cursor: pointer; padding: 0;';
+        closeBtn.onclick = () => overlay.remove();
+        titleBar.appendChild(closeBtn);
+        
+        // Dialog content
+        const content = document.createElement('div');
+        content.style.cssText = 'padding: 15px; display: flex; align-items: flex-start; gap: 15px;';
+        
+        // Cat image
+        const catImg = document.createElement('img');
+        catImg.src = catImages.smile;
+        catImg.alt = 'Ora the cat';
+        catImg.style.cssText = 'width: 80px; height: 80px; object-fit: contain; flex-shrink: 0;';
+        
+        // Message
+        const message = document.createElement('div');
+        message.innerHTML = `
+            <p style="margin: 0 0 10px 0; font-size: 14px;"><strong>That's the end of the tour!</strong></p>
+            <p style="margin: 0; font-size: 13px;">Feel free to explore! If you want to chat with me or learn more about Srivatsa, just click on me anytime - I'll be floating around. 🐱</p>
+        `;
+        
+        content.appendChild(catImg);
+        content.appendChild(message);
+        
+        // Button container
+        const btnContainer = document.createElement('div');
+        btnContainer.style.cssText = 'padding: 10px 15px 15px; text-align: center;';
+        
+        // OK button
+        const okBtn = document.createElement('button');
+        okBtn.textContent = 'OK';
+        okBtn.style.cssText = 'background: #c0c0c0; border: 2px outset #fff; padding: 5px 25px; font-size: 12px; cursor: pointer; min-width: 80px;';
+        okBtn.onclick = () => overlay.remove();
+        okBtn.onmousedown = function() {
+            this.style.border = '2px inset #fff';
+        };
+        okBtn.onmouseup = function() {
+            this.style.border = '2px outset #fff';
+        };
+        
+        btnContainer.appendChild(okBtn);
+        
+        // Assemble dialog
+        dialog.appendChild(titleBar);
+        dialog.appendChild(content);
+        dialog.appendChild(btnContainer);
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+        
+        // Focus the OK button
+        okBtn.focus();
+        
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.remove();
+            }
+        });
+        
+        // Close on Escape key
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                overlay.remove();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+    }
 
     // Initialize cats
     function init() {

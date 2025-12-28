@@ -140,7 +140,6 @@
             <span>My Computer</span>
             <div class="window-controls">
                 <div class="window-button" onclick="minimizeWindow('mycomputer')">_</div>
-                <div class="window-button" onclick="toggleMaximize('mycomputer')">⛶</div>
                 <div class="window-button" onclick="closeWindow('mycomputer')">×</div>
             </div>
         </div>
@@ -166,26 +165,33 @@
             <span>Untitled - Notepad</span>
             <div class="window-controls">
                 <div class="window-button" onclick="minimizeWindow('notepad')">_</div>
-                <div class="window-button" onclick="toggleMaximize('notepad')">⛶</div>
                 <div class="window-button" onclick="closeWindow('notepad')">×</div>
             </div>
         </div>
         <div class="window-menu-bar">
-            <span class="menu-item" id="notepad-file">File</span>
-            <span class="menu-item" id="notepad-edit">Edit</span>
-            <span class="menu-item" id="notepad-search">Search</span>
-            <span class="menu-item" id="notepad-help">Help</span>
+            <span class="menu-item" data-menu="notepad-file">File</span>
+            <span class="menu-item" data-menu="notepad-edit">Edit</span>
+            <span class="menu-item" data-menu="notepad-help">Help</span>
         </div>
         <div class="window-content" style="padding: 0; overflow: hidden; display: flex; flex-direction: column; height: calc(100% - 50px);">
             <textarea id="notepad-textarea" style="flex: 1; width: 100%; border: none; resize: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 14px; outline: none; box-sizing: border-box;"></textarea>
         </div>
         <!-- Simple Dropdown Menus (Hidden by default, toggled via JS if we wanted full complexity, but for now just visual or simple alerts) -->
         <div id="notepad-file-menu" class="dropdown-menu" style="display: none;">
-            <div class="dropdown-item" id="notepad-new">New</div>
-            <div class="dropdown-item" id="notepad-open">Open...</div>
-            <div class="dropdown-item" id="notepad-save">Save</div>
+            <div class="dropdown-item" id="notepad-new">New &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+N</div>
+            <div class="dropdown-item" id="notepad-open">Open... &nbsp;Ctrl+O</div>
+            <div class="dropdown-item" id="notepad-save">Save &nbsp;&nbsp;&nbsp;&nbsp;Ctrl+S</div>
             <div class="dropdown-divider"></div>
-            <div class="dropdown-item" onclick="closeWindow('notepad')">Exit</div>
+            <div class="dropdown-item" id="notepad-exit">Exit &nbsp;&nbsp;&nbsp;&nbsp;Alt+F4</div>
+        </div>
+        <div id="notepad-edit-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" id="notepad-select-all">Select All &nbsp;&nbsp;&nbsp;Ctrl+A</div>
+            <div class="dropdown-item" id="notepad-time-date">Time/Date &nbsp;&nbsp;&nbsp;F5</div>
+        </div>
+        <div id="notepad-help-menu" class="dropdown-menu" style="display: none;">
+            <div class="dropdown-item" id="notepad-help">Help Topics</div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item" id="notepad-about">About Notepad</div>
         </div>
     </div>
 
@@ -215,9 +221,9 @@
             <div class="dropdown-item">Scientific</div>
         </div>
         <div id="calc-help-menu" class="dropdown-menu" style="display: none;">
-            <div class="dropdown-item" onclick="showAlert('Help Topics')">Help Topics</div>
+            <div class="dropdown-item" onclick="showAlert('Calculator Help:<br><br>• Click numbers to enter<br>• Use +, -, ×, ÷ for operations<br>• Press = for result<br>• C clears all, CE clears entry', 'Calculator Help', 'info')">Help Topics</div>
             <div class="dropdown-divider"></div>
-            <div class="dropdown-item" onclick="showAlert('About Calculator')">About Calculator</div>
+            <div class="dropdown-item" onclick="showAlert('<strong>Calculator</strong><br>Version 1.0<br><br>Windows 95 Portfolio Edition<br>Created by Srivatsa S.', 'About Calculator', 'info')">About Calculator</div>
         </div>
 
         <div class="window-content" style="padding: 5px; background: #c0c0c0;">
@@ -275,7 +281,6 @@
             <span>untitled - Paint</span>
             <div class="window-controls">
                 <div class="window-button" onclick="minimizeWindow('paint')">_</div>
-                <div class="window-button" onclick="toggleMaximize('paint')">⛶</div>
                 <div class="window-button" onclick="closeWindow('paint')">×</div>
             </div>
         </div>
@@ -400,209 +405,204 @@
     </div>
 
     <div class="desktop" id="desktop" style="display:none;">
-        <!-- Desktop Icons -->
-        <div class="desktop-icon" data-window="mycomputer">
+        <!-- Desktop Icons - Column 1 -->
+        <div class="desktop-icon" data-window="mycomputer" style="top: 10px; left: 10px;">
             <div class="icon-image computer-icon"></div>
             <div class="icon-text">My Computer</div>
         </div>
-        <div class="desktop-icon" data-window="about">
-            <div class="icon-image folder-icon"></div>
-            <div class="icon-text">About Me</div>
-        </div>
-        <div class="desktop-icon" data-window="skills">
+        <div class="desktop-icon" data-window="skills" style="top: 110px; left: 10px;">
             <div class="icon-image computer-icon"></div>
             <div class="icon-text">Skills</div>
         </div>
-        <div class="desktop-icon" data-window="projects">
+        <div class="desktop-icon" data-window="projects" style="top: 210px; left: 10px;">
             <div class="icon-image folder-icon"></div>
             <div class="icon-text">Projects</div>
         </div>
-        <div class="desktop-icon" data-window="experience">
+        <div class="desktop-icon" data-window="experience" style="top: 310px; left: 10px;">
             <div class="icon-image file-icon"></div>
             <div class="icon-text">Experience</div>
         </div>
-        <div class="desktop-icon" data-window="contact">
+        
+        <!-- Desktop Icons - Column 2 -->
+        <div class="desktop-icon" data-window="contact" style="top: 10px; left: 110px;">
             <div class="icon-image file-icon"></div>
             <div class="icon-text">Contact</div>
         </div>
-        <div class="desktop-icon" data-window="minesweeper">
+        <div class="desktop-icon" data-window="minesweeper" style="top: 110px; left: 110px;">
             <div class="icon-image game-icon"></div>
             <div class="icon-text">Minesweeper</div>
         </div>
-        <div class="desktop-icon" data-window="terminal">
+        <div class="desktop-icon" data-window="terminal" style="top: 210px; left: 110px;">
             <div class="icon-image terminal-icon"></div>
             <div class="icon-text">MS-DOS Prompt</div>
         </div>
-        <div class="desktop-icon" data-window="eastereggs">
+        <div class="desktop-icon" data-window="eastereggs" style="top: 310px; left: 110px;">
             <div class="icon-image folder-icon"></div>
             <div class="icon-text">Easter Eggs</div>
         </div>
-        <div class="desktop-icon" data-window="notepad">
+        
+        <!-- Desktop Icons - Column 3 -->
+        <div class="desktop-icon" data-window="notepad" style="top: 10px; left: 210px;">
             <div class="icon-image notepad-icon"></div>
             <div class="icon-text">Notepad</div>
         </div>
-        <div class="desktop-icon" data-window="calculator">
+        <div class="desktop-icon" data-window="calculator" style="top: 110px; left: 210px;">
             <div class="icon-image calc-icon"></div>
             <div class="icon-text">Calculator</div>
         </div>
-        <div class="desktop-icon" data-window="paint">
+        <div class="desktop-icon" data-window="paint" style="top: 210px; left: 210px;">
             <div class="icon-image paint-icon"></div>
             <div class="icon-text">Paint</div>
+        </div>
+        
+        <!-- About Me - Special icon on Column 1, Row 5 -->
+        <div class="desktop-icon" data-window="about" style="top: 410px; left: 10px;">
+            <div class="icon-image folder-icon"></div>
+            <div class="icon-text">About Me</div>
         </div>
 
         <!-- Desktop Context Menu -->
         <div class="context-menu" id="contextMenu">
-            <div class="context-menu-item" onclick="showAlert('Refresh')">Refresh</div>
-            <div class="context-menu-item" onclick="showAlert('New Folder')">New Folder</div>
-            <div class="context-menu-item" onclick="showAlert('Properties')">Properties</div>
+            <div class="context-menu-item" onclick="location.reload()">Refresh</div>
+            <div class="context-menu-item" onclick="showAlert('Sorry, this feature is not available.', 'New Folder', 'info')">New Folder</div>
+            <div class="context-menu-item" onclick="showAlert('<strong>Desktop Properties</strong><br><br>Windows 95 Portfolio<br>Created by Srivatsa S.<br><br>Resolution: ' + window.innerWidth + ' × ' + window.innerHeight, 'Properties', 'info')">Properties</div>
             <div class="context-menu-item" onclick="arrangeIcons()">Arrange Icons</div>
         </div>
 
         <!-- About Me Window -->
-        <div class="window" id="about" style="top: 50px; left: 150px; width: 500px; height: 400px;">
+        <div class="window" id="about" style="top: 50px; left: 150px; width: 550px; height: 450px;">
             <div class="title-bar">
-                <span>About Me - Personal Information</span>
+                <span>About Me - Srivatsa S.</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('about')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('about')">⛶</div>
                     <div class="window-button" onclick="closeWindow('about')">×</div>
                 </div>
             </div>
             <div class="window-content">
-                <h1>Welcome to My Portfolio!</h1>
-                <p>Hello! I'm a passionate developer who loves creating digital experiences. This retro portfolio is a tribute to the golden age of computing while showcasing modern skills and creativity.</p>
+                <h1>Hi, I'm Srivatsa S.</h1>
+                <p><strong>AI Product Engineer</strong> and <strong>Software Developer</strong> specializing in <strong>Agentic Workflows</strong> and <strong>Knowledge Integrity</strong> systems.</p>
                 
-                <h2>About Me</h2>
-                <p>I'm a creative professional with a passion for technology, design, and problem-solving. I enjoy working on projects that challenge me to learn new things and push the boundaries of what's possible in web development and design.</p>
+                <p>Final-year BCA student with hands-on experience architecting <strong>scalable backend infrastructure</strong> for energy sectors and leading technical communities. Immediately available for 6-month full-time internship roles.</p>
                 
-                <h2>What I Love</h2>
+                <h2>What I Do</h2>
                 <ul>
-                    <li>Web Development & Modern Frameworks</li>
-                    <li>Retro Computing & Gaming Culture</li>
-                    <li>Open Source Projects & Community</li>
-                    <li>UI/UX Design & User Experience</li>
-                    <li>Creative Coding & Interactive Media</li>
-                    <li>Mobile-First Design Principles</li>
+                    <li>Build AI-powered applications with Agentic Workflows</li>
+                    <li>Design scalable backend systems for real-world infrastructure</li>
+                    <li>Create interactive web experiences with modern frameworks</li>
+                    <li>Lead technical communities and organize hackathons</li>
+                    <li>Develop context-aware routing systems for AI agents</li>
                 </ul>
                 
-                <p>Feel free to explore the other folders on my desktop to learn more about my skills, projects, and professional experience. Don't forget to try the Minesweeper game for some nostalgic fun!</p>
+                <h2>Currently</h2>
+                <p>Founder & Technical Lead at <strong>Build-Ora</strong>, a technical community of developers in Bangalore fostering innovation and peer-to-peer learning.</p>
+                
+                <p style="margin-top: 15px;">Feel free to explore my desktop to learn more about my skills, projects, and experience!</p>
             </div>
-            <div class="status-bar">Ready</div>
+            <div class="status-bar">Bangalore, KA | srivatsa1312@gmail.com</div>
             <div class="resize-handle se"></div>
             <div class="resize-handle s"></div>
             <div class="resize-handle e"></div>
         </div>
 
         <!-- Skills Window -->
-        <div class="window" id="skills" style="top: 80px; left: 200px; width: 450px; height: 550px;">
+        <div class="window" id="skills" style="top: 80px; left: 200px; width: 520px; height: 580px;">
             <div class="title-bar">
-                <span>Skills - Technical Abilities</span>
+                <span>Skills - Technical Stack</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('skills')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('skills')">⛶</div>
                     <div class="window-button" onclick="closeWindow('skills')">×</div>
                 </div>
             </div>
             <div class="window-content">
-                <h1>Technical Skills & Expertise</h1>
+                <h1>Technical Skills</h1>
                 
-                <h2>Frontend Technologies</h2>
-                <p>JavaScript <div class="skill-bar"><div class="skill-fill" data-width="90%" style="width: 90%"></div></div></p>
-                <p>HTML/CSS <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div></p>
-                <p>React.js <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div></p>
-                <p>TypeScript <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div></p>
+                <h2>Languages</h2>
+                <p class="skill-text"><strong>Python</strong> (Advanced), <strong>JavaScript</strong> (ES6+), SQL, PHP, HTML/CSS</p>
                 
-                <h2>Backend & Database</h2>
-                <p>Python <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div></p>
-                <p>Node.js <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div></p>
-                <p>MongoDB <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div></p>
+                <h2>AI Engineering</h2>
+                <p class="skill-text"><strong>Agentic Workflows</strong>, Context Prompting, <strong>Semantic Auditing</strong>, <strong>LLM Integration</strong> (OpenAI/Gemini)</p>
                 
-                <h2>Tools & Platforms</h2>
+                <h2>Web & Graphics</h2>
+                <p class="skill-text"><strong>React</strong>, Node.js, <strong>WebGL</strong>, <strong>Three.js</strong>, Supabase, Firebase, MongoDB</p>
+                
+                <h2>Developer Tools</h2>
+                <p class="skill-text">Git/GitHub, <strong>CI/CD Workflows</strong>, Figma, Adobe Creative Suite</p>
+                
+                <h2>Certifications</h2>
                 <ul>
-                    <li>Git & GitHub Version Control</li>
-                    <li>npm & Package Management</li>
-                    <li>Responsive Web Design</li>
-                    <li>Database Design & Management</li>
-                    <li>RESTful API Development</li>
-                    <li>Cloud Platforms (AWS, Netlify)</li>
-                    <li>CI/CD Deployment Pipelines</li>
+                    <li><strong>Google AI Essentials</strong> - Coursera</li>
+                    <li><strong>Front End Developer</strong> - Great Learning</li>
+                    <li><strong>Web Design Specialization</strong></li>
                 </ul>
                 
-                <h2>Design & Creative Tools</h2>
-                <ul>
-                    <li>Adobe Creative Suite (Photoshop, Illustrator)</li>
-                    <li>Figma & Design Systems</li>
-                    <li>Wireframing & Prototyping</li>
-                    <li>User Experience Research</li>
-                    <li>Graphic Design Principles</li>
-                </ul>
+                <h2>What This Means</h2>
+                <div style="background: #ffffcc; border: 1px solid #808080; padding: 10px; margin-top: 10px;">
+                    <p style="margin: 0; font-size: 12px;"><strong>Advanced Python:</strong> I build automation scripts, AI agents, and backend systems.<br>
+                    <strong>AI/LLM Integration:</strong> I create context-aware AI applications with semantic understanding.<br>
+                    <strong>Full-Stack Web:</strong> From React frontends to Node.js APIs and database design.<br>
+                    <strong>3D/Interactive:</strong> WebGL and Three.js for immersive web experiences.</p>
+                </div>
             </div>
-            <div class="status-bar">Skill level: Intermediate to Advanced</div>
+            <div class="status-bar">AI Product Engineer | Full-Stack Developer</div>
             <div class="resize-handle se"></div>
             <div class="resize-handle s"></div>
             <div class="resize-handle e"></div>
         </div>
 
         <!-- Projects Window -->
-        <div class="window" id="projects" style="top: 60px; left: 300px; width: 550px; height: 500px;">
+        <div class="window" id="projects" style="top: 60px; left: 300px; width: 600px; height: 550px;">
             <div class="title-bar">
-                <span>Projects - My Work Portfolio</span>
+                <span>Projects - Key Work</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('projects')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('projects')">⛶</div>
                     <div class="window-button" onclick="closeWindow('projects')">×</div>
                 </div>
             </div>
             <div class="window-content">
-                <h1>Featured Projects & Work</h1>
+                <h1>Key Projects</h1>
                 
                 <div class="project-card">
-                    <div class="project-title">Windows 95 Retro Portfolio</div>
-                    <p>A fully interactive Windows 95-inspired portfolio website with authentic UI elements, drag-and-drop functionality, and working applications including Minesweeper. Features pixel-perfect recreation of classic Windows aesthetics.</p>
+                    <div class="project-title">DockDesk: Knowledge Integrity Agent</div>
+                    <p>Built an AI-powered <strong>"Semantic Auditor"</strong> that prevents <strong>Documentation Drift</strong> by comparing code logic in PRs against project documentation. Developed a <strong>context-aware routing system</strong> that handles complex state management, ensuring agents act on a "Single Source of Truth."</p>
                     <div>
-                        <span class="project-tech">HTML5</span>
-                        <span class="project-tech">CSS3</span>
-                        <span class="project-tech">Vanilla JS</span>
-                        <span class="project-tech">Responsive Design</span>
+                        <span class="project-tech">Python</span>
+                        <span class="project-tech">AI Agents</span>
+                        <span class="project-tech">CI/CD</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <div class="project-title">Mental Health Chatbot & Gamified Analysis</div>
-                    <p>An AI-powered mental health support system with gamification elements to encourage user engagement. Features mood tracking, personalized recommendations, and progress visualization through interactive charts.</p>
+                    <div class="project-title">EV Aggregation Platform <span style="color: #008000; font-size: 11px;">(BLITS IISc Winner)</span></div>
+                    <p>Awarded <strong>"Best Startup Idea 2025"</strong> at the BLITS IISc-backed competition for a <strong>peer-to-peer EV power-sharing</strong> infrastructure platform.</p>
                     <div>
                         <span class="project-tech">React</span>
                         <span class="project-tech">Node.js</span>
-                        <span class="project-tech">AI/ML</span>
-                        <span class="project-tech">Chart.js</span>
+                        <span class="project-tech">Firebase</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <div class="project-title">Hackademia - Interactive Hackathon Website</div>
-                    <p>A dynamic promotional website for a hackathon event featuring interactive elements, registration systems, and engaging animations. Built to attract and inform potential participants with modern web technologies.</p>
+                    <div class="project-title">Advaya (Mental Health AI)</div>
+                    <p>Developed a mental health chatbot featuring <strong>real-time sentiment analysis</strong> and <strong>gamified emotional tracking</strong> for a National Hackathon.</p>
                     <div>
-                        <span class="project-tech">HTML5</span>
-                        <span class="project-tech">CSS3</span>
-                        <span class="project-tech">JavaScript</span>
-                        <span class="project-tech">Canvas API</span>
+                        <span class="project-tech">GenAI</span>
+                        <span class="project-tech">Gamification</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <div class="project-title">Developer Productivity Tools</div>
-                    <p>Custom utilities and tools designed to improve developer workflow and productivity. Includes code generators, automation scripts, and open-source contributions to the developer community.</p>
+                    <div class="project-title">Hackademia: Interactive Portal</div>
+                    <p>Designed a <strong>Windows 95-themed</strong> event portal featuring an integrated <strong>Three.js asteroid shooter</strong> game, resulting in high user engagement.</p>
                     <div>
-                        <span class="project-tech">Python</span>
-                        <span class="project-tech">JavaScript</span>
-                        <span class="project-tech">CLI Tools</span>
-                        <span class="project-tech">Open Source</span>
+                        <span class="project-tech">Three.js</span>
+                        <span class="project-tech">WebGL</span>
+                        <span class="project-tech">Retro UI</span>
                     </div>
                 </div>
                 
-                <p><strong>Want to see more?</strong> Visit my GitHub profile to explore additional projects, contributions, and ongoing work!</p>
+                <p><strong>Want to see more?</strong> Check out my GitHub for additional projects and contributions!</p>
             </div>
-            <div class="status-bar">4 projects shown | View more on GitHub</div>
+            <div class="status-bar">4 featured projects | Award-winning work</div>
             <div class="resize-handle se"></div>
             <div class="resize-handle s"></div>
             <div class="resize-handle e"></div>
@@ -614,40 +614,40 @@
                 <span>Experience - Professional Background</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('experience')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('experience')">⛶</div>
                     <div class="window-button" onclick="closeWindow('experience')">×</div>
                 </div>
             </div>
             <div class="window-content">
-                <h1>Professional Experience & Education</h1>
+                <h1>Professional Experience</h1>
                 
-                <h2>Graphic Designer Intern</h2>
-                <p><strong>Cook N Klean</strong> | August 2024 - October 2024</p>
+                <h2>SDE Intern - Garuda Evap Solar</h2>
+                <p><strong>Bangalore, KA</strong> | Oct 2025 - Dec 2025</p>
                 <ul>
-                    <li>Created compelling visual designs for marketing materials and brand assets</li>
-                    <li>Developed social media graphics and digital marketing content</li>
-                    <li>Collaborated with cross-functional teams to maintain brand consistency</li>
-                    <li>Implemented efficient design workflows and standards</li>
-                    <li>Contributed to increasing brand engagement through visual storytelling</li>
+                    <li>Architected <strong>scalable backend infrastructure</strong> for EV charging stations, ensuring high-uptime connectivity between hardware and software layers</li>
+                    <li>Developed <strong>Python-based automation scripts</strong> to streamline internal system checks, reducing manual engineering overhead by <strong>30%</strong></li>
+                    <li>Contributed to the development of <strong>\"EVAPSolar,\"</strong> a specialized platform for solar-integrated vehicle charging</li>
+                </ul>
+                
+                <h2>Founder & Technical Lead - Build-Ora</h2>
+                <p><strong>Bangalore, KA</strong> | Jan 2025 - Present</p>
+                <ul>
+                    <li>Founded and scaled a <strong>technical community</strong> of developers in Bangalore to foster innovation and peer-to-peer learning</li>
+                    <li>Organized high-impact technical events, including a <strong>24-hour national hackathon</strong> (Jan 2026), managing logistics, sponsorships, and technical workshops</li>
+                </ul>
+                
+                <h2>Graphic Designer - Cook n Klean</h2>
+                <p><strong>Bangalore, KA</strong> | 2024</p>
+                <ul>
+                    <li>Designed <strong>branding assets</strong> and social media campaigns, aligning visual identity with digital marketing strategies</li>
                 </ul>
                 
                 <h2>Education</h2>
-                <p><strong>Bachelor's in Computer Applications (BCA)</strong><br>
-                The National College, Jayanagar | 2023 - 2026</p>
-                <p>Focused on software development, web technologies, and computer science fundamentals. Active in coding competitions and tech community events.</p>
-                
-                <h2>Certifications & Learning</h2>
-                <ul>
-                    <li><strong>Front End Developer Certification</strong> - Great Learning</li>
-                    <li><strong>Google AI Essentials</strong> - Google Career Certificates</li>
-                    <li><strong>Introduction to Graphic Design</strong> - Design Fundamentals</li>
-                    <li><strong>Responsive Web Design</strong> - freeCodeCamp</li>
-                </ul>
-                
-                <h2>Current Focus</h2>
-                <p>Currently expanding my skills in modern web frameworks, cloud technologies, and exploring opportunities in full-stack development. Passionate about creating user-centered digital experiences that make a positive impact.</p>
+                <p><strong>Bachelor of Computer Applications (BCA)</strong><br>
+                The National College, Jayanagar, Bangalore | 2023 - 2026</p>
+                <p><strong>Pre-University (PCMC)</strong><br>
+                Surana Independent PU College, Bangalore | 2021 - 2023</p>
             </div>
-            <div class="status-bar">Experience Level: Junior Developer</div>
+            <div class="status-bar">Available for 6-month internship roles</div>
             <div class="resize-handle se"></div>
             <div class="resize-handle s"></div>
             <div class="resize-handle e"></div>
@@ -659,7 +659,6 @@
                 <span>Contact - Get In Touch</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('contact')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('contact')">⛶</div>
                     <div class="window-button" onclick="closeWindow('contact')">×</div>
                 </div>
             </div>
@@ -699,12 +698,11 @@
         </div>
 
         <!-- Minesweeper Window -->
-        <div class="window" id="minesweeper" style="top: 70px; left: 400px; width: 380px; height: 500px;">
+        <div class="window" id="minesweeper" style="top: 70px; left: 400px;">
             <div class="title-bar">
-                <span>Minesweeper - Classic Game</span>
+                <span>Minesweeper</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('minesweeper')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('minesweeper')">⛶</div>
                     <div class="window-button" onclick="closeWindow('minesweeper')">×</div>
                 </div>
             </div>
@@ -739,7 +737,6 @@
                 <span>MS-DOS Prompt</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('terminal')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('terminal')">⛶</div>
                     <div class="window-button" onclick="closeWindow('terminal')">×</div>
                 </div>
             </div>
@@ -765,7 +762,6 @@
                 <span>Easter Eggs - Hidden Features</span>
                 <div class="window-controls">
                     <div class="window-button" onclick="minimizeWindow('eastereggs')">_</div>
-                    <div class="window-button" onclick="toggleMaximize('eastereggs')">⛶</div>
                     <div class="window-button" onclick="closeWindow('eastereggs')">×</div>
                 </div>
             </div>

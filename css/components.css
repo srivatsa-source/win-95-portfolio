@@ -90,6 +90,20 @@
     position: relative;
 }
 
+/* Skill Text - Readable format for recruiters */
+.skill-text {
+    background: #f0f0f0;
+    border: 1px inset #c0c0c0;
+    padding: 8px 10px;
+    margin: 4px 0 12px 0;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.skill-text strong {
+    color: #000080;
+}
+
 .skill-fill::after {
     content: '';
     position: absolute;

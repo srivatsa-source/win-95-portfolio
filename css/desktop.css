@@ -30,18 +30,22 @@
     cursor: move !important;
 }
 
-/* Initial positions for desktop icons - 2 columns with proper spacing */
-.desktop-icon[data-window="about"] { top: 10px; left: 10px; }
-.desktop-icon[data-window="skills"] { top: 110px; left: 10px; }
-.desktop-icon[data-window="projects"] { top: 210px; left: 10px; }
-.desktop-icon[data-window="experience"] { top: 310px; left: 10px; }
-.desktop-icon[data-window="contact"] { top: 10px; left: 110px; }
-.desktop-icon[data-window="minesweeper"] { top: 110px; left: 110px; }
-.desktop-icon[data-window="terminal"] { top: 210px; left: 110px; }
-.desktop-icon[data-window="eastereggs"] { top: 310px; left: 110px; }
-.desktop-icon[data-window="notepad"] { top: 10px; left: 210px; }
-.desktop-icon[data-window="calculator"] { top: 110px; left: 210px; }
-.desktop-icon[data-window="paint"] { top: 210px; left: 210px; }
+/* Initial positions for desktop icons - defined inline in HTML for reliability */
+/* These act as fallback positions */
+.desktop-icon[data-window="mycomputer"] { top: 10px !important; left: 10px !important; }
+.desktop-icon[data-window="skills"] { top: 110px !important; left: 10px !important; }
+.desktop-icon[data-window="projects"] { top: 210px !important; left: 10px !important; }
+.desktop-icon[data-window="experience"] { top: 310px !important; left: 10px !important; }
+.desktop-icon[data-window="about"] { top: 410px !important; left: 10px !important; }
+
+.desktop-icon[data-window="contact"] { top: 10px !important; left: 110px !important; }
+.desktop-icon[data-window="minesweeper"] { top: 110px !important; left: 110px !important; }
+.desktop-icon[data-window="terminal"] { top: 210px !important; left: 110px !important; }
+.desktop-icon[data-window="eastereggs"] { top: 310px !important; left: 110px !important; }
+
+.desktop-icon[data-window="notepad"] { top: 10px !important; left: 210px !important; }
+.desktop-icon[data-window="calculator"] { top: 110px !important; left: 210px !important; }
+.desktop-icon[data-window="paint"] { top: 210px !important; left: 210px !important; }
 
 .icon-image {
     display: block;

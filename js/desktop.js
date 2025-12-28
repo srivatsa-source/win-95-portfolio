@@ -104,14 +104,14 @@
             if (!isDragging) return;
             
             if (currentDragIcon) {
-                // Snap to grid
+                // Snap to grid (100x100 grid starting at 10,10)
                 const gridX = 100;
-                const gridY = 120;
+                const gridY = 100;
                 const x = parseFloat(currentDragIcon.style.left);
                 const y = parseFloat(currentDragIcon.style.top);
 
-                const snappedX = Math.round(x / gridX) * gridX + 20;
-                const snappedY = Math.round(y / gridY) * gridY + 20;
+                const snappedX = Math.round((x - 10) / gridX) * gridX + 10;
+                const snappedY = Math.round((y - 10) / gridY) * gridY + 10;
                 
                 // Check bounds again
                 const desktop = document.getElementById('desktop');
@@ -224,17 +224,18 @@
     // Arrange icons in grid
     window.arrangeIcons = function() {
         const icons = document.querySelectorAll('.desktop-icon');
-        let x = 20, y = 20;
-        const spacing = 120;
+        let x = 10, y = 10;
+        const spacingY = 100;
+        const spacingX = 100;
         
         icons.forEach((icon, index) => {
             icon.style.left = x + 'px';
             icon.style.top = y + 'px';
             
-            y += spacing;
-            if (y > window.innerHeight - 200) {
-                y = 20;
-                x += 100;
+            y += spacingY;
+            if (y > window.innerHeight - 150) {
+                y = 10;
+                x += spacingX;
             }
         });
         

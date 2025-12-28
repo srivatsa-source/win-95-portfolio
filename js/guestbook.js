@@ -64,34 +64,113 @@
                     return await response.json();
                 }
             };
+        },
+        rpc: async (fn, params) => {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                },
+                body: JSON.stringify(params || {})
+            });
+            
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(`Supabase error: ${response.status} - ${error}`);
+            }
+            
+            return await response.json();
         }
     };
 
     // Visitor counter with Supabase
     async function updateVisitorCount() {
-        try {
-            // Get current count from Supabase
-            const stats = await supabase.from('visitor_count').select('count');
-            let count = stats && stats[0] ? stats[0].count : 0;
-            
-            // Increment
-            count++;
-            
-            // Update in Supabase (only update count, not last_updated)
-            await supabase.from('visitor_count').update({ 
-                count: count
-            }).eq('id', 1);
-            
-            // Display
-            document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
-        } catch (error) {
-            console.error('Visitor count error:', error);
-            // Fallback to localStorage
-            let count = localStorage.getItem('visitorCount') || 0;
-            count = parseInt(count) + 1;
-            localStorage.setItem('visitorCount', count);
-            document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+        // Check if we already counted this session to prevent duplicates
+        if (sessionStorage.getItem('visitorCounted')) {
+            // Already counted this session, just display the current count
+            const storedCount = localStorage.getItem('visitorCount') || '0';
+            document.getElementById('visitor-count').textContent = String(storedCount).padStart(6, '0');
+            return;
         }
+        
+        // Try both table names since some users may have 'visitor_stats' and others 'visitor_count'
+        const tableNames = ['visitor_stats', 'visitor_count'];
+        let success = false;
+        
+        // First, try to use the secure RPC function (if it exists)
+        try {
+            await supabase.rpc('increment_visitor_count');
+            
+            // Get the new count from the first available table
+            for (const tableName of tableNames) {
+                try {
+                    const stats = await supabase.from(tableName).select('count');
+                    if (stats && stats[0]) {
+                        const count = stats[0].count || 0;
+                        localStorage.setItem('visitorCount', count);
+                        sessionStorage.setItem('visitorCounted', 'true');
+                        document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+                        return; // Success!
+                    }
+                } catch (e) {
+                    // Try next table
+                }
+            }
+        } catch (rpcError) {
+            console.warn('RPC increment failed, falling back to direct update.', rpcError);
+        }
+
+        // Fallback: Try direct table update
+        for (const tableName of tableNames) {
+            try {
+                // Get current count from Supabase
+                const stats = await supabase.from(tableName).select('count');
+                
+                // If we get here without error, the table exists
+                if (stats && stats[0] !== undefined) {
+                    let count = stats[0].count || 0;
+                    
+                    // Increment
+                    count++;
+                    
+                    // Update in Supabase
+                    await fetch(`${SUPABASE_URL}/rest/v1/${tableName}?id=eq.1`, {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=representation'
+                        },
+                        body: JSON.stringify({ count: count })
+                    });
+                    
+                    // Sync to local storage and mark session
+                    localStorage.setItem('visitorCount', count);
+                    sessionStorage.setItem('visitorCounted', 'true');
+                    
+                    // Display
+                    document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
+                    return; // Success - exit immediately!
+                }
+            } catch (error) {
+                console.warn(`Table ${tableName} not found or error:`, error.message);
+                // Continue to next table name
+            }
+        }
+        
+        // If we get here, no database table worked - use localStorage fallback
+        console.error('Visitor count: All database attempts failed, using localStorage');
+        let storedCount = localStorage.getItem('visitorCount');
+        let count = parseInt(storedCount);
+        if (isNaN(count)) count = 0;
+        count++;
+        localStorage.setItem('visitorCount', count);
+        sessionStorage.setItem('visitorCounted', 'true');
+        document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
     }
 
     // Guestbook functionality
@@ -245,8 +324,35 @@
             });
         } catch (error) {
             console.error('Load guestbook error:', error);
-            console.error('Error details:', error.message, error.stack);
-            guestbookEntries.innerHTML = `<div style="padding: 10px; text-align: center; color: #ff0000;">⚠️ Could not connect to guestbook database.<br><small>${error.message}</small></div>`;
+            console.log('Falling back to localStorage for guestbook');
+            
+            try {
+                const localEntries = JSON.parse(localStorage.getItem('guestbook_entries') || '[]');
+                
+                guestbookEntries.innerHTML = '';
+                
+                if (localEntries.length === 0) {
+                    guestbookEntries.innerHTML = '<div style="padding: 10px; text-align: center; color: #808080;">No entries yet. Be the first to sign! (Local Mode)</div>';
+                    return;
+                }
+
+                // Sort by newest first
+                localEntries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                localEntries.forEach(entry => {
+                    const entryDiv = document.createElement('div');
+                    entryDiv.className = 'guestbook-entry';
+                    const date = new Date(entry.created_at).toLocaleDateString();
+                    entryDiv.innerHTML = `
+                        <div style="font-weight: bold; margin-bottom: 4px;">${escapeHtml(entry.name)}</div>
+                        <div style="margin-bottom: 4px;">${escapeHtml(entry.message)}</div>
+                        <div style="font-size: 11px; color: #808080;">${date} <span style="color: #aaa;">(Local)</span></div>
+                    `;
+                    guestbookEntries.appendChild(entryDiv);
+                });
+            } catch (localError) {
+                guestbookEntries.innerHTML = `<div style="padding: 10px; text-align: center; color: #ff0000;">⚠️ Could not connect to guestbook database.<br><small>${error.message}</small></div>`;
+            }
         }
     }
 
@@ -320,8 +426,29 @@
             await loadGuestbook();
         } catch (error) {
             console.error('Add guestbook entry error:', error);
-            console.error('Error details:', error.message, error.stack);
-            showAlert(`Could not save your entry: ${error.message}`, 'Error', 'error');
+            console.log('Falling back to localStorage for guestbook submission');
+            
+            try {
+                const newEntry = {
+                    name: filteredName,
+                    message: filteredMessage,
+                    created_at: new Date().toISOString()
+                };
+                
+                const localEntries = JSON.parse(localStorage.getItem('guestbook_entries') || '[]');
+                localEntries.push(newEntry);
+                localStorage.setItem('guestbook_entries', JSON.stringify(localEntries));
+                
+                // Update last submit time on success
+                lastSubmitTime = now;
+                
+                guestbookName.value = '';
+                guestbookMessage.value = '';
+                showAlert('Thank you for signing the guestbook! (Saved locally)', 'Success', 'success');
+                await loadGuestbook();
+            } catch (localError) {
+                showAlert(`Could not save your entry: ${error.message}`, 'Error', 'error');
+            }
         }
     }
 
