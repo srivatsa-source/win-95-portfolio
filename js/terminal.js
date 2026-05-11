@@ -132,8 +132,60 @@ Feel free to reach out for collaboration!`;
         'exit': () => {
             closeWindow('terminal');
             return '';
+        },
+        'hack': () => {
+            triggerMatrixEasterEgg();
+            return 'INITIATING SYSTEM OVERRIDE...';
+        },
+        'matrix': () => {
+            triggerMatrixEasterEgg();
+            return 'FOLLOW THE WHITE RABBIT...';
         }
     };
+
+    function triggerMatrixEasterEgg() {
+        if (document.getElementById('matrix-overlay')) return;
+        
+        const overlay = document.createElement('div');
+        overlay.id = 'matrix-overlay';
+        overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:black; color:#0f0; font-family:"Courier New", monospace; z-index:999999; display:flex; flex-direction:column; padding:20px; box-sizing:border-box; overflow:hidden;';
+        
+        const output = document.createElement('div');
+        output.style.cssText = 'white-space:pre-wrap; font-size:14px;';
+        overlay.appendChild(output);
+        document.body.appendChild(overlay);
+
+        const lines = [
+            'Wake up, Srivatsa...',
+            'The Matrix has you...',
+            'Initializing Dual-Model AI Engine...',
+            '[OK] DeepSeek-R1 Node Connected.',
+            '[OK] Qwen Execution Node Active.',
+            'Bypassing mainframe security protocols...',
+            'Accessing DockDesk real-time logs...',
+            'Root access granted.',
+            ' ',
+            '>>> WELCOME TO THE REAL WORLD <<<'
+        ];
+
+        let lineIdx = 0;
+        function printLine() {
+            if (lineIdx < lines.length) {
+                const line = document.createElement('div');
+                line.textContent = lines[lineIdx];
+                output.appendChild(line);
+                lineIdx++;
+                setTimeout(printLine, Math.random() * 400 + 200);
+            } else {
+                setTimeout(() => {
+                    overlay.style.transition = 'opacity 2s';
+                    overlay.style.opacity = '0';
+                    setTimeout(() => overlay.remove(), 2000);
+                }, 3000);
+            }
+        }
+        printLine();
+    }
 
     // Handle command input
     terminalInput.addEventListener('keydown', function(e) {

@@ -42,6 +42,8 @@
     // Startup sequence
     function startupSequence() {
         console.log('Starting startup sequence...');
+        const biosScreen = document.getElementById('biosScreen');
+        const biosText = document.getElementById('biosText');
         const startupText = document.getElementById('startupText');
         const startupScreen = document.getElementById('startupScreen');
         const desktop = document.getElementById('desktop');
@@ -51,39 +53,88 @@
             console.error('Required elements not found!');
             return;
         }
-        
-        // Play startup sound
-        if (startupSound) {
-            startupSound.play().catch(e => console.log('Audio play failed:', e));
+
+        // Hide startup screen initially, show BIOS if it exists
+        startupScreen.style.display = 'none';
+        if (biosScreen) {
+            biosScreen.style.display = 'block';
+            biosText.textContent = '';
         }
         
-        const messages = [
-            'Initializing...',
-            'Loading system files...',
-            'Configuring hardware...',
-            'Starting Windows...'
+        const biosLines = [
+            'Award Modular BIOS v4.51PG, An Energy Star Ally',
+            'Copyright (C) 1984-2026, Award Software, Inc.',
+            '',
+            'SRIVATSA-AI-ENGINE BIOS V1.0',
+            '',
+            'Main Processor : SRIVATSA-CORE 3.4GHz',
+            'Memory Testing : 655360K OK',
+            '',
+            'Initializing Dual-Model AI Engine... DeepSeek-R1 OK',
+            'Connecting to Qwen Execution Node... OK',
+            'Loading System Daemons...',
+            'Knowledge Integrity Daemon... OK',
+            'Booting Srivatsa.sys...'
         ];
+
+        let lineIndex = 0;
         
-        let messageIndex = 0;
-        const interval = setInterval(() => {
-            if (messageIndex < messages.length) {
-                startupText.textContent = messages[messageIndex];
-                messageIndex++;
+        function typeBiosLine() {
+            if (lineIndex < biosLines.length) {
+                if (biosText) {
+                    biosText.textContent += biosLines[lineIndex] + '\n';
+                }
+                lineIndex++;
+                setTimeout(typeBiosLine, Math.random() * 150 + 50);
             } else {
-                clearInterval(interval);
-                setTimeout(() => {
-                    startupScreen.style.display = 'none';
-                    desktop.style.display = 'block';
-                    animateSkillBars();
-                    
-                    // Show welcome window
-                    const welcomeWindow = document.getElementById('welcome-window');
-                    if (welcomeWindow) {
-                        welcomeWindow.style.display = 'block';
-                    }
-                }, 1000);
+                setTimeout(startWindowsSequence, 800);
             }
-        }, 800);
+        }
+        
+        // Start typing BIOS lines if bios screen exists, else skip
+        if (biosScreen) {
+            typeBiosLine();
+        } else {
+            startWindowsSequence();
+        }
+
+        function startWindowsSequence() {
+            if (biosScreen) biosScreen.style.display = 'none';
+            startupScreen.style.display = 'flex';
+            
+            // Play startup sound
+            if (startupSound) {
+                startupSound.play().catch(e => console.log('Audio play failed:', e));
+            }
+            
+            const messages = [
+                'Initializing...',
+                'Loading system files...',
+                'Configuring hardware...',
+                'Starting Windows...'
+            ];
+            
+            let messageIndex = 0;
+            const interval = setInterval(() => {
+                if (messageIndex < messages.length) {
+                    startupText.textContent = messages[messageIndex];
+                    messageIndex++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        startupScreen.style.display = 'none';
+                        desktop.style.display = 'block';
+                        animateSkillBars();
+                        
+                        // Show welcome window
+                        const welcomeWindow = document.getElementById('welcome-window');
+                        if (welcomeWindow) {
+                            welcomeWindow.style.display = 'block';
+                        }
+                    }, 1000);
+                }
+            }, 800);
+        }
     }
 
     // Animate skill bars
@@ -154,9 +205,8 @@
                 mobileNotice.style.display = 'none';
             }
             // Show startup screen before starting sequence
-            if (startupScreen) {
-                startupScreen.style.display = 'flex';
-            }
+            // Handled dynamically by startupSequence
+            
             // Mark as seen so it doesn't show again
             localStorage.setItem('mobileNoticeSeen', 'true');
             // Start the startup sequence

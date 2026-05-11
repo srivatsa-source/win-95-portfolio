@@ -66,10 +66,8 @@
         });
     });
 
-    // API Configuration - Update this URL when deploying backend
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000/api/chat'
-        : 'https://win-95-portfolio-ora.onrender.com/api/chat'; // Deployed backend URL
+    // API Configuration - Using Vercel Serverless Function
+    const API_URL = '/api/chat';
 
     // Send message
     chatSend.addEventListener('click', sendMessage);

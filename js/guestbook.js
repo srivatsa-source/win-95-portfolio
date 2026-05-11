@@ -3,8 +3,8 @@
     'use strict';
 
     // Supabase Configuration
-    const SUPABASE_URL = 'https://lwkmulqplffbiwbwggji.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3a211bHFwbGZmYml3YndnZ2ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjQyNTYsImV4cCI6MjA3ODQ0MDI1Nn0.EBwgzNQJ5jTb0-KDfqSH4Huao0hwmsrMbtClEKhP3BU';
+    const SUPABASE_URL = 'https://kzpylldmcixewxbnwjyn.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_69hxgS9GKeZgKn5JSLfeeQ_puk5gF_K';
 
     // Simple Supabase client (no library needed!)
     const supabase = {

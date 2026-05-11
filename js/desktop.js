@@ -52,12 +52,22 @@
                 }
             }, { passive: false });
 
-            // Single click to select
+            // Single click to select (and open on mobile)
             icon.addEventListener('click', function(e) {
                 if (isDragging) return;
                 e.stopPropagation();
                 document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
                 this.classList.add('selected');
+                
+                if (window.innerWidth <= 1024) {
+                    const windowId = this.dataset.window;
+                    if (typeof openWindow === 'function') {
+                        openWindow(windowId);
+                    }
+                    if (windowId === 'skills' && typeof animateSkillBars === 'function') {
+                        setTimeout(animateSkillBars, 300);
+                    }
+                }
             });
 
             // Mouse down - start drag (desktop only)
